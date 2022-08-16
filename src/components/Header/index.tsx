@@ -1,11 +1,12 @@
 import React from 'react';
 import Navigation from '../Navigation';
+import './styles.scss';
 
 const Header = () => {
   return (
-    <div>
+    <header className='header'>
       <Navigation />
-    </div>
+    </header>
   );
 };
 
