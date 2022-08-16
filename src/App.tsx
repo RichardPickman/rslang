@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom/client";
 import { RouteNames } from './router';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './styles.css'
+import './styles/styles.scss'
 import Homepage from './pages/Homepage'
 import Login from './pages/Login';
 import Textbook from './pages/Textbook';
