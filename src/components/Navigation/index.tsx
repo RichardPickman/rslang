@@ -6,11 +6,11 @@ import styles from './styles.module.scss';
 const Navigation = () => {
   return (
     <nav className={styles.nav}>
-      <Link to={RouteNames.HOMEPAGE}>Home</Link>
-      <Link to={RouteNames.TEXTBOOK}>Textbook</Link>
-      <Link to={RouteNames.GAMES}>Games</Link>
-      <Link to={RouteNames.STATISTICS}>Statistics</Link>
-      <Link to={RouteNames.LOGIN}>Login</Link>
+      <Link to={RouteNames.HOMEPAGE}>Главная</Link>
+      <Link to={RouteNames.TEXTBOOK}>Учебник</Link>
+      <Link to={RouteNames.GAMES}>Игры</Link>
+      <Link to={RouteNames.STATISTICS}>Статистика</Link>
+      <Link to={RouteNames.LOGIN}>Логин</Link>
     </nav>
   );
 };
