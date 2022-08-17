@@ -1,10 +1,11 @@
 import React from 'react';
+import Layout from '../../components/Layout';
 
 const Games = () => {
   return (
-    <div>
-      Games
-    </div>
+    <Layout>
+      <p>Games</p>
+    </Layout>
   );
 };
 
