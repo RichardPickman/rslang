@@ -2,7 +2,7 @@
 import { IWords } from '../../../types/types';
 
 export enum TextbookActionsEnum {
-  SET_WORDS = 'set_wrods',
+  SET_WORDS = 'set_words',
 }
 
 export interface setWordsAction {
