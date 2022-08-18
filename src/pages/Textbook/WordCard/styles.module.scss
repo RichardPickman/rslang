@@ -1,0 +1,15 @@
+.item {
+  height: 40px;
+  width: 90px;
+  border: 1px solid grey;
+  margin: 5px;
+  padding: 8px;
+
+  &_selected {
+    background-color: bisque;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}

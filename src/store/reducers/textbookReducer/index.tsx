@@ -1,14 +1,17 @@
-import { IWords } from "../../../types/types";
+import { units } from "../../../data/constants";
+import { IUnit, IWord } from "../../../types/types";
 import { TextbookActions } from "./types";
 import { TextbookActionsEnum } from "./types"
 
 interface TextbookState {
-  words: IWords[],
+  units: IUnit[],
+  words: IWord[],
   group: number,
   page: number
 }
 
 const initialState: TextbookState = {
+  units,
   words: [],
   group: 0,
   page: 1,

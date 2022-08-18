@@ -1,13 +1,13 @@
 
-import { IWords } from '../../../types/types';
+import { IWord } from '../../../types/types';
 
 export enum TextbookActionsEnum {
   SET_WORDS = 'set_words',
 }
 
-export interface setWordsAction {
+export interface ISetWordsAction {
   type: TextbookActionsEnum.SET_WORDS,
-  payload: IWords[],
+  payload: IWord[],
 }
 
-export type TextbookActions = setWordsAction;
+export type TextbookActions = ISetWordsAction;

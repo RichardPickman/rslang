@@ -1,4 +1,4 @@
-export interface IWords {
+export interface IWord {
   id: string,
   group: string,
   page: string,
@@ -13,4 +13,10 @@ export interface IWords {
   textExampleTranslate: string,
   textMeaningTranslate: string,
   wordTranslate: string
+}
+
+export interface IUnit {
+  id: string,
+  name: string,
+  description: string,
 }

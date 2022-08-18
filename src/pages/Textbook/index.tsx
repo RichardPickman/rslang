@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { IWords } from '../../types/types';
+import { IWord } from '../../types/types';
 import { useAppSelector } from './../../store/index';
 import { useDispatch } from 'react-redux';
-import { setWordsAction } from './../../store/reducers/textbookReducer/action-creators';
+import TextbookNavigation from './TextbookNavigation';
+import { Outlet } from 'react-router-dom';
 
 const Textbook = () => {
-  const words  = useAppSelector((state) => state.textbook.words);
-  const dispatch = useDispatch();
+  const { units }  = useAppSelector((state) => state.textbook);
   useEffect(() => {
     
   }, []);
+
   return (
     <Layout>
       <>
         <p>Textbook</p>
-        {words && words.map((w: IWords) => <p>{w.word}</p>)}
+        <TextbookNavigation units={units}/>        
+        <Outlet />
       </>
     </Layout>
   );
