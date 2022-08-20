@@ -29,7 +29,7 @@ const WordDescription = ({
             <p>{selectedWord.wordTranslate}</p>
             <p>{selectedWord.transcription}</p>
             <Audio buffer={audioWord} context={context} />
-            <p>Значенние</p>
+            <p>Значение</p>
             <p>{selectedWord.textMeaning}</p>
             <Audio buffer={audioMeaning} context={context} />
             <p>{selectedWord.textMeaningTranslate}</p>
