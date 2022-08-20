@@ -4,4 +4,5 @@ export enum RouteNames {
   TEXTBOOK = '/textbook',
   GAMES = '/games',
   STATISTICS = '/statistics',
+  UNITS = 'units',
 }
