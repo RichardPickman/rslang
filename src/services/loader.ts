@@ -1,3 +1,5 @@
+import { ErrorsEnum } from "../types/types";
+
 export const baseURL = "https://goldfish-app-cuxjk.ondigitalocean.app";
 
 interface FetchRequest {
@@ -5,7 +7,11 @@ interface FetchRequest {
   method: string;
   searchParams?: {
     [key: string]: string;
-  }
+  },
+  headers?: {
+    [key: string]: string;
+  },
+  body?: BodyInit,
 }
 
 export const makeURL = (request: FetchRequest): string => {
@@ -21,21 +27,35 @@ export const makeURL = (request: FetchRequest): string => {
 }
 
 const handleResponse = (response: Response): Response => {
-  if (!response.ok) throw new Error(`Ooops! ${response.status} ${response.statusText}`);
+  if (!response.ok) {
+    switch (response.status) {
+      case Number(ErrorsEnum.UNAUTHORIZED): {
+        throw new Error(ErrorsEnum.UNAUTHORIZED)
+      }
+      case Number(ErrorsEnum.EMAIL_EXISTS): {
+        throw new Error(ErrorsEnum.EMAIL_EXISTS)
+      }
+      case Number(ErrorsEnum.INCORRECT_VALUES): {
+        throw new Error(ErrorsEnum.INCORRECT_VALUES)
+      }
+      default: {
+        throw new Error(`Ooops! ${response.status} ${response.statusText}`);
+      }
+    }
+  };
   return response;
 };
 
-export function load <T>(request: FetchRequest): Promise<T> {
+export function load<T>(request: FetchRequest): Promise<T> {
   const fetchUrl = makeURL(request);
   return fetch(fetchUrl, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: request.headers,
     method: request.method,
-    // body: request.dataParams ? JSON.stringify(request.dataParams) : null,
+    body: request.body,
   })
     .then((response) => handleResponse(response))
     .then((res): Promise<T> => res.json())
     .then((data) => data)
-    .catch((error: Error) => { throw new Error(error.message); });
+    .catch((error: Error) => { 
+      throw new Error(error.message); });
 }
