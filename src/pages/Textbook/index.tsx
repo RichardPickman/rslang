@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
-import { IWord } from '../../types/types';
-import { useAppSelector } from './../../store/index';
-import { useDispatch } from 'react-redux';
 import TextbookNavigation from './TextbookNavigation';
 import { Outlet } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 const Textbook = () => {
   const { units }  = useAppSelector((state) => state.textbook);

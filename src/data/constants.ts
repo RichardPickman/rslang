@@ -37,3 +37,5 @@ export const unitsNum = 6;
 export const wordsPerPage = 20;
 export const wordsPerUnit = 600;
 export const pagesNum = 30;
+
+export const MIN_PASSWORD_LENGTH = 8;
