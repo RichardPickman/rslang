@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const Word = require('../../Models/Words');
-const { NOT_FOUND_ERROR } = require('../../Errors/appErrors');
+import Word from '../../Models/Words';
+import errors from '../../Errors/appErrors';
 const ENTITY_NAME = 'user word';
 
 const lookup = {
@@ -42,9 +42,15 @@ const pipeline = [
   }
 ];
 
-const getAll = async (userId, group, page, perPage, filter) => {
-  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = mongoose.Types.ObjectId(
-    userId
+export const getAll = async (
+  userId: string,
+  group: number,
+  page: number,
+  perPage: number,
+  filter: Record<string, unknown>
+) => {
+  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = String(
+    new mongoose.Types.ObjectId(userId)
   );
 
   const matches = [];
@@ -77,23 +83,21 @@ const getAll = async (userId, group, page, perPage, filter) => {
   return await Word.aggregate([lookup, ...pipeline, ...matches, facet]);
 };
 
-const get = async (wordId, userId) => {
-  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = mongoose.Types.ObjectId(
-    userId
+export const get = async (wordId: string, userId: string) => {
+  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = String(
+    new mongoose.Types.ObjectId(userId)
   );
 
   const match = {
     $match: {
-      _id: mongoose.Types.ObjectId(wordId)
+      _id: new mongoose.Types.ObjectId(wordId)
     }
   };
 
   const userWord = await Word.aggregate([match, lookup, ...pipeline]);
   if (!userWord) {
-    throw new NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
+    throw new errors.NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
   }
 
   return userWord;
 };
-
-module.exports = { getAll, get };
