@@ -1,9 +1,10 @@
-const winston = require('winston');
-const morgan = require('morgan');
+import winston from 'winston';
+import morgan, { StreamOptions } from 'morgan';
 const { combine, timestamp, prettyPrint, colorize, cli } = winston.format;
-const { LOGS_DIR } = require('./config');
+import LOGS_DIR from './config';
+import { TypedRequest } from '../Types';
 
-morgan.token('userId', req => JSON.stringify(req.userId));
+morgan.token('userId', (req: TypedRequest) => JSON.stringify(req.userId));
 
 const format = combine(timestamp(), prettyPrint());
 const options = {
@@ -50,14 +51,13 @@ const logger = winston.createLogger({
 logger.add(
   new winston.transports.Console({
     format: combine(colorize(), cli()),
-    handleExceptions: true,
-    colorize: true
+    handleExceptions: true
   })
 );
 // }
 
-logger.stream = {
+export const stream: StreamOptions = {
   write: message => logger.info(message)
 };
 
-module.exports = logger;
+export default logger;
