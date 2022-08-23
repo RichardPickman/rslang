@@ -1,13 +1,11 @@
-const Joi = require('@hapi/joi');
-Joi.objectId = require('joi-objectid')(Joi);
-const {
-  MAX_OPTIONAL_PROPERTIES,
-  MAX_SYMBOLS_PER_OBJECT,
-  MIN_PASSWORD_LENGTH
-} = require('../../common/config');
+import Joi, { CustomHelpers } from 'joi';
+import joiObjectIdExtension from 'object-id-joi-extension';
+import settings from '../../common/config';
+
+const custom = Joi.extend(joiObjectIdExtension);
 
 const optionalScheme = Joi.object()
-  .max(MAX_OPTIONAL_PROPERTIES)
+  .max(settings.MAX_OPTIONAL_PROPERTIES)
   .pattern(/.*/, [
     Joi.string(),
     Joi.number(),
@@ -15,26 +13,17 @@ const optionalScheme = Joi.object()
     Joi.date(),
     Joi.object()
   ])
-  .custom(optionalValidator, 'optional object validation')
-  .error(errors => {
-    errors
-      .filter(err => err.code === 'object.length')
-      .forEach(
-        err =>
-          (err.message = `Optional field exceeds the limit of ${MAX_SYMBOLS_PER_OBJECT} symbols per object`)
-      );
-    return errors;
-  });
+  .custom(optionalValidator, 'optional object validation');
 
 const schemas = {
-  id: Joi.object({ id: Joi.objectId() }),
-  wordId: Joi.object({ id: Joi.objectId(), wordId: Joi.objectId() }),
+  id: Joi.object({ id: custom.objectId() }),
+  wordId: Joi.object({ id: custom.objectId(), wordId: custom.objectId() }),
   user: Joi.object()
     .options({ abortEarly: false, allowUnknown: true })
     .keys({
       name: Joi.string().max(200),
       email: Joi.string().email({ tlds: { allow: false } }),
-      password: Joi.string().min(MIN_PASSWORD_LENGTH)
+      password: Joi.string().min(settings.MIN_PASSWORD_LENGTH)
     }),
   userWord: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
@@ -62,12 +51,15 @@ const schemas = {
     })
 };
 
-function optionalValidator(value, helpers) {
-  if (JSON.stringify(value).length > MAX_SYMBOLS_PER_OBJECT) {
+function optionalValidator(
+  value: Record<string, unknown>,
+  helpers: CustomHelpers
+) {
+  if (JSON.stringify(value).length > settings.MAX_SYMBOLS_PER_OBJECT) {
     return helpers.error('object.length');
   }
 
   return value;
 }
 
-module.exports = schemas;
+export default schemas;

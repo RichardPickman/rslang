@@ -1,6 +1,8 @@
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET_KEY, JWT_REFRESH_SECRET_KEY } = require('../common/config');
-const { AUTHORIZATION_ERROR } = require('../Errors/appErrors');
+import { TypedRequest, TypedResponse } from './../Types/index';
+import { NextFunction } from 'express';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import settings from '../common/config';
+import errors from '../Errors/appErrors';
 
 const ALLOWED_PATHS = ['/signin', '/signup'];
 const DOC_PATH_REGEX = /^\/doc\/?$/;
@@ -8,7 +10,7 @@ const DOC_PATH_RESOURCES_REGEX = /^\/doc\/.+$/;
 const WORDS_PATH_REGEX = /^\/words.*$/;
 const USERS_PATH = '/users';
 
-function isOpenPath(path) {
+function isOpenPath(path: string) {
   return (
     ALLOWED_PATHS.includes(path) ||
     DOC_PATH_REGEX.test(path) ||
@@ -17,7 +19,11 @@ function isOpenPath(path) {
   );
 }
 
-const checkAuthentication = (req, res, next) => {
+const checkAuthentication = (
+  req: TypedRequest,
+  res: TypedResponse,
+  next: NextFunction
+) => {
   if (isOpenPath(req.path)) {
     return next();
   }
@@ -28,22 +34,22 @@ const checkAuthentication = (req, res, next) => {
 
   const rawToken = req.headers.authorization;
   if (!rawToken) {
-    throw new AUTHORIZATION_ERROR();
+    throw new errors.AUTHORIZATION_ERROR();
   }
 
   try {
     const token = rawToken.slice(7, rawToken.length);
     const secret = req.path.includes('tokens')
-      ? JWT_REFRESH_SECRET_KEY
-      : JWT_SECRET_KEY;
-    const { id, tokenId } = jwt.verify(token, secret);
+      ? (settings.JWT_REFRESH_SECRET_KEY as string)
+      : (settings.JWT_SECRET_KEY as string);
+    const { id, tokenId } = jwt.verify(token, secret) as JwtPayload;
     req.userId = id;
     req.tokenId = tokenId;
   } catch (error) {
-    throw new AUTHORIZATION_ERROR();
+    throw new errors.AUTHORIZATION_ERROR();
   }
 
   next();
 };
 
-module.exports = checkAuthentication;
+export default checkAuthentication;
