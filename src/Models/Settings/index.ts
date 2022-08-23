@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const { addMethods } = require('../../utils/toResponse');
+import addMethods from '../../utils/toResponse';
+import { Settings } from '../../Types/Models';
 
-const SettingsSchema = new Schema(
+const SettingsSchema = new Schema<Settings>(
   {
     userId: {
       type: String,
@@ -21,4 +22,6 @@ const SettingsSchema = new Schema(
 
 addMethods(SettingsSchema);
 
-module.exports = mongoose.model('Settings', SettingsSchema);
+const model = mongoose.model('SettingsSchema', SettingsSchema);
+
+export default model;

@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import { Words } from '../../Types/Models';
 const Schema = mongoose.Schema;
-const { addMethods } = require('../../utils/toResponse');
+import addMethods from '../../utils/toResponse';
 
-const WordsSchema = new Schema(
+const WordsSchema = new Schema<Words>(
   {
     group: { type: Number, required: true },
     page: { type: Number, required: true },
@@ -23,4 +24,6 @@ const WordsSchema = new Schema(
 
 addMethods(WordsSchema);
 
-module.exports = mongoose.model('Words', WordsSchema);
+const model = mongoose.model('Words', WordsSchema);
+
+export default model;

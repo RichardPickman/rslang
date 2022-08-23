@@ -1,8 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const { addMethods } = require('../../utils/toResponse');
+import mongoose from 'mongoose';
+import addMethods from '../../utils/toResponse';
+import { Statistics } from '../../Types/Models';
 
-const StatisticSchema = new Schema(
+const Schema = mongoose.Schema;
+
+const StatisticSchema = new Schema<Statistics>(
   {
     userId: {
       type: String,
@@ -21,4 +23,6 @@ const StatisticSchema = new Schema(
 
 addMethods(StatisticSchema);
 
-module.exports = mongoose.model('Statistic', StatisticSchema);
+const model = mongoose.model('Statistic', StatisticSchema);
+
+export default model;
