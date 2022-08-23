@@ -1,0 +1,20 @@
+{
+  message: 'Successfully connect to DB',
+  level: 'info',
+  timestamp: '2022-08-23T10:51:46.827Z'
+}
+{
+  message: 'App is running on http://localhost:8280',
+  level: 'info',
+  timestamp: '2022-08-23T10:51:46.845Z'
+}
+{
+  message: 'POST 200 /users - size req 80 res 77 - 130.820 ms\n',
+  level: 'info',
+  timestamp: '2022-08-23T10:51:57.628Z'
+}
+{
+  message: 'POST 200 /signin - size req 59 res 516 - 179.721 ms\n',
+  level: 'info',
+  timestamp: '2022-08-23T10:54:45.638Z'
+}
