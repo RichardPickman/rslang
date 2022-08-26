@@ -1,26 +1,12 @@
 import { NextFunction } from 'express';
-import { TypedError, TypedRequest, TypedResponse } from '../Types';
+import { TypedRequest, TypedResponse } from '../Types';
+import ApiError from './appErrors';
 
-import { INTERNAL_SERVER_ERROR, getStatusText } from 'http-status-codes';
-import logger from '../common/logging';
-
-function handle(
-  err: TypedError | unknown,
+export default function errorHandler(
+  err: ApiError,
+  req: TypedRequest,
   res: TypedResponse,
   next: NextFunction
 ) {
-  if (err instanceof Error) {
-    if ((err as TypedError).status) {
-      res.status((err as TypedError).status as number).send(err.message);
-    } else {
-      res.status((err as TypedError).status as number).send('Unhandled error');
-      logger.error(err.stack as string);
-      res
-        .status(INTERNAL_SERVER_ERROR)
-        .send(getStatusText(INTERNAL_SERVER_ERROR));
-    }
-    next();
-  }
+  return res.status(err.status).json({ message: err.message });
 }
-
-export default handle;
