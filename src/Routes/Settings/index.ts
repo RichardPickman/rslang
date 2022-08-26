@@ -3,14 +3,24 @@ import { upsert, get } from '../../Controller/Settings';
 import { TypedRequest, TypedResponse } from '../../Types';
 import schema from '../../utils/validation/schemas';
 import { validator } from '../../utils/validation/validator';
-import express from 'express';
+import express, { NextFunction } from 'express';
+
+import ApiError from '../../Errors/appErrors';
 
 const router = express.Router({ mergeParams: true });
 
-router.get('/', async (req: TypedRequest, res: TypedResponse) => {
-  const setting = await get(req.userId as string);
-  res.status(OK).send(setting.toResponse());
-});
+router.get(
+  '/',
+  async (req: TypedRequest, res: TypedResponse, next: NextFunction) => {
+    const setting = await get(req.userId as string);
+
+    if (!setting) {
+      return next(ApiError.NotFoundError('Cannot find setting'));
+    }
+
+    return res.status(OK).send(setting.toResponse());
+  }
+);
 
 router.put(
   '/',

@@ -3,14 +3,24 @@ import { OK } from 'http-status-codes';
 import * as statisticService from '../../Controller/Statistics';
 import schema from '../../utils/validation/schemas';
 import { validator } from '../../utils/validation/validator';
-import { Router } from 'express';
+import { NextFunction, Router } from 'express';
+
+import ApiError from '../../Errors/appErrors';
 
 const router = Router({ mergeParams: true });
 
-router.get('/', async (req: TypedRequest, res: TypedResponse) => {
-  const statistic = await statisticService.get(req.userId as string);
-  res.status(OK).send(statistic.toResponse());
-});
+router.get(
+  '/',
+  async (req: TypedRequest, res: TypedResponse, next: NextFunction) => {
+    const statistic = await statisticService.get(req.userId as string);
+
+    if (!statistic) {
+      return next(ApiError.NotFoundError('statistic', `userId: ${req.userId}`));
+    }
+
+    return res.status(OK).send(statistic.toResponse());
+  }
+);
 
 router.put(
   '/',
