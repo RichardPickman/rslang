@@ -4,22 +4,26 @@ import * as usersRepo from '../../Controller/Users';
 import * as tokenService from '../../Services/Token';
 import * as settingsService from '../../Services/Settings';
 import * as statisticService from '../../Services/Statistics';
-import error from '../../Errors/appErrors';
 
 export const authenticate = async (user: Record<string, unknown>) => {
   const userEntity = await usersRepo.getUserByEmail(user.email as string);
+
+  if (!userEntity) {
+    return null;
+  }
 
   const isValidated = bcrypt.compare(
     user.password as string,
     userEntity.password as string
   );
+
   if (!isValidated) {
-    throw new error.AUTHENTICATION_ERROR();
+    return null;
   }
 
   const tokens = await tokenService.getTokens(userEntity._id);
 
-  return { ...tokens, userId: userEntity._id, name: userEntity.name };
+  return { userId: userEntity._id, name: userEntity.name, ...tokens };
 };
 
 export const get = (id: string) => usersRepo.get(id);
