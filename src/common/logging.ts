@@ -1,7 +1,7 @@
 import winston from 'winston';
 import morgan, { StreamOptions } from 'morgan';
 const { combine, timestamp, prettyPrint, colorize, cli } = winston.format;
-import LOGS_DIR from './config';
+import settings from './config';
 import { TypedRequest } from '../Types';
 
 morgan.token('userId', (req: TypedRequest) => JSON.stringify(req.userId));
@@ -11,7 +11,7 @@ const options = {
   fileUnhandled: {
     format,
     level: 'error',
-    filename: `${LOGS_DIR}/exceptions.log`,
+    filename: `${settings.LOGS_DIR}/exceptions.log`,
     handleExceptions: true,
     json: true,
     maxsize: 1024 * 5000,
@@ -21,7 +21,7 @@ const options = {
   fileError: {
     format,
     level: 'error',
-    filename: `${LOGS_DIR}/errors.log`,
+    filename: `${settings.LOGS_DIR}/errors.log`,
     json: true,
     maxsize: 1024 * 5000,
     maxFiles: 5,
@@ -30,7 +30,7 @@ const options = {
   fileInfo: {
     format,
     level: 'info',
-    filename: `${LOGS_DIR}/app.log`,
+    filename: `${settings.LOGS_DIR}/app.log`,
     handleExceptions: true,
     json: true,
     maxsize: 1024 * 5000,
@@ -47,14 +47,14 @@ const logger = winston.createLogger({
   exceptionHandlers: [new winston.transports.File(options.fileUnhandled)]
 });
 
-// if (process.env.NODE_ENV === 'development') {
-logger.add(
-  new winston.transports.Console({
-    format: combine(colorize(), cli()),
-    handleExceptions: true
-  })
-);
-// }
+if (process.env.NODE_ENV === 'development') {
+  logger.add(
+    new winston.transports.Console({
+      format: combine(colorize(), cli()),
+      handleExceptions: true
+    })
+  );
+}
 
 export const stream: StreamOptions = {
   write: message => logger.info(message)
