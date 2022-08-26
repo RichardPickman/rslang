@@ -1,19 +1,12 @@
 import UserWord from '../../Models/UserWord';
-import errors from '../../Errors/appErrors';
+
 import { TypedError } from '../../Types';
-const ENTITY_NAME = 'user word';
-const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 
-export const getAll = async (userId: string) => UserWord.find({ userId });
+export const getAll = async (userId: string) =>
+  await UserWord.find({ userId }).exec();
 
-export const get = async (wordId: string, userId: string) => {
-  const userWord = await UserWord.findOne({ wordId, userId });
-  if (!userWord) {
-    throw new errors.NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
-  }
-
-  return userWord;
-};
+export const get = async (wordId: string, userId: string) =>
+  await UserWord.findOne({ wordId, userId });
 
 export const save = async (
   wordId: string,
@@ -21,15 +14,9 @@ export const save = async (
   userWord: Record<string, unknown>
 ) => {
   try {
-    return await UserWord.create(userWord);
+    return await UserWord.create({ wordId, userId, userWord });
   } catch (err) {
-    if (err instanceof Error) {
-      if ((err as TypedError).code === MONGO_ENTITY_EXISTS_ERROR_CODE) {
-        throw new errors.ENTITY_EXISTS(`such ${ENTITY_NAME} already exists`);
-      } else {
-        throw err;
-      }
-    }
+    return null;
   }
 };
 
@@ -43,9 +30,6 @@ export const update = async (
     { $set: userWord },
     { new: true }
   );
-  if (!updatedWord) {
-    throw new errors.NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
-  }
 
   return updatedWord;
 };

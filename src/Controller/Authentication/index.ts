@@ -1,8 +1,7 @@
-import { TypedRequest } from './../../Types/index';
+import { TypedRequest, TypedResponse } from './../../Types/index';
 import { NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import settings from '../../common/config';
-import errors from '../../Errors/appErrors';
 
 const ALLOWED_PATHS = ['/signin', '/signup'];
 const DOC_PATH_REGEX = /^\/doc\/?$/;
@@ -34,7 +33,7 @@ const checkAuthentication = (
 
   const rawToken = req.headers.authorization;
   if (!rawToken) {
-    throw new errors.AUTHORIZATION_ERROR();
+    return res.sendStatus(401);
   }
 
   try {
@@ -51,7 +50,7 @@ const checkAuthentication = (
     req.userId = id;
     req.tokenId = tokenId;
   } catch (error) {
-    throw new errors.AUTHORIZATION_ERROR();
+    return errors.AUTHORIZATION_ERROR();
   }
 
   next();

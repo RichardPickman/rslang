@@ -1,8 +1,5 @@
 import mongoose from 'mongoose';
-
 import Word from '../../Models/Words';
-import errors from '../../Errors/appErrors';
-const ENTITY_NAME = 'user word';
 
 const lookup = {
   $lookup: {
@@ -95,9 +92,6 @@ export const get = async (wordId: string, userId: string) => {
   };
 
   const userWord = await Word.aggregate([match, lookup, ...pipeline]);
-  if (!userWord) {
-    throw new errors.NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
-  }
 
   return userWord;
 };
