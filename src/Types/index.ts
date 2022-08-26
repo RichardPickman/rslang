@@ -7,8 +7,8 @@ export interface TypedRequest extends express.Request {
 
 export interface TypedResponse extends express.Response {}
 
-export interface TypedError extends Error {
-  code: number;
+export interface TypedError {
   status: number;
-  path: string;
+  message: string;
+  stack?: string;
 }
