@@ -22,15 +22,13 @@ export const validator = (
   property: 'body' | 'params'
 ) => {
   return (req: TypedRequest, res: TypedResponse, next: NextFunction) => {
-    const { error } = schema.validate(req[property]);
-    if (error) {
+    const result = schema.validate(req[property]);
+    if (result.error) {
       res
         .status(property === 'body' ? UNPROCESSABLE_ENTITY : BAD_REQUEST)
         .json({
-          error: errorResponse(error.details)
+          error: errorResponse(result.error.details)
         });
-
-      return;
     } else {
       return next();
     }
