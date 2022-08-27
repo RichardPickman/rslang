@@ -1,0 +1,26 @@
+.nav {
+  display: flex;
+  list-style: none;
+}
+
+.nav__item {
+  height: 50px;
+  width: 100px;
+  margin-right: 20px;
+
+
+
+  &:hover {
+    cursor: pointer;
+    & h3 {
+      color: rgb(58, 69, 218);
+    }
+      
+  }
+}
+
+.link_active {
+  & h3 {
+    color: rgb(58, 69, 218);
+  }
+}

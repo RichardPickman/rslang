@@ -1,0 +1,39 @@
+.item {
+  height: 70px;
+  width: 120px;
+  border: 1px solid grey;
+  margin: 5px;
+  padding: 8px;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  &_selected {
+    background-color: bisque;
+  }
+
+  &_difficult {
+    border: 1px solid red;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn {
+  outline: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.btn_difficult-word {
+
+  img {
+
+  }
+}
