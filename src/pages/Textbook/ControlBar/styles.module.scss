@@ -14,16 +14,14 @@
     background-color: bisque;
   }
 
-  &_difficult {
-    border: 1px solid red;
-  }
-
   &:hover {
     cursor: pointer;
   }
 }
 
 .btn {
+  width: 20px;
+  height: 20px;
   outline: none;
 
   &:hover {
@@ -36,4 +34,9 @@
   img {
 
   }
+}
+
+.btn_delete {
+
+
 }

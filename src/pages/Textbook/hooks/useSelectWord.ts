@@ -4,9 +4,20 @@ import { IWord } from "../../../types/types";
 import { fetchAllAudio } from "../utils/fetchAllAudio";
 
 interface useSelectWordArgs {
-  selectedWord: IWord,
+  selectedWord: IWord | null,
 }
-export const useSelectWord = ({ selectedWord }: useSelectWordArgs) => {
+
+interface useSelectWordReturnValue {
+  context: AudioContext | null,
+  audioWord: AudioBuffer | null,
+  audioExample: AudioBuffer | null,
+  audioMeaning: AudioBuffer | null,
+  imageSrc: string | null,
+  isLoading: boolean | null,
+  setIsLoading: Dispatch<SetStateAction<boolean>>,
+};
+export const useSelectWord = ({ selectedWord }: useSelectWordArgs): useSelectWordReturnValue => {
+
   const [imageSrc, setImageSrc] = useState() as [string, Dispatch<SetStateAction<string>>];
   const [audioWord, setAudioWord] = useState() as [AudioBuffer, Dispatch<SetStateAction<AudioBuffer>>];
   const [audioMeaning, setAudioMeaning] = useState() as [AudioBuffer, Dispatch<SetStateAction<AudioBuffer>>];
@@ -14,12 +25,12 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs) => {
 
   const [isLoading, setIsLoading] = useState(true);
   let contextRef = useRef(null) as MutableRefObject<AudioContext | null>;
-  
+
   useEffect(() => {
     let isActualFetch = true;
     contextRef.current = new AudioContext();
     const fetchImg = async () => {
-      const imageObjectURL = await TextbookService.getImage({ url: selectedWord.image });
+      const imageObjectURL = await TextbookService.getImage({ url: (selectedWord as IWord).image });
       if (isActualFetch) {
         setImageSrc(imageObjectURL);
       }
@@ -28,9 +39,9 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs) => {
       const imagePromise = fetchImg();
       const audioPromise = fetchAllAudio({
         context: contextRef.current as AudioContext,
-        audioWordUrl: selectedWord.audio,
-        audioMeaningUrl: selectedWord.audioMeaning,
-        audioExampleUrl: selectedWord.audioExample,
+        audioWordUrl: (selectedWord as IWord).audio,
+        audioMeaningUrl: (selectedWord as IWord).audioMeaning,
+        audioExampleUrl: (selectedWord as IWord).audioExample,
       })
         .then((audio) => {
           if (isActualFetch) {
@@ -41,32 +52,36 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs) => {
             }
           }
         });
-
       Promise.allSettled([imagePromise, audioPromise]).then(() => {
         setIsLoading(false);
       })
     }
-    setIsLoading(true);
-    fetchData();
+    if (selectedWord) {
+      setIsLoading(true);
+      fetchData();
+    }
     return () => {
       isActualFetch = false;
       contextRef.current?.close();
     }
   }, [selectedWord]);
-
-  return {
+  if (!selectedWord) {
+    return {
+      context: null,
+      audioWord: null,
+      audioExample: null,
+      audioMeaning: null,
+      imageSrc: null,
+      isLoading: null,
+      setIsLoading,
+    }
+  } else return {
     context: contextRef.current,
-    audioWord, 
-    audioExample, 
-    audioMeaning, 
+    audioWord,
+    audioExample,
+    audioMeaning,
     imageSrc,
-    isLoading
-  } as {
-    context: AudioContext | null,
-    audioWord: AudioBuffer, 
-    audioExample: AudioBuffer, 
-    audioMeaning: AudioBuffer, 
-    imageSrc: string,
-    isLoading: boolean
-  };
+    isLoading,
+    setIsLoading,
+  }
 }

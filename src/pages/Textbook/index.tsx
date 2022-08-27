@@ -1,23 +1,16 @@
-import React, { useEffect } from 'react';
-import Layout from '../../components/Layout';
+import React from 'react';
 import TextbookNavigation from './TextbookNavigation';
 import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
 
 const Textbook = () => {
-  const { units }  = useAppSelector((state) => state.textbook);
-  useEffect(() => {
-    
-  }, []);
+  const { units } = useAppSelector((state) => state.textbook);
 
   return (
-    <Layout>
-      <>
-        <p>Textbook</p>
-        <TextbookNavigation units={units}/>        
-        <Outlet />
-      </>
-    </Layout>
+    <>
+      <TextbookNavigation units={units} />
+      <Outlet />
+    </>
   );
 };
 

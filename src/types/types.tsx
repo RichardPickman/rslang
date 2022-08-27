@@ -12,13 +12,16 @@ export interface IWord {
   transcription: string,
   textExampleTranslate: string,
   textMeaningTranslate: string,
-  wordTranslate: string
+  wordTranslate: string,
+  _id?: string,
+  isDifficult?: boolean,
 }
 
 export interface IUnit {
   id: string,
   name: string,
   description: string,
+  type: SectionEnum,
 }
 
 export interface loginParams {
@@ -27,8 +30,11 @@ export interface loginParams {
 }
 
 export interface IUser {
+  id: string,
   email: string,
   name: string,
+  token: string,
+  refreshToken: string,
 }
 
 export interface CreateUserResponse {
@@ -79,3 +85,52 @@ export interface SignupValues {
   email: string,
   password: string,
 };
+
+export enum DifficultyLevelEnum {
+  DIFFICULT = 'difficult',
+}
+
+export interface IUserWord {
+  difficulty: string,
+  optional: {[key: string]: string | boolean},
+}
+
+export interface createUserWordParams {
+  userId: string, 
+  wordId: string, 
+  word: IUserWord,
+  token: string, 
+}
+
+export interface deleteUserWordParams {
+  userId: string, 
+  wordId: string, 
+  token: string, 
+}
+
+export enum SectionEnum {
+  UNIT = 'unit',
+  DIFFICULT_WORDS = 'difficult_words',
+  LEARNED_WORDS = 'learned_words',
+}
+
+export interface UserDictNavItem {
+  id: string,
+  name: string,
+  type: SectionEnum,
+}
+
+export interface getAggregatedWordsParams {
+  userId: string, 
+  token: string, 
+  filter: string,
+  group?: string,
+  page?: string,
+}
+
+export type getAggregatedWordsResponse = [
+  {
+    paginatedResults: IWord[],
+    totalCount: [{count: number}]
+  }
+]

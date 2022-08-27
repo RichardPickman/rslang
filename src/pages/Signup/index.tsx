@@ -10,12 +10,16 @@ const Signup = () => {
   const { signup } = useActions();
   const navigate = useNavigate();
 
+  const onSignupSuccess = () => {
+    Modal.showErrorModal('Вы успешно зарегистрировались. Теперь вы можете войти в систему.');
+  }
+
   const onSignupFailed = () => {
     Modal.showErrorModal('Пользователь с таким e-mail уже существует.');
   }
 
   const submitForm = async (values: SignupValues) => {
-    signup(values, navigate, onSignupFailed);
+    signup(values, navigate, onSignupFailed, onSignupSuccess);
   };
 
   return (
