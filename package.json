@@ -15,7 +15,7 @@
     "heroku-postbuild": "npm install --only=dev",
     "prettier": "prettier --write src/",
     "ts:build": "tsc ./src/server.ts --esModuleInterop --outDir ./dist/",
-    "ts:run": "node ./dist/server.js"
+    "prod:run": "node ./dist/server.js"
   },
   "keywords": [
     "rs",
