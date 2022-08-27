@@ -1,41 +1,26 @@
-import ReactDOM from "react-dom/client";
-import { RouteNames } from './router';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Homepage from './pages/Homepage';
-import Login from './pages/Authorization';
-import Textbook from './pages/Textbook';
-import Games from './pages/Games';
-import Statistics from './pages/Statistics';
-import NotFound from './pages/NotFound/index';
-import Unit from "./pages/Textbook/Unit";
-import Signin from './pages/Signup/index';
-import DifficultWords from './pages/Textbook/DifficultWords/index';
-import TextbookLayout from "./pages/Textbook/TextbookLayout";
-import UserDictionary from "./pages/Textbook/UserDictionary";
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-export const App = () => {
+function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={RouteNames.HOMEPAGE} element={<Homepage />} />
-        <Route path={RouteNames.AUTHORIZATION} element={<Login />} />
-        <Route path={RouteNames.SIGNIN} element={<Signin />} />
-        <Route path={RouteNames.TEXTBOOK} element={<TextbookLayout />}>
-          <Route path={`${RouteNames.TEXTBOOK}`} element={<Textbook />} >
-            <Route path={'units'}>
-              <Route path={':id'} element={<Unit />}></Route>
-            </Route>
-          </Route>
-          <Route path={RouteNames.USER_DICTIONATY} element={<UserDictionary />}>
-            <Route index element={<p>Some content</p>} />
-            <Route path={RouteNames.DIFFICULT_WORDS} element={<DifficultWords />} />
-          </Route>
-        </Route>
-
-        <Route path={RouteNames.GAMES} element={<Games />} />
-        <Route path={RouteNames.STATISTICS} element={<Statistics />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  )
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
+
+export default App;
