@@ -12,3 +12,8 @@ export interface TypedError {
   message: string;
   stack?: string;
 }
+
+export interface UserWordsBody {
+  difficulty: string;
+  optional: Record<string, unknown>;
+}
