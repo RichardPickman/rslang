@@ -27,9 +27,15 @@ router.get(
       );
     }
 
-    const filter = req.query.filter
-      ? JSON.parse(req.query?.filter as string)
-      : null;
+    let filter;
+
+    try {
+      filter = req.query.filter ? JSON.parse(req.query.filter as string) : null;
+    } catch (err) {
+      if (err instanceof Error) {
+        return next(ApiError.badRequest('Invalid filter query'));
+      }
+    }
 
     const words = await aggregatedWordsService.getAll(
       req.userId as string,
@@ -38,7 +44,8 @@ router.get(
       perPage,
       filter
     );
-    res.status(OK).send(words);
+
+    return res.status(OK).send(words);
   }
 );
 

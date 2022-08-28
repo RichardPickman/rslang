@@ -4,15 +4,12 @@ import Word from '../../Models/Words';
 const lookup = {
   $lookup: {
     from: 'userWords',
-    let: { word_id: '$_id' },
+    let: { word_id: '$_id', user_id: '$_id' },
     pipeline: [
       {
         $match: {
           $expr: {
-            $and: [
-              { $eq: ['$userId', null] },
-              { $eq: ['$wordId', '$$word_id'] }
-            ]
+            $and: [{ $eq: ['$wordId', '$$word_id'] as unknown[] }]
           }
         }
       }
@@ -44,11 +41,11 @@ export const getAll = async (
   group: number,
   page: number,
   perPage: number,
-  filter: Record<string, unknown>
+  filter: Record<string, unknown> | null
 ) => {
-  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = String(
-    new mongoose.Types.ObjectId(userId)
-  );
+  lookup.$lookup.pipeline[0].$match.$expr.$and.push({
+    $eq: ['$userId', new mongoose.Types.ObjectId(userId)] as unknown[]
+  });
 
   const matches = [];
 
@@ -67,6 +64,7 @@ export const getAll = async (
       }
     });
   }
+
   const facet = {
     $facet: {
       paginatedResults: [{ $skip: page * perPage }, { $limit: perPage }],
@@ -77,6 +75,7 @@ export const getAll = async (
       ]
     }
   };
+
   return await Word.aggregate([lookup, ...pipeline, ...matches, facet]);
 };
 
