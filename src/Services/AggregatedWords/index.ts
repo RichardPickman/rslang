@@ -5,7 +5,7 @@ export const getAll = async (
   group: number,
   page: number,
   perPage: number,
-  filter: Record<string, number>
+  filter: Record<string, unknown> | null
 ) => wordRepo.getAll(userId, group, page, perPage, filter);
 
 export const get = async (wordId: string, userId: string) =>
