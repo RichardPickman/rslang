@@ -3,11 +3,6 @@ import mongoose from 'mongoose';
 import settings from './common/config';
 import app from './app';
 
-// uncaughtException is been catching by Winston
-// process.on('unhandledRejection', reason =>
-//   process.emit('uncaughtException', reason)
-// );
-
 mongoose.connect(settings.MONGO_CONNECTION_STRING as string);
 
 const db = mongoose.connection;
