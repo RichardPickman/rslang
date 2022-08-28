@@ -1,6 +1,6 @@
 import UserWord from '../../Models/UserWord';
 
-import { TypedError } from '../../Types';
+import { UserWordsBody } from '../../Types';
 
 export const getAll = async (userId: string) =>
   await UserWord.find({ userId }).exec();
@@ -11,10 +11,14 @@ export const get = async (wordId: string, userId: string) =>
 export const save = async (
   wordId: string,
   userId: string,
-  userWord: Record<string, unknown>
+  body: UserWordsBody
 ) => {
   try {
-    return await UserWord.create({ wordId, userId, userWord });
+    return await UserWord.create({
+      wordId,
+      userId,
+      ...body
+    });
   } catch (err) {
     return null;
   }
@@ -23,11 +27,11 @@ export const save = async (
 export const update = async (
   wordId: string,
   userId: string,
-  userWord: Record<string, unknown>
+  userWord: UserWordsBody
 ) => {
   const updatedWord = await UserWord.findOneAndUpdate(
     { wordId, userId },
-    { $set: userWord },
+    { $set: { ...userWord } },
     { new: true }
   );
 
