@@ -1,4 +1,4 @@
-import { ErrorsEnum, GetTokenResponse, IUserData, loginParams, LoginValues, SignInResponse, SignupValues } from '../types/types';
+import { ErrorsEnum, GetTokenResponse, IUserData, loginParams, SignInResponse, SignupValues } from '../types/types';
 import { load } from './loader';
 
 class AuthService {

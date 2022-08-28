@@ -1,17 +1,18 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { IUnit } from '../../../../types/types';
 import styles from '../styles.module.scss';
 
 interface NavigationItemProps {
-  item: IUnit
+  item: IUnit,
+  path: string,
 }
 
-const NavigationItem = ({ item }: NavigationItemProps) => {
+const NavigationItem = ({ item, path }: NavigationItemProps) => {
   return (
     <li className={styles.nav__item}>
       <NavLink
-        to={`units/${item.id}`}
+        to={path}
         className={
           ({ isActive }) => isActive ? `${styles['link_active']}` : undefined
         }>

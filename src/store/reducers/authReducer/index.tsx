@@ -1,4 +1,4 @@
-import { IUser, UserAuthData } from "../../../types/types";
+import { IUser } from "../../../types/types";
 import { AuthActions, AuthActionsEnum } from "./types";
 
 export interface AuthState {

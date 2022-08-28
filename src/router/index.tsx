@@ -7,4 +7,6 @@ export enum RouteNames {
   GAMES = '/games',
   STATISTICS = '/statistics',
   UNITS = 'units',
+  DIFFICULT_WORDS = 'difficult%20words',
+  USER_DICTIONATY = 'my%20dictionary',
 }

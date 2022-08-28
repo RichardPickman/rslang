@@ -1,13 +1,11 @@
-import { Action, Dispatch } from "redux";
+import { Dispatch } from "redux";
 import { ErrorsEnum, IUser, LoginValues, SignupValues } from "../../../types/types"
 import { AuthActions, AuthActionsEnum, ISetAuthAction, ISetTokenAction, ISetUserAction } from "./types"
 import LocalStorage from '../../../services/localStorage';
 import { RouteNames } from "../../../router";
 import AuthService from "../../../services/authService";
 import UserService from "../../../services/userService";
-import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../..";
+import { NavigateFunction } from 'react-router-dom';
 
 const setAuthAction = (payload: boolean): ISetAuthAction => {
   return { type: AuthActionsEnum.SET_AUTH, payload };
@@ -22,13 +20,11 @@ const setTokenAction = (payload: string): ISetTokenAction => {
 }
 
 const signup =
-  (values: SignupValues, navigate: NavigateFunction, onSignupFailed: () => void) => {
+  (values: SignupValues, navigate: NavigateFunction, onSignupSuccess: () => void, onSignupFailed: () => void) => {
     return async function thunk(dispatch: Dispatch<AuthActions>): Promise<SignupValues | void> {
       return AuthService.createUser(values)
         .then((response) => {
-          dispatch(setUserAction({ email: response.email, name: response.name }));
-          dispatch(setAuthAction(true));
-          navigate(RouteNames.HOMEPAGE, { replace: true });
+          navigate(RouteNames.LOGIN, { replace: true });
           return response;
         })
         .catch((error: Error) => {
@@ -45,11 +41,17 @@ const login = (values: LoginValues, navigate: NavigateFunction, onLoginFailed: (
     AuthService.signin(values)
       .then((response) => {
         UserService.getUser({ userId: response.userId, token: response.token })
-          .then((response) => {
+          .then((res) => {
             dispatch(setAuthAction(true));
-            dispatch(setUserAction({ email: response.email, name: response.name }));
-            LocalStorage.setItem('userEmail', response.email);
-            LocalStorage.setItem('userName', response.name);
+            const newUser: IUser = {
+              id: response.userId,
+              token: response.token,
+              refreshToken: response.refreshToken,
+              email: res.email,
+              name: res.name,
+            }
+            dispatch(setUserAction(newUser));
+            LocalStorage.setItem('user', JSON.stringify(newUser));
             navigate(RouteNames.HOMEPAGE, { replace: true });
           })
       })

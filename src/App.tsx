@@ -9,6 +9,9 @@ import Statistics from './pages/Statistics';
 import NotFound from './pages/NotFound/index';
 import Unit from "./pages/Textbook/Unit";
 import Signin from './pages/Signup/index';
+import DifficultWords from './pages/Textbook/DifficultWords/index';
+import TextbookLayout from "./pages/Textbook/TextbookLayout";
+import UserDictionary from "./pages/Textbook/UserDictionary";
 
 export const App = () => {
   return (
@@ -17,12 +20,18 @@ export const App = () => {
         <Route path={RouteNames.HOMEPAGE} element={<Homepage />} />
         <Route path={RouteNames.AUTHORIZATION} element={<Login />} />
         <Route path={RouteNames.SIGNIN} element={<Signin />} />
-        <Route path={RouteNames.TEXTBOOK} element={<Textbook />}>
-          <Route path={'units'}>
-            <Route path={':id'} element={<Unit />}></Route>
+        <Route path={RouteNames.TEXTBOOK} element={<TextbookLayout />}>
+          <Route path={`${RouteNames.TEXTBOOK}`} element={<Textbook />} >
+            <Route path={'units'}>
+              <Route path={':id'} element={<Unit />}></Route>
+            </Route>
           </Route>
-          <Route index element={<div>Some content</div>}></Route>
+          <Route path={RouteNames.USER_DICTIONATY} element={<UserDictionary />}>
+            <Route index element={<p>Some content</p>} />
+            <Route path={RouteNames.DIFFICULT_WORDS} element={<DifficultWords />} />
+          </Route>
         </Route>
+
         <Route path={RouteNames.GAMES} element={<Games />} />
         <Route path={RouteNames.STATISTICS} element={<Statistics />} />
         <Route path='*' element={<NotFound />} />

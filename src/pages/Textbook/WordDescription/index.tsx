@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 import Audio from '../../../components/Audio';
 
 interface WordDescriptionProps {
-  selectedWord: IWord,
+  selectedWord: IWord | null,
   context: AudioContext | null,
   imageSrc: string
   audioWord: AudioBuffer,
@@ -13,31 +13,32 @@ interface WordDescriptionProps {
 }
 
 const WordDescription = ({
-  selectedWord, 
-  context, 
-  imageSrc, 
+  selectedWord,
+  context,
+  imageSrc,
   audioWord,
   audioMeaning,
   audioExample
 }: WordDescriptionProps) => {
+  if (!selectedWord) return null;
   return (
-<div className={styles['word-description']}>
-            <div className={styles['img-container']}>
-              <img src={imageSrc} />
-            </div>
-            <h4>{selectedWord.word}</h4>
-            <p>{selectedWord.wordTranslate}</p>
-            <p>{selectedWord.transcription}</p>
-            <Audio buffer={audioWord} context={context} />
-            <p>Значение</p>
-            <p>{selectedWord.textMeaning}</p>
-            <Audio buffer={audioMeaning} context={context} />
-            <p>{selectedWord.textMeaningTranslate}</p>
-            <p>Пример</p>
-            <p>{selectedWord.textExample}</p>
-            <Audio buffer={audioExample} context={context} />
-            <p>{selectedWord.textExampleTranslate}</p>
-          </div>
+    <div className={styles['word-description']}>
+      <div className={styles['img-container']}>
+        <img src={imageSrc} />
+      </div>
+      <h4>{selectedWord.word}</h4>
+      <p>{selectedWord.wordTranslate}</p>
+      <p>{selectedWord.transcription}</p>
+      <Audio buffer={audioWord} context={context} />
+      <p>Значение</p>
+      <p>{selectedWord.textMeaning}</p>
+      <Audio buffer={audioMeaning} context={context} />
+      <p>{selectedWord.textMeaningTranslate}</p>
+      <p>Пример</p>
+      <p>{selectedWord.textExample}</p>
+      <Audio buffer={audioExample} context={context} />
+      <p>{selectedWord.textExampleTranslate}</p>
+    </div>
   );
 };
 
