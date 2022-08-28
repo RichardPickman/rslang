@@ -9,4 +9,5 @@ export enum RouteNames {
   UNITS = 'units',
   DIFFICULT_WORDS = 'difficult%20words',
   USER_DICTIONATY = 'my%20dictionary',
+  AUDIOCALL = 'audiocall',
 }
