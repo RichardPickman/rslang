@@ -1,6 +1,6 @@
 import { ErrorsEnum } from "../types/types";
 
-export const baseURL = "https://goldfish-app-cuxjk.ondigitalocean.app";
+export const baseURL = " https://shark-app-ae5lx.ondigitalocean.app";
 export const baseSchoolURL = "https://react-learnwords-example.herokuapp.com";
 
 interface FetchRequest {

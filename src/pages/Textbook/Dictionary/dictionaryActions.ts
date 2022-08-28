@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import { Dispatch, SetStateAction } from "react";
 import Modal from "../../../components/ui/Modal";
 import { RouteNames } from "../../../router";
