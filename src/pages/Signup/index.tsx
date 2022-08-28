@@ -11,7 +11,7 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const onSignupSuccess = () => {
-    Modal.showErrorModal('Вы успешно зарегистрировались. Теперь вы можете войти в систему.');
+    Modal.showSuccessModal('Вы успешно зарегистрировались. Теперь вы можете войти в систему.');
   }
 
   const onSignupFailed = () => {
