@@ -1,0 +1,27 @@
+
+
+.big-speaker  {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.small-speaker  {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.8s;
+}
+
+.big-icon-speak {
+  display: block;
+  width: 2.5rem;
+}

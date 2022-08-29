@@ -1,0 +1,1 @@
+export { default as icon_speak } from './icon_speak.svg';
