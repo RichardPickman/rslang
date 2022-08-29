@@ -9,7 +9,10 @@ const lookup = {
       {
         $match: {
           $expr: {
-            $and: [{ $eq: ['$wordId', '$$word_id'] as unknown[] }]
+            $and: [
+              { $eq: ['$userId', null] as unknown[] },
+              { $eq: ['$wordId', '$$word_id'] as unknown[] }
+            ]
           }
         }
       }
@@ -43,9 +46,9 @@ export const getAll = async (
   perPage: number,
   filter: Record<string, unknown> | null
 ) => {
-  lookup.$lookup.pipeline[0].$match.$expr.$and.push({
-    $eq: ['$userId', new mongoose.Types.ObjectId(userId)] as unknown[]
-  });
+  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = new mongoose.Types.ObjectId(
+    userId
+  );
 
   const matches = [];
 
@@ -80,8 +83,8 @@ export const getAll = async (
 };
 
 export const get = async (wordId: string, userId: string) => {
-  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = String(
-    new mongoose.Types.ObjectId(userId)
+  lookup.$lookup.pipeline[0].$match.$expr.$and[0].$eq[1] = new mongoose.Types.ObjectId(
+    userId
   );
 
   const match = {
