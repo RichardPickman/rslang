@@ -1,4 +1,5 @@
 
+@import './../../../../styles/colors';
 
 .big-speaker  {
   width: 5rem;
@@ -21,7 +22,19 @@
   transition: all 0.8s;
 }
 
+
 .big-icon-speak {
   display: block;
   width: 2.5rem;
+}
+
+.speaks  {
+   animation-name: speaks;
+  animation-duration: 0.5s;
+}
+
+@keyframes speaks {
+  0% {background:  lightblue;}
+  50% { background: $primary-color2;}
+  100% { background: lightblue;}
 }

@@ -4,23 +4,37 @@ import { useEffect, useState } from "react";
 
 import { IWord } from "../../../types/types";
 import DataLoader from "../services/loader";
-import playFetchedAudio from "../helpers/playFetchedAudio";
-import fetchImage from "../helpers/fetchedImage";
 
 import Header from "../../../components/Header";
 import Main from "../../../components/Main";
 import Loader from "../components/Loader";
 import GameProgress from "../components/GameProgress";
-import GameField from "../components/_GameField";
+import AnswersBlock from "../components/AnswersBlock";
 
-import { Button } from "antd/lib/radio";
+import playFetchedAudio from "../helpers/playFetchedAudio";
+import fetchImage from "../helpers/fetchedImage";
+import random from "../helpers/random";
+import shuffle from "../helpers/shuffle";
+import playSound from "../helpers/platSound";
+
+import { Button } from "antd";
 import Speaker from "../components/Speaker";
+
+const correct = require("../assets/sound/correct.mp3");
+const wrong = require("../assets/sound/wrong.mp3");
 
 const AudioCall = () => {
   const [pageOfWords, setPageOfWords] = useState<Array<IWord>>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [imageSrc, setImageSrc] = useState("");
   const [currentWordNum, setCurrentWordNum] = useState(0);
+  const [playButton, setPlayButton] = useState("hello");
+  const [gameStatus, setGameStatus] = useState("pending");
+  const [speaks, setSpeaks] = useState("");
+  const [answers, setAnswers] = useState<Array<any>>([]);
+  const [correctW, setCorrectW] = useState<Array<IWord>>([]);
+  const [wrongW, setWrongW] = useState<Array<IWord>>([]);
+  const [disable, setDisable] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -32,10 +46,24 @@ const AudioCall = () => {
         throw new Error("Error");
       } finally {
         setIsLoading(false);
+        setPlayButton("Start");
       }
     }
     fetchData();
   }, []);
+
+  const formAnswers = () => {
+    let answersNum = [currentWordNum];
+    while (answersNum.length < 4) {
+      const candidate = random(0, 20 - 1);
+
+      if (!answersNum.includes(candidate)) {
+        answersNum.push(candidate);
+      }
+    }
+
+    setAnswers(shuffle(answersNum));
+  };
 
   const getImage = async (word: IWord) => {
     const imageURL = await fetchImage(word);
@@ -44,21 +72,50 @@ const AudioCall = () => {
     }
   };
 
-  const startHandler = () => {
-    if (!isLoading && imageSrc === "") {
-      playFetchedAudio(pageOfWords[0]);
-      getImage(pageOfWords[0]);
+  const manageButtons = () => {
+    const butts = document.querySelectorAll(
+      "[data-id]"
+    ) as NodeListOf<HTMLElement>;
+    butts.forEach((el) => (el.style.color = "black"));
+  };
+
+  const checkAnswer = (e: Event) => {
+    setGameStatus("pressed");
+    setPlayButton("Next");
+    setDisable(true);
+   
+    const element = e.currentTarget as HTMLElement;
+
+    if (
+      pageOfWords[currentWordNum - 1].id === element.getAttribute("data-id")
+    ) {
+      console.log("ok");
+      element.style.color = "green";
+      playSound(correct);
+      setCorrectW([...correctW, pageOfWords[currentWordNum]]);
+    } else {
+      console.log("not");
+      element.style.color = "red";
+      playSound(wrong);
+      setWrongW([...wrongW, pageOfWords[currentWordNum]]);
     }
   };
 
-  return (
-    // <>
-    //   <Button type="primary" onClick={startHandler}>
-    //     start
-    //   </Button>
-    //   <img src={imageSrc ? `${imageSrc}` : ""} alt="" />
-    // </>
+  const gamePlay = () => {
+    playFetchedAudio(pageOfWords[currentWordNum]);
+    setGameStatus("started");
+    if (playButton === "Next") {
+      manageButtons();
+    }
+    setPlayButton(`I don't know`);
+    setDisable(false);
+    formAnswers();
+    setCurrentWordNum(() => currentWordNum + 1);
+  };
 
+  const mock = () => {};
+
+  return (
     <div className={styles.wrapper}>
       {isLoading && <Loader />}
       <Header />
@@ -70,7 +127,16 @@ const AudioCall = () => {
           />
 
           <div className={styles["field"]}>
-            <Speaker size={"big"} />
+            <Speaker size={"big"} speaks={speaks} />
+            <AnswersBlock
+              pageOfWords={pageOfWords}
+              answers={answers}
+              checkAnswer={checkAnswer}
+              disable={disable}
+            />
+            <Button type="default" onClick={!isLoading ? gamePlay : mock}>
+              {playButton}
+            </Button>
           </div>
         </>
       </Main>

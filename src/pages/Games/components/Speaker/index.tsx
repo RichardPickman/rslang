@@ -1,13 +1,14 @@
 import styles from "./styles.module.scss";
 
+import icon_speak from "../../assets/img/icon_speak.svg";
 
+const Speaker = ({ size, speaks }: { size: string; speaks: string }) => {
+  const _size = styles[`${size}-speaker`],
+    _icon = styles[`${size}-icon-speak`];
 
-import icon_speak from '../../assets/img/icon_speak.svg'
-
-const Speaker = ({ size }: { size: string }) => {
   return (
-    <div className={styles[`${size}-speaker`]}>
-      <img className={styles[`${size}-icon-speak`]} src={icon_speak} alt="speak" />
+    <div className={`${_size}`}>
+      <img className={_icon} src={icon_speak} alt="speak" />
     </div>
   );
 };
