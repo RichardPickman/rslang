@@ -28,7 +28,6 @@ const signup =
           return response;
         })
         .catch((error: Error) => {
-          console.log(error.message);
           if (error.message === ErrorsEnum.EMAIL_EXISTS) {
             onSignupFailed();
           }

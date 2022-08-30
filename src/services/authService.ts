@@ -34,7 +34,6 @@ class AuthService {
   };
   
   static async getToken(id: string, refreshToken: string ): Promise<GetTokenResponse> {
-    console.log('getToken');
     return load<GetTokenResponse>({
       url: `users/${id}/tokens`,
       method: 'GET',

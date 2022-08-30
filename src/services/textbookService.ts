@@ -3,7 +3,7 @@ import { load, baseURL } from './loader';
 
 interface getWordsParams {
   group: string,
-  page: string,
+  page?: string,
 }
 
 interface getAudioParams {
@@ -22,7 +22,7 @@ class TextbookService {
       method: 'GET',
       searchParams: {
         group,
-        page
+        page: page || ''
       }
     });
   }

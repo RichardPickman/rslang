@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Loader from '../../../components/Loader';
 import { useAppSelector } from '../../../hooks/useAppSelector';
-import { IUser } from '../../../types/types';
+import { DisplayedWord, IUser } from '../../../types/types';
 import Dictionary from '../Dictionary';
 import WordService from '../../../services/wordService';
-import { IWord } from '../../../types/types';
+import { diffWordsFilter } from '../../../data/constants';
 
 
 const DifficultWords = () => {
   const { user } = useAppSelector((state) => state.auth);
-  const [words, setWords] = useState([] as IWord[]);
+  const [words, setWords] = useState([] as DisplayedWord[]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     let isActualFetch = true;
@@ -18,11 +18,17 @@ const DifficultWords = () => {
       const wordsArr = await WordService.getAggregatedWords({
         userId: (user as IUser).id,
         token: (user as IUser).token,
-        filter: `{"$and":[{"userWord.difficulty":"difficult"}]}`,
+        filter: diffWordsFilter,
+      });
+      const displayedWords: DisplayedWord[] = wordsArr.map((w) => {
+        const {userWord, ...rest} = w;
+        return {
+          word: { ...rest, id: w._id},
+          userWord: {wordId: w._id, ...w.userWord},
+        }
       });
       if (isActualFetch) {
-        wordsArr.forEach((w) => w.isDifficult = true);
-        setWords(wordsArr);
+        setWords(displayedWords);
         setIsLoading(false);
       }
     }
@@ -36,10 +42,10 @@ const DifficultWords = () => {
   return (
     <div>
       {
-        words &&
-        words.length > 0 &&
-        <Dictionary words={words} />
-      }
+      words &&
+      words.length > 0 &&
+      <Dictionary words={words} />
+    }
     </div>
   );
 };

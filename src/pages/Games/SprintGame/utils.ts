@@ -1,0 +1,150 @@
+import { wordsPerPage, pagesNum, minWordsNumInSprintGame } from "../../../data/constants";
+import TextbookService from "../../../services/textbookService";
+import { ISetWordsAction } from "../../../store/reducers/gameReducer/types";
+import { GameWord, IWord } from "../../../types/types";
+
+const randomPageNum = 7;
+const randomWordsNum = randomPageNum * wordsPerPage;
+
+const randomUnique = ({ max, min, count }: { max: number, min: number, count: number }) => {
+  let nums = new Set<number>();
+  while (nums.size < count) {
+    nums.add(Math.floor(Math.random() * (max - min + 1) + min));
+  }
+  return Array.from(nums);
+}
+
+interface generatorParams {
+  group: string,
+  amount: number,
+  page?: string,
+  setWordsAction: (payload: IWord[]) => ISetWordsAction,
+
+}
+const getPromise = (group: string, page: string) => {
+  return TextbookService.getWords({ group, page });
+}
+interface generateRandomWordsFromPage {
+  unit: string,
+  page: string,
+  setWordsAction: (payload: IWord[]) => ISetWordsAction,
+}
+export const generateRandomWordsFromPage = async ({
+  unit,
+  page,
+  setWordsAction }: generateRandomWordsFromPage): Promise<GameWord[]> => {
+  let fetchedWords: IWord[] = [];
+  let gameWords: GameWord[] = [];
+  let pageNum = Number(page);
+  while (gameWords.length < minWordsNumInSprintGame && pageNum >=0) {
+    const textbookWords = await TextbookService.getWords({ group: unit, page: pageNum.toString() });
+    if (textbookWords) {
+      fetchedWords.push(...textbookWords);
+      const portion = generateRandomPairs(textbookWords, textbookWords.length);
+      gameWords.push(...portion);
+    }
+    pageNum--;
+  }
+  console.log(gameWords);
+  setWordsAction(fetchedWords)
+  return gameWords;
+}
+
+function generateRandomPairs(words: IWord[], amount: number) {
+  const wordsNum = words.length > amount ? amount : words.length;
+  const rightAnswersNum = Number(randomUnique({
+    max: wordsNum - Math.floor(wordsNum / 4),
+    min: Math.floor(wordsNum / 2),
+    count: 1,
+  }));
+  // get random number of wrong answers
+  const wrongAnswersNum = wordsNum - rightAnswersNum;
+  console.log('rightAnswersNum', rightAnswersNum);
+  console.log('wrongAnswersNum', wrongAnswersNum);
+  // get random indexes of right answers 
+  const randomIndexesRight = randomUnique({
+    max: wordsNum - 1,
+    min: 0,
+    count: rightAnswersNum,
+  });
+  const rightPairs = generateRightPairs({ words, indexes: randomIndexesRight });
+  // get random indexes of wrong answers  
+  const randomIndexesWrong = words.reduce((acc, curr, currInd) => {
+    if (!randomIndexesRight.includes(currInd)) {
+      acc.push(currInd);
+    }
+    return acc;
+  }, ([] as number[]));
+  const wrongPairs = generateWrongPairs({ words, indexes: randomIndexesWrong })
+  console.log('randomIndexesRight', randomIndexesRight);
+  console.log('randomIndexesWrong', randomIndexesWrong);
+  console.log('rightPairs', rightPairs);
+  console.log('wrongPairs', wrongPairs);
+  // generate right pairs word-translation
+  const gameWords = [...rightPairs, ...wrongPairs].sort(() => (Math.random() > .5) ? 1 : -1);
+  return gameWords;
+}
+
+export const generateRandomWords = async ({ group, page, amount, setWordsAction }: generatorParams): Promise<GameWord[]> => {
+  // get words from random pages
+  const randomPages = randomUnique({ max: pagesNum - 1, min: 0, count: randomPageNum });
+  const promiseArr = [] as Promise<IWord[]>[];
+  randomPages.forEach((page) => {
+    promiseArr.push(getPromise(group, page.toString()));
+  });
+
+  const words = [] as IWord[];
+  await Promise.allSettled(promiseArr)
+    .then((results) => {
+      results.forEach((result) => {
+        if (result.status === 'fulfilled') {
+          words.push(...result.value);
+        }
+      });
+      return words;
+    })
+  setWordsAction(words); // set all words
+  
+  const wordsNum = words.length > amount ? amount : words.length;
+  // get random words (their number == amount)
+  const randomIndexes = randomUnique({
+    max: randomWordsNum - 1,
+    min: 0,
+    count: wordsNum,
+  });
+  // words which are displayed in the game
+  const limitedRandomWords = words.filter((word, index) => randomIndexes.includes(index));
+  const gameWords = generateRandomPairs(limitedRandomWords, amount)
+  console.log('gameWords', gameWords);
+  return gameWords;
+}
+
+export const generateRightPairs = ({ words, indexes }: { words: IWord[], indexes: number[] }): GameWord[] => {
+  const rightWords = words.filter((word, index) => indexes.includes(index));
+  const rightPairs = rightWords.map((word) => {
+    const gameWord: GameWord = {
+      id: word.id,
+      word: word.word,
+      translation: word.wordTranslate,
+      isRight: true,
+    }
+    return gameWord;
+  });
+  return rightPairs;
+}
+
+export const generateWrongPairs = ({ words, indexes }: { words: IWord[], indexes: number[] }): GameWord[] => {
+  const selected = words.filter((word, index) => indexes.includes(index));
+  const wrongPairs = [];
+  for (let i = 0; i < selected.length; i++) {
+    const nextIndex = (i + 1) % selected.length;
+    const gameWord: GameWord = {
+      id: selected[i].id,
+      word: selected[i].word,
+      translation: selected[nextIndex].wordTranslate,
+      isRight: false,
+    }
+    wrongPairs.push(gameWord);
+  }
+  return wrongPairs;
+}

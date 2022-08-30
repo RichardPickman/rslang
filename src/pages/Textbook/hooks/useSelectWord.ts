@@ -1,10 +1,10 @@
 import { Dispatch, MutableRefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import TextbookService from "../../../services/textbookService";
-import { IWord } from "../../../types/types";
+import { DisplayedWord, IWord } from "../../../types/types";
 import { fetchAllAudio } from "../utils/fetchAllAudio";
 
 interface useSelectWordArgs {
-  selectedWord: IWord | null,
+  selectedWord: DisplayedWord | null,
 }
 
 interface useSelectWordReturnValue {
@@ -30,7 +30,7 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs): useSelectWor
     let isActualFetch = true;
     contextRef.current = new AudioContext();
     const fetchImg = async () => {
-      const imageObjectURL = await TextbookService.getImage({ url: (selectedWord as IWord).image });
+      const imageObjectURL = await TextbookService.getImage({ url: (selectedWord as DisplayedWord).word.image });
       if (isActualFetch) {
         setImageSrc(imageObjectURL);
       }
@@ -39,9 +39,9 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs): useSelectWor
       const imagePromise = fetchImg();
       const audioPromise = fetchAllAudio({
         context: contextRef.current as AudioContext,
-        audioWordUrl: (selectedWord as IWord).audio,
-        audioMeaningUrl: (selectedWord as IWord).audioMeaning,
-        audioExampleUrl: (selectedWord as IWord).audioExample,
+        audioWordUrl: (selectedWord as DisplayedWord).word.audio,
+        audioMeaningUrl: (selectedWord as DisplayedWord).word.audioMeaning,
+        audioExampleUrl: (selectedWord as DisplayedWord).word.audioExample,
       })
         .then((audio) => {
           if (isActualFetch) {

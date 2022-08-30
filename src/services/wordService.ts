@@ -1,9 +1,15 @@
-import { createUserWordParams, deleteUserWordParams, getAggregatedWordsParams, getAggregatedWordsResponse, IUserWord } from "../types/types";
-import { baseSchoolURL, load } from './loader';
+import { AggregatedWord, createUserWordParams, deleteUserWordParams, getAggregatedWordsParams, getAggregatedWordsResponse, IUserWord, updateUserWordParams } from "../types/types";
+import { baseURL, load } from './loader';
 import { IWord } from '../types/types';
 
+interface getAggregatedWordParams { 
+  userId: string, 
+  token: string, 
+  wordId: string,
+ }
+
 class WordService {
-  static async createUserWord({ userId, wordId, word, token }: createUserWordParams): Promise<IUserWord> {
+  static async createUserWord({ userId, wordId, body, token }: createUserWordParams): Promise<IUserWord> {
     return load<IUserWord>({
       url: `users/${userId}/words/${wordId}`,
       method: 'POST',
@@ -11,12 +17,12 @@ class WordService {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(word),
+      body: JSON.stringify(body),
     })
   }
 
   static async deleteUserWord({ userId, wordId, token }: deleteUserWordParams): Promise<Response> {
-    return fetch(`${baseSchoolURL}/users/${userId}/words/${wordId}`, {
+    return fetch(`${baseURL}/users/${userId}/words/${wordId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -38,7 +44,19 @@ class WordService {
     })
   }
 
-  static getAggregatedWords({ userId, token, filter, group='', page='' }: getAggregatedWordsParams): Promise<IWord[]> {
+  static async getUserWord({ userId, wordId, token }: { userId: string, wordId: string, token: string }): Promise<IUserWord> {
+    return load<IUserWord>({
+      url: `users/${userId}/words/${wordId}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+    })
+  }
+
+  static getAggregatedWords({ userId, token, filter, group='', page='' }: getAggregatedWordsParams): Promise<AggregatedWord[]> {
     return load<getAggregatedWordsResponse>({
       url: `users/${userId}/aggregatedWords`,
       method: 'GET',
@@ -53,6 +71,30 @@ class WordService {
       }
     })
       .then((response) => response[0].paginatedResults);
+  }
+
+  static getAggregatedWord({ userId, token, wordId }: getAggregatedWordParams): Promise<AggregatedWord> {
+    return load<AggregatedWord>({
+      url: `users/${userId}/aggregatedWords/${wordId}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+    })
+    .then((response) => response);
+  }
+
+  static async updateUserWord({ userId, wordId, body, token }: updateUserWordParams): Promise<IUserWord> {
+    return load<IUserWord>({
+      url: `users/${userId}/words/${wordId}`,
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body),
+    })
   }
 }
 

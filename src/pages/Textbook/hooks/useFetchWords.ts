@@ -1,48 +1,39 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useAppSelector } from "../../../hooks/useAppSelector";
 import TextbookService from "../../../services/textbookService";
 import WordService from "../../../services/wordService";
-import { IUser, IWord } from "../../../types/types";
+import { DisplayedWord, IUser, IWord } from "../../../types/types";
+import { IUserWord } from './../../../types/types';
 
 interface fetchWordsProps {
   id: string,
   currentPage: number,
-  isAuth: boolean,
   user: IUser,
 }
 
-const useFetchWords = ({id, currentPage, isAuth, user}: fetchWordsProps):{ words: IWord[], isLoading: boolean} => {
-  const [words, setWords] = useState() as [IWord[], Dispatch<SetStateAction<IWord[]>>];
+const useFetchWords = ({ id, currentPage, user }: fetchWordsProps): { words: DisplayedWord[], isLoading: boolean } => {
+  const [words, setWords] = useState() as [DisplayedWord[], Dispatch<SetStateAction<DisplayedWord[]>>];
   const [isLoading, setIsLoading] = useState(true);
-
+  const { isAuth } = useAppSelector((state) => state.auth);
   useEffect(() => {
     let isActualFetch = true;
     const fetchWords = async () => {
       setIsLoading(true);
-      const wordsArr = await TextbookService.getWords({ 
-        group: (Number(id) - 1).toString(), 
+      const textbookWords = await TextbookService.getWords({
+        group: (Number(id) - 1).toString(),
         page: (currentPage - 1).toString(),
       });
-
+      let displayedWords: DisplayedWord[] = textbookWords.map((tx) => ({word: tx}));
       if (isAuth) {
-        const diffWordsArr = await WordService.getAggregatedWords({
+        const userWords = await WordService.getUserWords({
           userId: (user as IUser).id,
           token: (user as IUser).token,
-          filter: `{"$and":[{"userWord.difficulty":"difficult"}]}`,
-          group: (Number(id) - 1).toString(), 
-          page: (currentPage - 1).toString(),
         });
-        wordsArr.forEach((w) => {
-          if (diffWordsArr.find((dw) => dw._id === w.id)) { 
-            w.isDifficult = true;
-          }
-          else { 
-            w.isDifficult = false;
-          }
-        })
+        displayedWords = createDisplayedWords({ textbookWords, userWords });
       }
 
       if (isActualFetch) {
-        setWords(wordsArr);
+        setWords(displayedWords);
         setIsLoading(false);
       }
     }
@@ -51,7 +42,21 @@ const useFetchWords = ({id, currentPage, isAuth, user}: fetchWordsProps):{ words
       isActualFetch = false;
     }
   }, [id, currentPage]);
-  return {words, isLoading};
+  return { words, isLoading };
+}
+
+const createDisplayedWords = ({ textbookWords, userWords }: { textbookWords: IWord[], userWords: IUserWord[] }): DisplayedWord[] => {
+  const displayedWords = textbookWords.map((tw) => {
+    //debugger;
+    const uw = userWords.find((uw) => uw.wordId === tw.id);
+    if (uw) {
+      return {word: tw, userWord: {wordId: uw.wordId, difficulty: uw.difficulty, optional: uw.optional}}
+    }
+    return {word: tw};
+  });
+  console.log('displayedWords', displayedWords)
+
+  return displayedWords;
 }
 
 export default useFetchWords;

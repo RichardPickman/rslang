@@ -90,22 +90,34 @@ export enum DifficultyLevelEnum {
   DIFFICULT = 'difficult',
 }
 
-export interface IUserWord {
-  difficulty: string,
-  optional: {[key: string]: string | boolean},
+export interface DisplayedWord {
+  word: IWord,
+  userWord?: IUserWord,
 }
 
+export interface IUserWord {
+  wordId: string,
+  difficulty?: string,
+  optional?: {
+    isDifficult?: string,
+    onStudy?: boolean,
+    statistics?: wordStatistics,
+  },
+}
+
+export type UserWordBody  = Omit<IUserWord, 'wordId'>;
+
 export interface createUserWordParams {
-  userId: string, 
-  wordId: string, 
-  word: IUserWord,
-  token: string, 
+  userId: string,
+  wordId: string,
+  body: Omit<IUserWord, 'wordId'>,
+  token: string,
 }
 
 export interface deleteUserWordParams {
-  userId: string, 
-  wordId: string, 
-  token: string, 
+  userId: string,
+  wordId: string,
+  token: string,
 }
 
 export enum SectionEnum {
@@ -121,8 +133,8 @@ export interface UserDictNavItem {
 }
 
 export interface getAggregatedWordsParams {
-  userId: string, 
-  token: string, 
+  userId: string,
+  token: string,
   filter: string,
   group?: string,
   page?: string,
@@ -130,7 +142,62 @@ export interface getAggregatedWordsParams {
 
 export type getAggregatedWordsResponse = [
   {
-    paginatedResults: IWord[],
-    totalCount: [{count: number}]
+    paginatedResults: AggregatedWord[],
+    totalCount: [{ count: number }]
   }
 ]
+
+export enum GameMode {
+  MENU_GAME = 'menu_game',
+  UNIT_GAME = 'unit_game',
+}
+
+export enum GamePhase {
+  INIT = 'init',
+  STARTED = 'started',
+  RUNNING = 'running',
+  ON_FINISH = 'on_finish',
+  FINISHED = 'finished',
+}
+
+export interface WordsPairs {
+  rightPairs: { [key: string]: string }[],
+  wrongPairs: { [key: string]: string }[],
+}
+
+export interface GameWord {
+  id: string,
+  word: string,
+  translation: string,
+  isRight: boolean,
+}
+
+export enum GameType {
+  SPRINT = 'sprint',
+}
+
+export interface wordStatistics {
+  sprint: {
+    attempts: string,
+    guessedNum: string,
+  }
+}
+
+export interface updateUserWordParams {
+  userId: string,
+  wordId: string,
+  body: UserWordBody,
+  token: string,
+}
+
+export enum UpdateDataType {
+  DIFFICULTY = 'difficulty',
+  ON_STUDY = 'on_study',
+  IS_DIFFICULT = 'is_difficult',
+  STATS = 'statisctics',
+}
+
+export interface AggregatedWord extends IWord {
+  _id: string,
+  userWord: UserWordBody,
+}
