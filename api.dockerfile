@@ -1,11 +1,15 @@
 FROM node:lts
 
-WORKDIR /usr/local/api
+WORKDIR /usr/local/
 
+COPY ./dist ./dist
+COPY ./files ./files
+COPY ./doc ./doc
 COPY package.json .
-COPY api/build .
 COPY .env .
 
-RUN npm install
+RUN npm install --production
 
-EXPOSE 8280
+CMD ["node", "./dist/server.js"]
+
+EXPOSE 8080
