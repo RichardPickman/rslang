@@ -44,11 +44,6 @@ const GameStatistics = () => {
     }
   });
 
-  useEffect(() => () => {
-    if (shouldChangePhase) {
-      setPhaseAction(GamePhase.INIT);
-    }
-  });
   return (
     <div>
       <Card style={{ margin: '0 auto', width: '60%' }}>
