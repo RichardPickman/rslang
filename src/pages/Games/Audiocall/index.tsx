@@ -10,6 +10,7 @@ import Main from "../../../components/Main";
 import Loader from "../components/Loader";
 import GameProgress from "../components/GameProgress";
 import AnswersBlock from "../components/AnswersBlock";
+import ImageBlock from "../components/ImageBlock";
 
 import playFetchedAudio from "../helpers/playFetchedAudio";
 import fetchImage from "../helpers/fetchedImage";
@@ -30,11 +31,12 @@ const AudioCall = () => {
   const [currentWordNum, setCurrentWordNum] = useState(0);
   const [playButton, setPlayButton] = useState("hello");
   const [gameStatus, setGameStatus] = useState("pending");
-  const [speaks, setSpeaks] = useState("");
+  // const [speaks, setSpeaks] = useState("");
   const [answers, setAnswers] = useState<Array<any>>([]);
   const [correctW, setCorrectW] = useState<Array<IWord>>([]);
   const [wrongW, setWrongW] = useState<Array<IWord>>([]);
   const [disable, setDisable] = useState(false);
+  
 
   useEffect(() => {
     async function fetchData() {
@@ -80,8 +82,10 @@ const AudioCall = () => {
   };
 
   const checkAnswer = (e: Event) => {
+    getImage(pageOfWords[currentWordNum-1])
     setGameStatus("pressed");
     setPlayButton("Next");
+    setGameStatus('pressed')
     setDisable(true);
    
     const element = e.currentTarget as HTMLElement;
@@ -104,7 +108,8 @@ const AudioCall = () => {
   const gamePlay = () => {
     playFetchedAudio(pageOfWords[currentWordNum]);
     setGameStatus("started");
-    if (playButton === "Next") {
+    setImageSrc('')
+    if (gameStatus === "pressed") {
       manageButtons();
     }
     setPlayButton(`I don't know`);
@@ -125,9 +130,9 @@ const AudioCall = () => {
             pageOfWords={pageOfWords}
             currentWordNum={currentWordNum}
           />
-
           <div className={styles["field"]}>
-            <Speaker size={"big"} speaks={speaks} />
+            <ImageBlock imageSrc={imageSrc}/>
+            <Speaker size={gameStatus === 'pressed' ? 'small' : 'big'} word={pageOfWords ? pageOfWords[currentWordNum-1] : null} />
             <AnswersBlock
               pageOfWords={pageOfWords}
               answers={answers}

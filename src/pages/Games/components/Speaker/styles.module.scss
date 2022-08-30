@@ -1,6 +1,13 @@
 
 @import './../../../../styles/colors';
 
+.wrapper {
+  height: 6rem;
+display: flex;
+justify-content:space-around;
+align-items: center;
+}
+
 .big-speaker  {
   width: 5rem;
   height: 5rem;
@@ -28,13 +35,25 @@
   width: 2.5rem;
 }
 
-.speaks  {
-   animation-name: speaks;
-  animation-duration: 0.5s;
+.small-icon-speak {
+  display: block;
+  width: 1.8rem;
+  transition: all 0.8s;
+
+}
+.english-word {
+  font-size: 2rem;
+  margin-left: 1rem;
+  color: $primary-color1;
 }
 
-@keyframes speaks {
-  0% {background:  lightblue;}
-  50% { background: $primary-color2;}
-  100% { background: lightblue;}
-}
+// .speaks  {
+//    animation-name: speaks;
+//   animation-duration: 0.5s;
+// }
+
+// @keyframes speaks {
+//   0% {background:  lightblue;}
+//   50% { background: $primary-color2;}
+//   100% { background: lightblue;}
+// }
