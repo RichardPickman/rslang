@@ -8,19 +8,16 @@ import GamePage from './GamePage';
 import { useActions } from '../../../hooks/useActions';
 import GameStatistics from './GameStatistics';
 import { Card } from 'antd';
-import { useHandleUserWords } from './useHandleUserWords';
 import OnStartPage from './OnStartPage';
 
 const SprintGame = () => {
   const { state } = useLocation();
   const { phase } = useAppSelector((state) => state.game);
-  const { isAuth } = useAppSelector((state) => state.auth);
   const { setPhaseAction } = useActions();  
   const [hasBeenFinished, setHasBeenFinished] = useState(false);
   const { reset } = useActions();
   const location = useLocation();
   
-  // useHandleUserWords({ phase, isAuth });
   useEffect(() => {
     reset();
     setPhaseAction(GamePhase.INIT);

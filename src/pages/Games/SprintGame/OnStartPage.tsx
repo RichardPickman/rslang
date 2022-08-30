@@ -2,7 +2,7 @@ import React from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import { GamePhase } from '../../../types/types';
-import { generateRandomWords, generateRandomWordsFromPage } from './utils';
+import { generateRandomWordsFromPage } from './utils';
 
 const OnStartPage = () => {
   const { page, unit } = useAppSelector((state) => state.textbook);

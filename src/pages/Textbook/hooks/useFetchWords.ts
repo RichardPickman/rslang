@@ -47,15 +47,12 @@ const useFetchWords = ({ id, currentPage, user }: fetchWordsProps): { words: Dis
 
 const createDisplayedWords = ({ textbookWords, userWords }: { textbookWords: IWord[], userWords: IUserWord[] }): DisplayedWord[] => {
   const displayedWords = textbookWords.map((tw) => {
-    //debugger;
     const uw = userWords.find((uw) => uw.wordId === tw.id);
     if (uw) {
       return {word: tw, userWord: {wordId: uw.wordId, difficulty: uw.difficulty, optional: uw.optional}}
     }
     return {word: tw};
   });
-  console.log('displayedWords', displayedWords)
-
   return displayedWords;
 }
 

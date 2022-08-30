@@ -8,6 +8,7 @@ export interface GameState {
   points: number,
   learnedWords: IWord[],
   failedWords: IWord[],
+  maxsequence: number,
 }
 
 const initialState: GameState = {
@@ -17,6 +18,7 @@ const initialState: GameState = {
   points: 0,
   learnedWords: [],
   failedWords: [],
+  maxsequence: 0,
 };
 
 const GameReducer = (state: GameState = initialState, action: GameActions) => {
@@ -44,6 +46,9 @@ const GameReducer = (state: GameState = initialState, action: GameActions) => {
     }
     case (GameActionsEnum.RESET_LEARNED_WORDS): {
       return { ...state, learnedWords: [] }
+    }
+    case (GameActionsEnum.SET_MAX_SEQUENCE): {
+      return { ...state, maxsequence: action.payload }
     }
     default:
       return state;

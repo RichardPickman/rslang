@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import { GameWord, IWord } from '../../../types/types';
@@ -6,7 +6,6 @@ import styles from './styles.module.scss';
 import { pointsPerWord } from './../../../data/constants';
 import correctSound from '../../../assets/sounds/correct-answer.wav';
 import incorrectSound from '../../../assets/sounds/incorrect-answer.wav';
-
 
 interface WordCardProps {
   word: GameWord,
@@ -19,9 +18,9 @@ enum ButtonType {
 }
 
 const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
-  const { points, words } = useAppSelector((state) => state.game);
-  const { setPointsAction, setLearnedWord, setFailedWord } = useActions();
-
+  const { points, words, maxsequence } = useAppSelector((state) => state.game);
+  const { setPointsAction, setLearnedWord, setFailedWord, setMaxSequence } = useActions();
+  const [sequence, setSequence] = useState(0);
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.keyCode === Number('37')) {
@@ -31,6 +30,7 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
       onbtnClick(ButtonType.RIGHT)
     }
   }
+
   useEffect(() => {
     document.addEventListener<"keydown">('keydown', handleKeyDown);
     return () => {
@@ -38,22 +38,27 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
     }
   }, []);
 
- const onSuccess = () => {
+  const onSuccess = () => {
     const audioCorrect = new Audio(correctSound);
     audioCorrect.pause();
     audioCorrect.play();
     setPointsAction(points + pointsPerWord);
     setLearnedWord(words.find((w) => w.id === word.id) as IWord);
-    console.log('ALL WORDS GENERATED FOR GAME', words);
-    console.log('Success!', word.word, word.translation);
+    if (maxsequence < (sequence + 1)) {
+      setMaxSequence(sequence + 1);
+    }
+    setSequence((prevState) => ++prevState);
   }
-  
+
   const onFailure = () => {
     const audioIncorrect = new Audio(incorrectSound)
     audioIncorrect.pause();
     audioIncorrect.play();
     setFailedWord(words.find((w) => w.id === word.id) as IWord);
-    console.log('Failure!', word.word, word.translation);
+    if (maxsequence < sequence) {
+      setMaxSequence(sequence);
+    }
+    setSequence(0);
   }
 
   const onbtnClick = (btn: ButtonType) => {

@@ -6,6 +6,23 @@ import { GameWord, IWord } from "../../../types/types";
 const randomPageNum = 7;
 const randomWordsNum = randomPageNum * wordsPerPage;
 
+interface generatorParams {
+  group: string,
+  amount: number,
+  page?: string,
+  setWordsAction: (payload: IWord[]) => ISetWordsAction,
+}
+
+interface generateRandomWordsFromPage {
+  unit: string,
+  page: string,
+  setWordsAction: (payload: IWord[]) => ISetWordsAction,
+}
+
+const getPromise = (group: string, page: string) => {
+  return TextbookService.getWords({ group, page });
+}
+
 const randomUnique = ({ max, min, count }: { max: number, min: number, count: number }) => {
   let nums = new Set<number>();
   while (nums.size < count) {
@@ -14,21 +31,6 @@ const randomUnique = ({ max, min, count }: { max: number, min: number, count: nu
   return Array.from(nums);
 }
 
-interface generatorParams {
-  group: string,
-  amount: number,
-  page?: string,
-  setWordsAction: (payload: IWord[]) => ISetWordsAction,
-
-}
-const getPromise = (group: string, page: string) => {
-  return TextbookService.getWords({ group, page });
-}
-interface generateRandomWordsFromPage {
-  unit: string,
-  page: string,
-  setWordsAction: (payload: IWord[]) => ISetWordsAction,
-}
 export const generateRandomWordsFromPage = async ({
   unit,
   page,
@@ -45,7 +47,6 @@ export const generateRandomWordsFromPage = async ({
     }
     pageNum--;
   }
-  console.log(gameWords);
   setWordsAction(fetchedWords)
   return gameWords;
 }
@@ -58,10 +59,6 @@ function generateRandomPairs(words: IWord[], amount: number) {
     count: 1,
   }));
   // get random number of wrong answers
-  const wrongAnswersNum = wordsNum - rightAnswersNum;
-  console.log('rightAnswersNum', rightAnswersNum);
-  console.log('wrongAnswersNum', wrongAnswersNum);
-  // get random indexes of right answers 
   const randomIndexesRight = randomUnique({
     max: wordsNum - 1,
     min: 0,
@@ -75,12 +72,9 @@ function generateRandomPairs(words: IWord[], amount: number) {
     }
     return acc;
   }, ([] as number[]));
-  const wrongPairs = generateWrongPairs({ words, indexes: randomIndexesWrong })
-  console.log('randomIndexesRight', randomIndexesRight);
-  console.log('randomIndexesWrong', randomIndexesWrong);
-  console.log('rightPairs', rightPairs);
-  console.log('wrongPairs', wrongPairs);
-  // generate right pairs word-translation
+  // generate wrong pairs word-translation
+  const wrongPairs = generateWrongPairs({ words, indexes: randomIndexesWrong });
+  // mix right and wrong pairs
   const gameWords = [...rightPairs, ...wrongPairs].sort(() => (Math.random() > .5) ? 1 : -1);
   return gameWords;
 }
@@ -103,10 +97,9 @@ export const generateRandomWords = async ({ group, page, amount, setWordsAction 
       });
       return words;
     })
-  setWordsAction(words); // set all words
-  
+  setWordsAction(words); // set all words that were fetched  
   const wordsNum = words.length > amount ? amount : words.length;
-  // get random words (their number == amount)
+  // get random words
   const randomIndexes = randomUnique({
     max: randomWordsNum - 1,
     min: 0,
@@ -115,7 +108,6 @@ export const generateRandomWords = async ({ group, page, amount, setWordsAction 
   // words which are displayed in the game
   const limitedRandomWords = words.filter((word, index) => randomIndexes.includes(index));
   const gameWords = generateRandomPairs(limitedRandomWords, amount)
-  console.log('gameWords', gameWords);
   return gameWords;
 }
 

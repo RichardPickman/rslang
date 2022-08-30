@@ -7,7 +7,7 @@ import { RouteNames } from '../../../router';
 import { GamePhase } from '../../../types/types';
 import LearnedWords from './WordsStatistics';
 import ResultCard from './ResultCard';
-import { handleUserWords } from './useHandleUserWords';
+import { handleUserWords } from './handleUserWords';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 
 const GameStatistics = () => {
@@ -49,7 +49,6 @@ const GameStatistics = () => {
       setPhaseAction(GamePhase.INIT);
     }
   });
-  console.log('PHASE', phase);
   return (
     <div>
       <Card style={{ margin: '0 auto', width: '60%' }}>

@@ -7,14 +7,16 @@ import { useActions } from '../../hooks/useActions';
 import { Dropdown, Menu, Space } from 'antd';
 import { GameMode } from '../../types/types';
 
+const menuItems = [
+  {
+    key: '0',
+    label: <Link to={`${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`}
+      state={GameMode.MENU_GAME}>Спринт
+    </Link>,
+  }
+];
 const menu = (
-  <Menu>
-    <Menu.Item key={0}>
-      <Link to={`${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`}
-        state={GameMode.MENU_GAME}>Спринт
-      </Link>
-    </Menu.Item>
-  </Menu>
+  <Menu items={menuItems} />
 );
 const Navigation = () => {
   const { isAuth, user } = useAppSelector((state) => state.auth);

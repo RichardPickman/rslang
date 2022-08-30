@@ -2,7 +2,6 @@ import { Card, Radio, RadioChangeEvent } from 'antd';
 import React, { useState } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { GamePhase } from '../../../types/types';
-import { useAppSelector } from './../../../hooks/useAppSelector';
 import {generateRandomWords} from './utils';
 
 const Levels = () => {
@@ -10,9 +9,8 @@ const Levels = () => {
   const { setPhaseAction, setGameWordsAction, setWordsAction } = useActions();
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
-    generateRandomWords({group: e.target.value, amount: 60, setWordsAction})
+    generateRandomWords({group: e.target.value, amount: 80, setWordsAction})
     .then((pairs) => {
-      console.log('PAIRS', pairs);
       setGameWordsAction(pairs);
       setPhaseAction(GamePhase.STARTED);
     })

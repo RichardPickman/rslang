@@ -1,39 +1,16 @@
-import { useEffect } from "react";
-import { useAppSelector } from "../../../hooks/useAppSelector";
-import { ISetPhaseAction } from "../../../store/reducers/gameReducer/types";
 import { GamePhase, IUser, IUserWord, UserWordBody } from "../../../types/types";
 import { IWord } from '../../../types/types';
 import WordsActions from '../../Textbook/wordsActions';
 
-interface hookProps {
-  phase: GamePhase,
-  isAuth: boolean,
-}
-export const useHandleUserWords = ({ phase, isAuth }: hookProps) => {
-  const { learnedWords, failedWords } = useAppSelector((state) => state.game);
-  const displayedWords = [...learnedWords, ...failedWords];
-  const { user } = useAppSelector((state) => state.auth);
-  useEffect(() => {
-    console.log('useHandleUserWords USEEFFECT phase', phase);
-    if (phase !== GamePhase.FINISHED || !isAuth) return;
-    displayedWords.forEach((word) => handleSingleWord({
-      word,
-      userId: (user as IUser).id,
-      token: (user as IUser).token,
-      learnedWords
-    }));
-  }, [phase]);
-}
 interface handleUserWordsParams {
   phase: GamePhase,
   isAuth: boolean,
   displayedWords: IWord[],
   learnedWords: IWord[],
   user: IUser | null,
- // setPhaseAction: ISetPhaseAction,
 }
+
 export const handleUserWords = ({ phase, isAuth, displayedWords, user, learnedWords }: handleUserWordsParams) => {
-    console.log('handleUserWords phase', phase);
     if (!isAuth) return;
     displayedWords.forEach((word) => handleSingleWord({
       word,
@@ -89,7 +66,6 @@ const updateUserWordStatistics = ({ wordId, userId, token, userWord, learnedWord
   }
 
   if (learnedWords.find((w) => w.id === wordId)) { 
-    console.log(`Word ${wordId} was found in learnedWords`);
     guessedNum++;   
   }
 
@@ -101,7 +77,6 @@ const updateUserWordStatistics = ({ wordId, userId, token, userWord, learnedWord
     attempts: attempts.toString(),
     guessedNum: guessedNum.toString(),
   }
-  console.log(`guessedNum of Word ${wordId} = ${guessedNum}`);
   WordsActions.updateUserWord({
     wordId: wordId,
     userId,

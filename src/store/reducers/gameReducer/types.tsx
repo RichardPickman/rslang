@@ -9,6 +9,7 @@ export enum GameActionsEnum {
   SET_FAILED_WORD = 'set_failed_words',
   RESET_LEARNED_WORDS = 'reset_learned_words',
   RESET_FAILED_WORDS = 'reset_failed_words',
+  SET_MAX_SEQUENCE = 'set_max_sequence',
 }
 
 export interface ISetWordsAction {
@@ -51,6 +52,11 @@ export interface IResetFailedWordsAction {
   payload: null,
 }
 
+export interface ISetMaxSequence {
+  type: GameActionsEnum.SET_MAX_SEQUENCE,
+  payload: number,
+}
+
 export type GameActions = ISetWordsAction |
 ISetPhaseAction |
 ISetPointsAction |
@@ -58,4 +64,5 @@ ISetGameWordsAction |
 ISetLearnedWordAction |
 ISetFailedWordAction |
 IResetLearnedWordsAction |
-IResetFailedWordsAction;
+IResetFailedWordsAction |
+ISetMaxSequence;

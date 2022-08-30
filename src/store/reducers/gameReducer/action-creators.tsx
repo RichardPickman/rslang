@@ -4,6 +4,7 @@ import { GameActions, GameActionsEnum,
   ISetFailedWordAction, 
   ISetGameWordsAction,
   ISetLearnedWordAction,
+  ISetMaxSequence,
   ISetPhaseAction, 
   ISetPointsAction, 
   ISetWordsAction,   
@@ -44,6 +45,10 @@ const resetFailedWord = (): IResetFailedWordsAction => {
   return { type: GameActionsEnum.RESET_FAILED_WORDS, payload: null };
 }
 
+const setMaxSequence = (payload: number): ISetMaxSequence => {
+  return { type: GameActionsEnum.SET_MAX_SEQUENCE, payload };
+}
+
 const reset = () => {
   return (dispatch: Dispatch<GameActions>) => {
     dispatch(resetLearnedWord());
@@ -59,5 +64,6 @@ export const GameActionCreators = {
   setWordsAction,
   setLearnedWord,
   setFailedWord,
+  setMaxSequence,
   reset,
 }
