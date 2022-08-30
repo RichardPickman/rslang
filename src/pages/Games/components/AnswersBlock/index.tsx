@@ -19,7 +19,6 @@ const AnswersBlock = ({
       {answers.map((answerNum, index) => {
         return (
           <Button
-            //  className={styles.black}
             disabled={disable}
             key={pageOfWords[answerNum]["id"]}
             type="ghost"

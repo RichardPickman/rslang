@@ -2,10 +2,11 @@
 @import './../../../../styles/colors';
 
 .wrapper {
-  height: 6rem;
+height: 6rem;
 display: flex;
 justify-content:space-around;
 align-items: center;
+margin: 0.5rem;
 }
 
 .big-speaker  {
@@ -27,6 +28,7 @@ align-items: center;
   justify-content: center;
   align-items: center;
   transition: all 0.8s;
+  margin-right: 1rem;
 }
 
 
@@ -43,7 +45,7 @@ align-items: center;
 }
 .english-word {
   font-size: 2rem;
-  margin-left: 1rem;
+  // margin-left: 1rem;
   color: $primary-color1;
 }
 

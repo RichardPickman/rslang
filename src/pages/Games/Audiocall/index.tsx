@@ -11,6 +11,7 @@ import Loader from "../components/Loader";
 import GameProgress from "../components/GameProgress";
 import AnswersBlock from "../components/AnswersBlock";
 import ImageBlock from "../components/ImageBlock";
+import MiniStatistics from "../components/MiniStatistics";
 
 import playFetchedAudio from "../helpers/playFetchedAudio";
 import fetchImage from "../helpers/fetchedImage";
@@ -36,7 +37,6 @@ const AudioCall = () => {
   const [correctW, setCorrectW] = useState<Array<IWord>>([]);
   const [wrongW, setWrongW] = useState<Array<IWord>>([]);
   const [disable, setDisable] = useState(false);
-  
 
   useEffect(() => {
     async function fetchData() {
@@ -82,23 +82,21 @@ const AudioCall = () => {
   };
 
   const checkAnswer = (e: Event) => {
-    getImage(pageOfWords[currentWordNum-1])
+    getImage(pageOfWords[currentWordNum - 1]);
     setGameStatus("pressed");
     setPlayButton("Next");
-    setGameStatus('pressed')
+    setGameStatus("pressed");
     setDisable(true);
-   
+
     const element = e.currentTarget as HTMLElement;
 
     if (
       pageOfWords[currentWordNum - 1].id === element.getAttribute("data-id")
     ) {
-      console.log("ok");
       element.style.color = "green";
       playSound(correct);
       setCorrectW([...correctW, pageOfWords[currentWordNum]]);
     } else {
-      console.log("not");
       element.style.color = "red";
       playSound(wrong);
       setWrongW([...wrongW, pageOfWords[currentWordNum]]);
@@ -106,9 +104,13 @@ const AudioCall = () => {
   };
 
   const gamePlay = () => {
+    if (currentWordNum === 20) {
+      setGameStatus(() => "end");
+      return;
+    }
     playFetchedAudio(pageOfWords[currentWordNum]);
     setGameStatus("started");
-    setImageSrc('')
+    setImageSrc("");
     if (gameStatus === "pressed") {
       manageButtons();
     }
@@ -131,8 +133,11 @@ const AudioCall = () => {
             currentWordNum={currentWordNum}
           />
           <div className={styles["field"]}>
-            <ImageBlock imageSrc={imageSrc}/>
-            <Speaker size={gameStatus === 'pressed' ? 'small' : 'big'} word={pageOfWords ? pageOfWords[currentWordNum-1] : null} />
+            <ImageBlock imageSrc={imageSrc} />
+            <Speaker
+              size={gameStatus === "pressed" ? "small" : "big"}
+              word={pageOfWords ? pageOfWords[currentWordNum - 1] : null}
+            />
             <AnswersBlock
               pageOfWords={pageOfWords}
               answers={answers}
@@ -143,6 +148,8 @@ const AudioCall = () => {
               {playButton}
             </Button>
           </div>
+          {}
+          {gameStatus === "end" && <MiniStatistics />}
         </>
       </Main>
     </div>
