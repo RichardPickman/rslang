@@ -48,20 +48,20 @@ export const generateRandomWordsFromPage = async ({
   while (gameWords.length < minWordsNumInSprintGame && pageNum >=0) {
     const textbookWords = await TextbookService.getWords({ group: unit, page: pageNum.toString() });
     if (textbookWords) {
-      // if (isAuth && user) {
-      //   const learnedWords = await WordService.getAggregatedWords({ 
-      //     userId: user.id, 
-      //     token: user.token, 
-      //     filter: `{"$and": [{"group": ${Number(unit)}, {"page": ${pageNum}}, {"userWord.optional.isLearned": "true"}]}`,
-      //    });
-      //   console.log('learnedWords', learnedWords);
-      //   const withoutLearnedWords = textbookWords.filter((tw) =>!learnedWords.find((lw) => lw._id === tw.id));
-      //   console.log('withoutLearnedWords', withoutLearnedWords);
-      //   fetchedWords.push(...withoutLearnedWords);
-      // } else {
-      // }
-      fetchedWords.push(...textbookWords);
-      const portion = generateRandomPairs(textbookWords, textbookWords.length);
+      let portion: GameWord[] = [];
+      if (isAuth && user) {
+        const learnedWords = await WordService.getAggregatedWords({ 
+          userId: user.id, 
+          token: user.token, 
+          filter: `{"$and": [{"group": ${unit}}, {"page": ${pageNum.toString()}}, {"userWord.optional.isLearned": "true"}]}`,
+         });
+        const withoutLearnedWords = textbookWords.filter((tw) =>!learnedWords.find((lw) => lw._id === tw.id));
+        fetchedWords.push(...withoutLearnedWords);
+        portion = generateRandomPairs(withoutLearnedWords, withoutLearnedWords.length);
+      } else {
+        fetchedWords.push(...textbookWords);
+        portion = generateRandomPairs(textbookWords, textbookWords.length);
+      }
       gameWords.push(...portion);
     }
     pageNum--;

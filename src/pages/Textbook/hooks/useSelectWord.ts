@@ -1,6 +1,6 @@
 import { Dispatch, MutableRefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import TextbookService from "../../../services/textbookService";
-import { DisplayedWord, IWord } from "../../../types/types";
+import { DisplayedWord } from "../../../types/types";
 import { fetchAllAudio } from "../utils/fetchAllAudio";
 
 interface useSelectWordArgs {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DisplayedWord, IWord } from '../../../types/types';
+import { DisplayedWord } from '../../../types/types';
 import styles from './styles.module.scss';
 import ControlBar from '../ControlBar';
 import { useAppSelector } from '../../../hooks/useAppSelector';

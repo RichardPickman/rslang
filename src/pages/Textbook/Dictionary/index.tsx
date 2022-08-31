@@ -18,11 +18,9 @@ const Dictionary = ({ words }: DictionaryProps) => {
   const dictActions = getDictActions({setIsProcessing, words: dictWords, setDictWords, setSelectedWord});
   const handleCardClick = (word: DisplayedWord) => {
     setSelectedWord(word);
-    console.log('handleCardClick');
     setIsLoading(true);
   }
-  console.log('RENDER DICTIONARY, selectedWord', selectedWord);
-  console.log('RENDER DICTIONARY, isLoading', isLoading);
+
   return (
     <>
       <div className={styles.dictionary}>
