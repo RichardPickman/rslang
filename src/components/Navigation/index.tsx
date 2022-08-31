@@ -4,7 +4,20 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import { RouteNames } from '../../router';
 import styles from './styles.module.scss';
 import { useActions } from '../../hooks/useActions';
+import { Dropdown, Menu, Space } from 'antd';
+import { GameMode } from '../../types/types';
 
+const menuItems = [
+  {
+    key: '0',
+    label: <Link to={`${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`}
+      state={GameMode.MENU_GAME}>Спринт
+    </Link>,
+  }
+];
+const menu = (
+  <Menu items={menuItems} />
+);
 const Navigation = () => {
   const { isAuth, user } = useAppSelector((state) => state.auth);
   const { logout } = useActions();
@@ -15,13 +28,17 @@ const Navigation = () => {
     <nav className={styles.nav}>
       <Link to={RouteNames.HOMEPAGE}>Главная</Link>
       <Link to={RouteNames.TEXTBOOK}>Учебник</Link>
-      <Link to={RouteNames.GAMES}>Игры</Link>
+      <Dropdown overlay={menu}>
+        <Link to={RouteNames.GAMES}>
+          <Space> Игры   </Space>
+        </Link>
+      </Dropdown>
       <Link to={RouteNames.STATISTICS}>Статистика</Link>
       {
         isAuth ?
           <>
-          <span>Hi, {user?.name}</span>
-          <button type="button" onClick={handleLogoutClick}>Выйти</button>
+            <span>Hi, {user?.name}</span>
+            <button type="button" onClick={handleLogoutClick}>Выйти</button>
           </> :
           <Link to={RouteNames.AUTHORIZATION}>Войти</Link>
       }

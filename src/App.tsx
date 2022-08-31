@@ -12,6 +12,9 @@ import Signin from './pages/Signup/index';
 import DifficultWords from './pages/Textbook/DifficultWords/index';
 import TextbookLayout from "./pages/Textbook/TextbookLayout";
 import UserDictionary from "./pages/Textbook/UserDictionary";
+import SprintGame from './pages/Games/SprintGame/index';
+import GamesNavigation from "./pages/Games/GamesNavigation";
+import { GameMode } from "./types/types";
 
 export const App = () => {
   return (
@@ -32,7 +35,10 @@ export const App = () => {
           </Route>
         </Route>
 
-        <Route path={RouteNames.GAMES} element={<Games />} />
+        <Route path={RouteNames.GAMES} element={<Games />}>
+          <Route index element={<GamesNavigation state={GameMode.MENU_GAME}/>}/>
+          <Route path={RouteNames.SPRINT_GAME} element={<SprintGame />}/>
+        </Route>
         <Route path={RouteNames.STATISTICS} element={<Statistics />} />
         <Route path='*' element={<NotFound />} />
       </Routes>

@@ -1,7 +1,9 @@
 import { ErrorsEnum } from "../types/types";
 
-export const baseURL = " https://shark-app-ae5lx.ondigitalocean.app";
-export const baseSchoolURL = "https://react-learnwords-example.herokuapp.com";
+export const baseURL = "https://hammerhead-app-zup87.ondigitalocean.app";
+// export const baseURL = "https://stale-robin-9.loca.lt";
+
+// export const baseURL = "https://react-learnwords-example.herokuapp.com";
 
 interface FetchRequest {
   url: string;
@@ -17,7 +19,7 @@ interface FetchRequest {
 }
 
 export const makeURL = (request: FetchRequest): string => {
-  const resultURL = new URL(`${baseSchoolURL}/${request.url}`);;
+  const resultURL = new URL(`${baseURL}/${request.url}`);;
   if (request.searchParams) {
     const entries = Object.entries(request.searchParams);
     entries.forEach((entry) => {

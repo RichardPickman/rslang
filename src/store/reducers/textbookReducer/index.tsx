@@ -7,15 +7,15 @@ import { UserDictNavItems } from '../../../data/constants';
 interface TextbookState {
   units: IUnit[],
   words: IWord[],
-  group: number,
-  page: number,
+  unit: string,
+  page: string,
   dictionarySections: UserDictNavItem[],
 }
 const initialState: TextbookState = {
   units,
   words: [],
-  group: 0,
-  page: 1,
+  unit: '0',
+  page: '0',
   dictionarySections: UserDictNavItems,
 };
 
@@ -23,6 +23,12 @@ const TextbookReducer = (state: TextbookState = initialState, action: TextbookAc
   switch (action.type) {
     case (TextbookActionsEnum.SET_WORDS): {
       return { ...state, words: [...action.payload] }
+    }
+    case (TextbookActionsEnum.SET_CURRENT_PAGE): {
+      return { ...state, page: action.payload }
+    }
+    case (TextbookActionsEnum.SET_CURRENT_UNIT): {
+      return { ...state, unit: action.payload }
     }
     default:
       return state;
