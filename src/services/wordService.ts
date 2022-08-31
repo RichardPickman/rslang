@@ -56,7 +56,7 @@ class WordService {
     })
   }
 
-  static getAggregatedWords({ userId, token, filter, group='', page='' }: getAggregatedWordsParams): Promise<AggregatedWord[]> {
+  static getAggregatedWords({ userId, token, filter }: getAggregatedWordsParams): Promise<AggregatedWord[]> {
     return load<getAggregatedWordsResponse>({
       url: `users/${userId}/aggregatedWords`,
       method: 'GET',
@@ -65,9 +65,7 @@ class WordService {
         'Content-Type': 'application/json'
       },
       searchParams: {
-        filter,
-        group,
-        page,
+        filter
       }
     })
       .then((response) => response[0].paginatedResults);

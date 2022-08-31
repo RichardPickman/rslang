@@ -30,7 +30,7 @@ const Unit = () => {
   }
 
   if (isLoading) return <Loader />;
-
+  console.log('UNIT WORDS', words);
   return (
     <div>
       <p>Unit {id}</p>

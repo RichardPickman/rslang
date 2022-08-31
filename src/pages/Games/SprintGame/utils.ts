@@ -1,7 +1,8 @@
 import { wordsPerPage, pagesNum, minWordsNumInSprintGame } from "../../../data/constants";
 import TextbookService from "../../../services/textbookService";
+import WordService from "../../../services/wordService";
 import { ISetWordsAction } from "../../../store/reducers/gameReducer/types";
-import { GameWord, IWord } from "../../../types/types";
+import { GameWord, IUser, IWord } from "../../../types/types";
 
 const randomPageNum = 7;
 const randomWordsNum = randomPageNum * wordsPerPage;
@@ -16,6 +17,8 @@ interface generatorParams {
 interface generateRandomWordsFromPage {
   unit: string,
   page: string,
+  isAuth: boolean,
+  user: IUser | null,
   setWordsAction: (payload: IWord[]) => ISetWordsAction,
 }
 
@@ -34,13 +37,29 @@ const randomUnique = ({ max, min, count }: { max: number, min: number, count: nu
 export const generateRandomWordsFromPage = async ({
   unit,
   page,
-  setWordsAction }: generateRandomWordsFromPage): Promise<GameWord[]> => {
+  setWordsAction,
+  isAuth,
+  user,
+}: generateRandomWordsFromPage): Promise<GameWord[]> => {
   let fetchedWords: IWord[] = [];
   let gameWords: GameWord[] = [];
   let pageNum = Number(page);
+
   while (gameWords.length < minWordsNumInSprintGame && pageNum >=0) {
     const textbookWords = await TextbookService.getWords({ group: unit, page: pageNum.toString() });
     if (textbookWords) {
+      // if (isAuth && user) {
+      //   const learnedWords = await WordService.getAggregatedWords({ 
+      //     userId: user.id, 
+      //     token: user.token, 
+      //     filter: `{"$and": [{"group": ${Number(unit)}, {"page": ${pageNum}}, {"userWord.optional.isLearned": "true"}]}`,
+      //    });
+      //   console.log('learnedWords', learnedWords);
+      //   const withoutLearnedWords = textbookWords.filter((tw) =>!learnedWords.find((lw) => lw._id === tw.id));
+      //   console.log('withoutLearnedWords', withoutLearnedWords);
+      //   fetchedWords.push(...withoutLearnedWords);
+      // } else {
+      // }
       fetchedWords.push(...textbookWords);
       const portion = generateRandomPairs(textbookWords, textbookWords.length);
       gameWords.push(...portion);
@@ -48,6 +67,7 @@ export const generateRandomWordsFromPage = async ({
     pageNum--;
   }
   setWordsAction(fetchedWords)
+  console.log('gameWords', gameWords);
   return gameWords;
 }
 

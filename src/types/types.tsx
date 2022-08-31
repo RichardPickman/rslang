@@ -100,7 +100,7 @@ export interface IUserWord {
   difficulty?: string,
   optional?: {
     isDifficult?: string,
-    onStudy?: boolean,
+    isLearned?: string,
     statistics?: wordStatistics,
   },
 }
@@ -180,6 +180,7 @@ export interface wordStatistics {
   sprint: {
     attempts: string,
     guessedNum: string,
+    sequence: string,
   }
 }
 

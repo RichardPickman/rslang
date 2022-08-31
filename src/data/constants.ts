@@ -80,3 +80,8 @@ export const gameTimer = 31000;
 export const minWordsNumInSprintGame = 60;
 
 export const diffWordsFilter = `{"$and":[{"userWord.optional.isDifficult":"true"}]}`;
+
+export const thresholdForDiffWord = 5;
+export const thresholdForSimpleWord = 3;
+
+// export const learnedWordsFilter = `{"$and": [{"group": 0}, {"page": 0}, {"userWord.optional.isLearned": "true"}]}`;
