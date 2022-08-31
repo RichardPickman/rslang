@@ -25,7 +25,7 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs): useSelectWor
 
   const [isLoading, setIsLoading] = useState(true);
   let contextRef = useRef(null) as MutableRefObject<AudioContext | null>;
-
+  console.log('useSelectWord, isLoading', isLoading);
   useEffect(() => {
     let isActualFetch = true;
     contextRef.current = new AudioContext();

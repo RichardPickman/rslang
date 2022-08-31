@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { RouteNames } from '../../../../router';
-import { SectionEnum, UserDictNavItem } from '../../../../types/types';
+import { NavLink } from 'react-router-dom';
+import { UserDictNavItem } from '../../../../types/types';
 import styles from '../styles.module.scss';
 
 interface NavigationItemProps {
@@ -12,11 +11,7 @@ const NavigationItem = ({ item }: NavigationItemProps) => {
   return (
     <li className={styles.nav__item}>
       <NavLink
-        to={
-          item.type === SectionEnum.DIFFICULT_WORDS ?
-          `${RouteNames.DIFFICULT_WORDS}` :
-          ''
-        }
+        to={item.route}
         className={
           ({ isActive }) => isActive ? `${styles['link_active']}` : undefined
         }>

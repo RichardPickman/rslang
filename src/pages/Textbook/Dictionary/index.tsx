@@ -1,12 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
-import { DisplayedWord, IUser, IWord } from '../../../types/types';
+import { DisplayedWord } from '../../../types/types';
 import { useSelectWord } from '../hooks/useSelectWord';
 import WordCard from '../WordCard/index';
 import WordDescription from '../WordDescription';
 import styles from './styles.module.scss';
-import { useAppSelector } from '../../../hooks/useAppSelector';
-import DictionaryActions from './dictionaryActions';
-import WordsActions from './../wordsActions';
+import { getDictActions } from './dictionaryActions';
 
 interface DictionaryProps {
   words: DisplayedWord[],
@@ -14,37 +12,17 @@ interface DictionaryProps {
 
 const Dictionary = ({ words }: DictionaryProps) => {
   const [dictWords, setDictWords] = useState(words);
-  const { user } = useAppSelector((state) => state.auth);
   const [selectedWord, setSelectedWord] = useState(dictWords[0]) as [DisplayedWord | null, Dispatch<SetStateAction<DisplayedWord | null>>];
   const { context, audioWord, audioExample, audioMeaning, imageSrc, isLoading, setIsLoading } = useSelectWord({ selectedWord });
   const [isProcessing, setIsProcessing] = useState(false);
-
+  const dictActions = getDictActions({setIsProcessing, words: dictWords, setDictWords, setSelectedWord});
   const handleCardClick = (word: DisplayedWord) => {
     setSelectedWord(word);
+    console.log('handleCardClick');
     setIsLoading(true);
   }
-  const addToDifficultWords = (id: string, word: string) => {
-    DictionaryActions.addToDifficultWords({ 
-      id, 
-      word, 
-      user: (user as IUser), 
-      setIsProcessing, 
-      words: dictWords, 
-    })
-  }
-
-  const removeFromDifficultWords = (id: string, word: string) => {
-    DictionaryActions.removeFromDifficultWords({
-      id,
-      word,
-      user: (user as IUser),
-      setIsProcessing,
-      words: dictWords,
-      setDictWords,
-      setSelectedWord,
-    });
-  }
-
+  console.log('RENDER DICTIONARY, selectedWord', selectedWord);
+  console.log('RENDER DICTIONARY, isLoading', isLoading);
   return (
     <>
       <div className={styles.dictionary}>
@@ -55,8 +33,7 @@ const Dictionary = ({ words }: DictionaryProps) => {
               word={w}
               onCardClick={handleCardClick}
               selected={!selectedWord ? false : w.word.word === (selectedWord as DisplayedWord).word.word}
-              addToDifficultWords={addToDifficultWords}
-              removeFromDifficultWords={removeFromDifficultWords}
+              dictActions={dictActions}
             />)
           }
         </div>
