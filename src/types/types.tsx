@@ -205,3 +205,11 @@ export interface AggregatedWord extends IWord {
   _id: string,
   userWord: UserWordBody,
 }
+export enum TransitionEnum {
+  REDIRECTION = 'redirection',
+  NORMAL = 'normal',
+}
+export interface NavigateState {
+  mode: TransitionEnum,
+  location: string,
+}

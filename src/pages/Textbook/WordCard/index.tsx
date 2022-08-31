@@ -14,20 +14,22 @@ interface WordCardProps {
 const WordCard = ({ word, onCardClick, selected, dictActions }: WordCardProps) => {
   const { isAuth } = useAppSelector((state) => state.auth);
   const isDifficultValue = word.userWord?.optional?.isDifficult;
-  const isDifficult = isDifficultValue ? JSON.parse(isDifficultValue.toLowerCase()) : false;
+  const isDifficult = !isAuth ? false :
+    isDifficultValue ? JSON.parse(isDifficultValue.toLowerCase()) : false;
+
   return (
-    <div 
-    className={`
+    <div
+      className={`
     ${styles.item} 
     ${selected && styles.item_selected}
-    ${isDifficult && styles.item_difficult}`} 
-    onClick={() => onCardClick(word)}>
+    ${isDifficult && styles.item_difficult}`}
+      onClick={() => onCardClick(word)}>
       <p>{word.word.word}</p>
       <p>{word.word.wordTranslate}</p>
       {isAuth && <ControlBar
         word={word}
         dictActions={dictActions}
- />
+      />
       }
     </div>
   );

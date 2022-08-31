@@ -1,9 +1,8 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import { Link } from 'react-router-dom';
 import { RouteNames } from '../../router';
-import { LoginValues, SignupValues } from '../../types/types';
+import { SignupValues } from '../../types/types';
 import { rules } from './../../utils/rules';
 
 interface SignupFormProps {
