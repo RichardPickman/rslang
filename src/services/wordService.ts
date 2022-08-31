@@ -1,6 +1,5 @@
 import { AggregatedWord, createUserWordParams, deleteUserWordParams, getAggregatedWordsParams, getAggregatedWordsResponse, IUserWord, updateUserWordParams } from "../types/types";
 import { baseURL, load } from './loader';
-import { IWord } from '../types/types';
 
 interface getAggregatedWordParams { 
   userId: string, 

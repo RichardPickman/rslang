@@ -14,10 +14,19 @@ import TextbookLayout from "./pages/Textbook/TextbookLayout";
 import UserDictionary from "./pages/Textbook/UserDictionary";
 import SprintGame from './pages/Games/SprintGame/index';
 import GamesNavigation from "./pages/Games/GamesNavigation";
-import { GameMode } from "./types/types";
+import { GameMode, IUser } from "./types/types";
 import LearnedWords from './pages/Textbook/LearnedWords/index';
+import PrivateRoute from './router/PrivateRoute';
+import LocalStorage from './services/localStorage';
+import { useActions } from "./hooks/useActions";
 
 export const App = () => {
+  const { setAuthAction, setUserAction } = useActions();
+  const user: IUser | null = LocalStorage.getItem('user');
+  if (user) {
+    setAuthAction(true);
+    setUserAction(user);
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -29,8 +38,8 @@ export const App = () => {
             <Route path={'units'}>
               <Route path={':id'} element={<Unit />}></Route>
             </Route>
-          </Route>
-          <Route path={RouteNames.USER_DICTIONATY} element={<UserDictionary />}>
+          </Route>   
+          <Route path={RouteNames.USER_DICTIONATY} element={<PrivateRoute><UserDictionary /></PrivateRoute>}>
             <Route index element={<p>Some content</p>} />
             <Route path={RouteNames.DIFFICULT_WORDS} element={<DifficultWords />} />
             <Route path={RouteNames.LEARNED_WORDS} element={<LearnedWords />} />
@@ -41,7 +50,7 @@ export const App = () => {
           <Route index element={<GamesNavigation state={GameMode.MENU_GAME}/>}/>
           <Route path={RouteNames.SPRINT_GAME} element={<SprintGame />}/>
         </Route>
-        <Route path={RouteNames.STATISTICS} element={<Statistics />} />
+        <Route path={RouteNames.STATISTICS} element={<PrivateRoute><Statistics /></PrivateRoute>} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>

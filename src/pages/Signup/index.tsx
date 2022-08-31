@@ -5,6 +5,7 @@ import { SignupValues } from '../../types/types';
 import { useNavigate } from 'react-router-dom';
 import { useActions } from '../../hooks/useActions';
 import Modal from '../../components/ui/Modal';
+import { RouteNames } from '../../router';
 
 const Signup = () => {
   const { signup } = useActions();
@@ -12,6 +13,7 @@ const Signup = () => {
 
   const onSignupSuccess = () => {
     Modal.showSuccessModal('Вы успешно зарегистрировались. Теперь вы можете войти в систему.');
+    navigate(RouteNames.AUTHORIZATION, { replace: true });
   }
 
   const onSignupFailed = () => {
@@ -19,7 +21,7 @@ const Signup = () => {
   }
 
   const submitForm = async (values: SignupValues) => {
-    signup(values, navigate, onSignupFailed, onSignupSuccess);
+    signup({values, navigate, onSignupFailed, onSignupSuccess});
   };
 
   return (

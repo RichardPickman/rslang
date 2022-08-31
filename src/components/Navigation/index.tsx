@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { RouteNames } from '../../router';
 import styles from './styles.module.scss';
 import { useActions } from '../../hooks/useActions';
 import { Dropdown, Menu, Space } from 'antd';
-import { GameMode } from '../../types/types';
+import { GameMode, TransitionEnum } from '../../types/types';
+import { NavigateState } from './../../types/types';
 
 const menuItems = [
   {
@@ -24,6 +25,7 @@ const Navigation = () => {
   const handleLogoutClick = () => {
     logout();
   }
+  const location = useLocation();
   return (
     <nav className={styles.nav}>
       <Link to={RouteNames.HOMEPAGE}>Главная</Link>
@@ -40,9 +42,11 @@ const Navigation = () => {
             <span>Hi, {user?.name}</span>
             <button type="button" onClick={handleLogoutClick}>Выйти</button>
           </> :
-          <Link to={RouteNames.AUTHORIZATION}>Войти</Link>
+          <Link 
+          to={RouteNames.AUTHORIZATION} 
+          state={{ mode: TransitionEnum.NORMAL, location: location.pathname } as NavigateState}> Войти</Link>
       }
-    </nav>
+    </nav >
   );
 };
 

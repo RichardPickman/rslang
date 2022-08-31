@@ -18,13 +18,18 @@ const setUserAction = (payload: IUser): ISetUserAction => {
 const setTokenAction = (payload: string): ISetTokenAction => {
   return { type: AuthActionsEnum.SET_TOKEN, payload };
 }
-
+interface signupParams {
+  values: SignupValues,
+  navigate: NavigateFunction,
+  onSignupSuccess: () => void,
+  onSignupFailed: () => void,
+}
 const signup =
-  (values: SignupValues, navigate: NavigateFunction, onSignupSuccess: () => void, onSignupFailed: () => void) => {
+  ({ values, onSignupSuccess, onSignupFailed }: signupParams) => {
     return async function thunk(dispatch: Dispatch<AuthActions>): Promise<SignupValues | void> {
       return AuthService.createUser(values)
         .then((response) => {
-          navigate(RouteNames.LOGIN, { replace: true });
+          onSignupSuccess();
           return response;
         })
         .catch((error: Error) => {
@@ -35,7 +40,7 @@ const signup =
     }
   };
 
-const login = (values: LoginValues, navigate: NavigateFunction, onLoginFailed: () => void) => {
+const login = (values: LoginValues, navigate: NavigateFunction, onLoginFailed: () => void, location: string) => {
   return (dispatch: Dispatch<AuthActions>) => {
     AuthService.signin(values)
       .then((response) => {
@@ -50,8 +55,8 @@ const login = (values: LoginValues, navigate: NavigateFunction, onLoginFailed: (
               name: res.name,
             }
             dispatch(setUserAction(newUser));
-            LocalStorage.setItem('user', JSON.stringify(newUser));
-            navigate(RouteNames.HOMEPAGE, { replace: true });
+            LocalStorage.setItem('user', newUser);
+            navigate(location || RouteNames.HOMEPAGE, { replace: true });
           })
       })
       .catch((error: Error) => {
