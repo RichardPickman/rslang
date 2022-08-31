@@ -1,3 +1,5 @@
+import { RouteNames } from "../router";
+
 export interface IWord {
   id: string,
   group: string,
@@ -130,6 +132,7 @@ export interface UserDictNavItem {
   id: string,
   name: string,
   type: SectionEnum,
+  route: RouteNames,
 }
 
 export interface getAggregatedWordsParams {

@@ -1,6 +1,6 @@
 import { Dispatch, MutableRefObject, SetStateAction, useEffect, useRef, useState } from "react";
 import TextbookService from "../../../services/textbookService";
-import { DisplayedWord, IWord } from "../../../types/types";
+import { DisplayedWord } from "../../../types/types";
 import { fetchAllAudio } from "../utils/fetchAllAudio";
 
 interface useSelectWordArgs {
@@ -25,7 +25,7 @@ export const useSelectWord = ({ selectedWord }: useSelectWordArgs): useSelectWor
 
   const [isLoading, setIsLoading] = useState(true);
   let contextRef = useRef(null) as MutableRefObject<AudioContext | null>;
-
+  console.log('useSelectWord, isLoading', isLoading);
   useEffect(() => {
     let isActualFetch = true;
     contextRef.current = new AudioContext();

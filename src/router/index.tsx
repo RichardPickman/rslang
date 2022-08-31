@@ -10,4 +10,5 @@ export enum RouteNames {
   DIFFICULT_WORDS = 'difficult%20words',
   USER_DICTIONATY = 'my%20dictionary',
   SPRINT_GAME = 'sprint',
+  LEARNED_WORDS = 'learned%20words',
 }

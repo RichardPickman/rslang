@@ -1,3 +1,4 @@
+import { RouteNames } from '../router';
 import { IUnit, SectionEnum, UserDictNavItem } from '../types/types';
 
 export const units: IUnit[] = [
@@ -51,11 +52,13 @@ export const UserDictNavItems: UserDictNavItem[] = [
     id: '0',
     name: 'Сложные слова',
     type: SectionEnum.DIFFICULT_WORDS,
+    route: RouteNames.DIFFICULT_WORDS,
   },
   {
     id: '1',
     name: 'Изученные слова',
     type: SectionEnum.LEARNED_WORDS,
+    route: RouteNames.LEARNED_WORDS,
   },
 ];
 
@@ -80,6 +83,7 @@ export const gameTimer = 31000;
 export const minWordsNumInSprintGame = 60;
 
 export const diffWordsFilter = `{"$and":[{"userWord.optional.isDifficult":"true"}]}`;
+export const learnedWordsFilter = `{"$and":[{"userWord.optional.isLearned":"true"}]}`;
 
 export const thresholdForDiffWord = 5;
 export const thresholdForSimpleWord = 3;

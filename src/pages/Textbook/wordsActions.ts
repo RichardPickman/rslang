@@ -29,6 +29,33 @@ class WordsActions {
     }
   }
 
+  static addToLearnedWords = async ({ wordId, userId, token }: addToLearnedWords) => {
+    try {
+      const response = await WordsActions.isUserWord({ wordId, userId, token });
+      if (response.isUserWord) {
+        await WordsActions.updateUserWord(
+          {
+            wordId, userId, token,
+            updatePath: 'optional.isLearned',
+            updateValue: 'true',
+            userWord: response.uWord as IUserWord,
+          }
+        );
+      } else {
+        const body: UserWordBody = {
+          optional: {
+            isLearned: 'true',
+          }
+        }
+        WordsActions.createUserWord({ wordId, userId, token, body });
+      }
+    }
+    catch (err) {
+      throw new Error('Ooops! The word was not added to learned words.');
+    }
+  }
+
+
   static removeFromDifficultWords = async ({ wordId, userId, token }: removeFromDifficultWords) => {
     try {
       const response = await WordsActions.isUserWord({ wordId, userId, token });
@@ -45,6 +72,25 @@ class WordsActions {
     }
     catch (err) {
       throw new Error('Ooops! The word was not removed from diffcult words.');
+    }
+  }
+
+  static removeFromLearnedWords = async ({ wordId, userId, token }: removeFromLearnedWords) => {
+    try {
+      const response = await WordsActions.isUserWord({ wordId, userId, token });
+      if (response.isUserWord) {
+        await WordsActions.updateUserWord(
+          {
+            wordId, userId, token,
+            updatePath: 'optional.isLearned',
+            updateValue: 'false',
+            userWord: response.uWord as IUserWord,
+          }
+        );
+      }
+    }
+    catch (err) {
+      throw new Error('Ooops! The word was not removed from learned words.');
     }
   }
 
@@ -99,6 +145,8 @@ interface addToDifficultWords {
 }
 
 type removeFromDifficultWords = addToDifficultWords;
+type addToLearnedWords = addToDifficultWords;
+type removeFromLearnedWords = addToLearnedWords;
 
 interface createUserWordParams {
   wordId: string,

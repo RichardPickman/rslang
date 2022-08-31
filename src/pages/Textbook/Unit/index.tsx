@@ -14,7 +14,7 @@ import { useActions } from './../../../hooks/useActions';
 const Unit = () => {
   const { id } = useParams<string>();
   const [currentPage, setCurrentPage] = useState(1);
-  const { isAuth, user } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
   const { words, isLoading } = useFetchWords({ id: id as string, currentPage, user: user as IUser });
   const { setCurrentPageAction, setCurrentUnitAction } = useActions();
 
@@ -30,7 +30,6 @@ const Unit = () => {
   }
 
   if (isLoading) return <Loader />;
-  console.log('UNIT WORDS', words);
   return (
     <div>
       <p>Unit {id}</p>

@@ -15,6 +15,7 @@ import UserDictionary from "./pages/Textbook/UserDictionary";
 import SprintGame from './pages/Games/SprintGame/index';
 import GamesNavigation from "./pages/Games/GamesNavigation";
 import { GameMode } from "./types/types";
+import LearnedWords from './pages/Textbook/LearnedWords/index';
 
 export const App = () => {
   return (
@@ -32,6 +33,7 @@ export const App = () => {
           <Route path={RouteNames.USER_DICTIONATY} element={<UserDictionary />}>
             <Route index element={<p>Some content</p>} />
             <Route path={RouteNames.DIFFICULT_WORDS} element={<DifficultWords />} />
+            <Route path={RouteNames.LEARNED_WORDS} element={<LearnedWords />} />
           </Route>
         </Route>
 
