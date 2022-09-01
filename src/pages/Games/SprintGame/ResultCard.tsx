@@ -3,9 +3,7 @@ import React from 'react';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 
 const ResultCard = () => {
-  const { points, learnedWords, failedWords } = useAppSelector((state) => state.game);
-  const percent = Math.floor((learnedWords.length * 100) / (learnedWords.length + failedWords.length))
-
+  const { points, percentage } = useAppSelector((state) => state.game);
   return (
     <div>
       <p>Твой Результат</p>
@@ -17,7 +15,7 @@ const ResultCard = () => {
             '0%': '#108ee9',
             '100%': '#87d068',
           }}
-          percent={percent}
+          percent={percentage}
           format={(percent) => `${percent}%`}
         /></div>
     </div>

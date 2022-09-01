@@ -45,11 +45,13 @@ const handleSingleWord = ({ word, userId, token, learnedWords }:
             }
           }
         }
-        WordsActions.createUserWord({ wordId: word.id, userId, token, body });
+        WordsActions.createUserWord({ wordId: word.id, userId, token, body })
+        .then(response => console.log(response))
+        .catch((error: Error) => console.log('Error Create User Word',error.message));
       }
     })
     .catch(() => {
-      console.log(`Ooops! The word ${word.word} was not added to the statistics.`);
+      console.log(`Ooops! The statistics for word ${word.word} was not updated.`);
     });
 }
 

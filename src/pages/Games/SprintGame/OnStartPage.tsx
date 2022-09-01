@@ -7,9 +7,9 @@ import { generateRandomWordsFromPage } from './utils';
 const OnStartPage = () => {
   const { page, unit } = useAppSelector((state) => state.textbook);
   const { isAuth, user } = useAppSelector((state) => state.auth);
-  const { setPhaseAction, setGameWordsAction, setWordsAction } = useActions();
+  const { setPhaseAction, setGameWordsAction, setFetchedWordsAction } = useActions();
   const onBtnClick = () => {
-    generateRandomWordsFromPage({unit, page, isAuth, user, setWordsAction})
+    generateRandomWordsFromPage({unit, page, isAuth, user, setFetchedWordsAction})
     .then((pairs) => {
       setGameWordsAction(pairs);
       setPhaseAction(GamePhase.STARTED);

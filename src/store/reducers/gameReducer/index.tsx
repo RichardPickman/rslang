@@ -1,30 +1,44 @@
-import { GamePhase, GameWord, IWord } from "../../../types/types";
+import { GamePhase, GameWord, IWord, StatItem } from "../../../types/types";
 import { GameActions, GameActionsEnum } from "./types";
 
 export interface GameState {
-  words: IWord[],
+  fetchedWords: IWord[],
   gameWords: GameWord[],
   phase: GamePhase,
   points: number,
   learnedWords: IWord[],
   failedWords: IWord[],
   maxsequence: number,
+  dailyStats: StatItem,
+  date: string,
+  usedWords: string[],
+  percentage: number,
 }
 
 const initialState: GameState = {
-  words: [],
+  fetchedWords: [],
   gameWords: [],
   phase: GamePhase.INIT,
   points: 0,
   learnedWords: [],
   failedWords: [],
   maxsequence: 0,
+  dailyStats: {
+    newWords: [],
+    percentage: 0,
+    sequence: 0,
+    gameWordsNum: 0,
+    guessedWordsNum: 0,
+  },
+  date: new Date().toLocaleDateString('en-GB'),
+  usedWords: [],
+  percentage: 0,
 };
 
 const GameReducer = (state: GameState = initialState, action: GameActions) => {
   switch (action.type) {
-    case (GameActionsEnum.SET_WORDS): {
-      return { ...state, words: action.payload }
+    case (GameActionsEnum.SET_FETCHED_WORDS): {
+      return { ...state, fetchedWords: action.payload }
     }
     case (GameActionsEnum.SET_GAME_WORDS): {
       return { ...state, gameWords: action.payload }
@@ -49,6 +63,15 @@ const GameReducer = (state: GameState = initialState, action: GameActions) => {
     }
     case (GameActionsEnum.SET_MAX_SEQUENCE): {
       return { ...state, maxsequence: action.payload }
+    }
+    case (GameActionsEnum.SET_DAILY_STATISTICS): {
+      return { ...state, dailyStats: action.payload }
+    }
+    case (GameActionsEnum.SET_USED_WORDS): {
+      return { ...state, usedWords: action.payload }
+    }
+    case (GameActionsEnum.SET_PERCENTAGE): {
+      return { ...state, percentage: action.payload }
     }
     default:
       return state;

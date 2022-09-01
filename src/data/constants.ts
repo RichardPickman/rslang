@@ -87,5 +87,3 @@ export const learnedWordsFilter = `{"$and":[{"userWord.optional.isLearned":"true
 
 export const thresholdForDiffWord = 5;
 export const thresholdForSimpleWord = 3;
-
-// export const learnedWordsFilter = `{"$and": [{"group": 0}, {"page": 0}, {"userWord.optional.isLearned": "true"}]}`;

@@ -1,7 +1,7 @@
-import { GamePhase, GameWord, IWord } from '../../../types/types';
+import { GamePhase, GameWord, IWord, StatItem } from '../../../types/types';
 
 export enum GameActionsEnum {
-  SET_WORDS = 'set_words',
+  SET_FETCHED_WORDS = 'set_words',
   SET_PHASE = 'set_phase',
   SET_POINTS = 'set_points',
   SET_GAME_WORDS = 'set_game_words',
@@ -10,10 +10,13 @@ export enum GameActionsEnum {
   RESET_LEARNED_WORDS = 'reset_learned_words',
   RESET_FAILED_WORDS = 'reset_failed_words',
   SET_MAX_SEQUENCE = 'set_max_sequence',
+  SET_DAILY_STATISTICS = 'set_daily_statistics',
+  SET_USED_WORDS = 'set_used_words',
+  SET_PERCENTAGE = 'set_percentage',
 }
 
-export interface ISetWordsAction {
-  type: GameActionsEnum.SET_WORDS,
+export interface ISetFetchedWordsAction {
+  type: GameActionsEnum.SET_FETCHED_WORDS,
   payload: IWord[],
 }
 
@@ -57,7 +60,22 @@ export interface ISetMaxSequence {
   payload: number,
 }
 
-export type GameActions = ISetWordsAction |
+export interface ISetDailyStatistics {
+  type: GameActionsEnum.SET_DAILY_STATISTICS,
+  payload: StatItem,
+}
+
+export interface ISetUsedWords {
+  type: GameActionsEnum.SET_USED_WORDS,
+  payload: string[],
+}
+
+export interface ISetPercentageAction {
+  type: GameActionsEnum.SET_PERCENTAGE,
+  payload: number,
+}
+
+export type GameActions = ISetFetchedWordsAction |
 ISetPhaseAction |
 ISetPointsAction |
 ISetGameWordsAction |
@@ -65,4 +83,7 @@ ISetLearnedWordAction |
 ISetFailedWordAction |
 IResetLearnedWordsAction |
 IResetFailedWordsAction |
-ISetMaxSequence;
+ISetMaxSequence |
+ISetDailyStatistics |
+ISetUsedWords |
+ISetPercentageAction;

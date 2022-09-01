@@ -9,28 +9,37 @@ import { useActions } from '../../../hooks/useActions';
 import GameStatistics from './GameStatistics';
 import { Card } from 'antd';
 import OnStartPage from './OnStartPage';
+import getStatisticsActions from './StatisticsActions';
 
 const SprintGame = () => {
   const { state } = useLocation();
-  const { phase } = useAppSelector((state) => state.game);
-  const { setPhaseAction } = useActions();  
+  const { phase, dailyStats, gameWords, date } = useAppSelector((state) => state.game);
+  const { user } = useAppSelector((state) => state.auth);
+  const { setPhaseAction, setDailyStatistics, setUsedWords } = useActions();
   const [hasBeenFinished, setHasBeenFinished] = useState(false);
   const { reset } = useActions();
   const location = useLocation();
-  
+  const statsActions = getStatisticsActions({ user, gameWords, date, dailyStats, setDailyStatistics, setUsedWords });
+  const onFinish = () => setPhaseAction(GamePhase.RUNNING);
+
+  const init = () => {
+    if (!user) return;
+    statsActions.init();
+  };
+
   useEffect(() => {
     reset();
     setPhaseAction(GamePhase.INIT);
   }, [location]);
 
-  const onFinish = () => {
-    setPhaseAction(GamePhase.RUNNING);
-  }
+
   useEffect(() => {
     if (phase === GamePhase.INIT) {
       reset();
     }
   }, [phase]);
+
+  useEffect(() => init(), []);
 
   if (hasBeenFinished) {
     setPhaseAction(GamePhase.INIT);

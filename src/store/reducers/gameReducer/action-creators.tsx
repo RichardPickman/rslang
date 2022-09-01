@@ -1,20 +1,23 @@
 import { GameActions, GameActionsEnum, 
   IResetFailedWordsAction, 
   IResetLearnedWordsAction, 
+  ISetDailyStatistics, 
   ISetFailedWordAction, 
   ISetGameWordsAction,
   ISetLearnedWordAction,
   ISetMaxSequence,
   ISetPhaseAction, 
   ISetPointsAction, 
-  ISetWordsAction,   
+  ISetFetchedWordsAction,
+  ISetUsedWords,
+  ISetPercentageAction,   
 } from "./types";
 
-import { GamePhase, GameWord, IWord } from '../../../types/types';
+import { GamePhase, GameWord, IWord, StatItem } from '../../../types/types';
 import { Dispatch } from "react";
 
-const setWordsAction = (payload: IWord[]): ISetWordsAction => {
-  return { type: GameActionsEnum.SET_WORDS, payload };
+const setFetchedWordsAction = (payload: IWord[]): ISetFetchedWordsAction => {
+  return { type: GameActionsEnum.SET_FETCHED_WORDS, payload };
 }
 
 const setGameWordsAction = (payload: GameWord[]): ISetGameWordsAction => {
@@ -27,6 +30,10 @@ const setPhaseAction = (payload: GamePhase): ISetPhaseAction => {
 
 const setPointsAction = (payload: number): ISetPointsAction => {
   return { type: GameActionsEnum.SET_POINTS, payload };
+}
+
+const setPercentageAction = (payload: number): ISetPercentageAction => {
+  return { type: GameActionsEnum.SET_PERCENTAGE, payload };
 }
 
 const setLearnedWord = (payload: IWord): ISetLearnedWordAction => {
@@ -49,11 +56,20 @@ const setMaxSequence = (payload: number): ISetMaxSequence => {
   return { type: GameActionsEnum.SET_MAX_SEQUENCE, payload };
 }
 
+const setDailyStatistics = (payload: StatItem): ISetDailyStatistics => {
+  return { type: GameActionsEnum.SET_DAILY_STATISTICS, payload };
+}
+
+const setUsedWords = (payload: string[]): ISetUsedWords => {
+  return { type: GameActionsEnum.SET_USED_WORDS, payload };
+}
+
 const reset = () => {
   return (dispatch: Dispatch<GameActions>) => {
     dispatch(resetLearnedWord());
     dispatch(resetFailedWord());
     dispatch(setPointsAction(0));
+    dispatch(setMaxSequence(0));
   }
 }
 
@@ -61,9 +77,12 @@ export const GameActionCreators = {
   setGameWordsAction,
   setPhaseAction,
   setPointsAction,
-  setWordsAction,
+  setFetchedWordsAction,
   setLearnedWord,
   setFailedWord,
   setMaxSequence,
+  setDailyStatistics,
+  setUsedWords,
+  setPercentageAction,
   reset,
 }
