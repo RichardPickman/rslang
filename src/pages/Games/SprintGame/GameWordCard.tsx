@@ -18,7 +18,7 @@ enum ButtonType {
 }
 
 const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
-  const { points, words, maxsequence } = useAppSelector((state) => state.game);
+  const { points, fetchedWords, maxsequence } = useAppSelector((state) => state.game);
   const { setPointsAction, setLearnedWord, setFailedWord, setMaxSequence } = useActions();
   const [sequence, setSequence] = useState(0);
 
@@ -43,7 +43,7 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
     audioCorrect.pause();
     audioCorrect.play();
     setPointsAction(points + pointsPerWord);
-    setLearnedWord(words.find((w) => w.id === word.id) as IWord);
+    setLearnedWord(fetchedWords.find((w) => w.id === word.id) as IWord);
     if (maxsequence < (sequence + 1)) {
       setMaxSequence(sequence + 1);
     }
@@ -54,7 +54,7 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
     const audioIncorrect = new Audio(incorrectSound)
     audioIncorrect.pause();
     audioIncorrect.play();
-    setFailedWord(words.find((w) => w.id === word.id) as IWord);
+    setFailedWord(fetchedWords.find((w) => w.id === word.id) as IWord);
     if (maxsequence < sequence) {
       setMaxSequence(sequence);
     }

@@ -6,12 +6,13 @@ import {generateRandomWords} from './utils';
 
 const Levels = () => {
   const [value, setValue] = useState();
-  const { setPhaseAction, setGameWordsAction, setWordsAction } = useActions();
+  const { setPhaseAction, setGameWordsAction, setFetchedWordsAction } = useActions();
   const onChange = (e: RadioChangeEvent) => {
     setValue(e.target.value);
-    generateRandomWords({group: e.target.value, amount: 80, setWordsAction})
-    .then((pairs) => {
-      setGameWordsAction(pairs);
+    generateRandomWords({group: e.target.value, amount: 80})
+    .then(({gameWords, fetchedWords}) => {
+      setGameWordsAction(gameWords);
+      setFetchedWordsAction(fetchedWords);
       setPhaseAction(GamePhase.STARTED);
     })
     .catch((error) => console.log(error));

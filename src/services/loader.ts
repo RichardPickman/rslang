@@ -42,6 +42,9 @@ const handleResponse = (response: Response): Response => {
       case Number(ErrorsEnum.INCORRECT_VALUES): {
         throw new Error(ErrorsEnum.INCORRECT_VALUES)
       }
+      case Number(ErrorsEnum.NOT_FOUND): {
+        throw new Error(ErrorsEnum.NOT_FOUND)
+      }
       default: {
         throw new Error(`Ooops! ${response.status} ${response.statusText}`);
       }

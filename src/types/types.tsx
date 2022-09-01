@@ -74,6 +74,7 @@ export interface LoginValues {
 export enum ErrorsEnum {
   UNAUTHORIZED = '401',
   INCORRECT_VALUES = '403',
+  NOT_FOUND = '404',
   EMAIL_EXISTS = '417',
 };
 
@@ -213,3 +214,25 @@ export interface NavigateState {
   mode: TransitionEnum,
   location: string,
 }
+
+type StatDate = string;
+
+export interface StatItem {
+  newWords: string[], // new words ids for current day
+  percentage: number, // right answers percentage for current day
+  sequence: number, // the longest sequence of right answers for current day
+  gameWordsNum: number, // the number of words used in game for current day
+  guessedWordsNum: number, // the number of guessed words for current day
+}
+
+export interface UserStatistics {
+  learnedWords: number,
+  optional?: {
+    sprint: {
+      usedWords: string[], // all words ids that were used in Game for the whole period
+      daily: Record<StatDate, StatItem> // record of daily statistics
+    },
+  }
+};
+
+export type UserStatisticsBody = Omit<UserStatistics, 'learnedWords'>;

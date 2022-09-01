@@ -1,7 +1,7 @@
 import { wordsPerPage, pagesNum, minWordsNumInSprintGame } from "../../../data/constants";
 import TextbookService from "../../../services/textbookService";
 import WordService from "../../../services/wordService";
-import { ISetWordsAction } from "../../../store/reducers/gameReducer/types";
+import { ISetFetchedWordsAction } from "../../../store/reducers/gameReducer/types";
 import { GameWord, IUser, IWord } from "../../../types/types";
 
 const randomPageNum = 7;
@@ -11,7 +11,6 @@ interface generatorParams {
   group: string,
   amount: number,
   page?: string,
-  setWordsAction: (payload: IWord[]) => ISetWordsAction,
 }
 
 interface generateRandomWordsFromPage {
@@ -19,7 +18,7 @@ interface generateRandomWordsFromPage {
   page: string,
   isAuth: boolean,
   user: IUser | null,
-  setWordsAction: (payload: IWord[]) => ISetWordsAction,
+  setFetchedWordsAction: (payload: IWord[]) => ISetFetchedWordsAction,
 }
 
 const getPromise = (group: string, page: string) => {
@@ -37,7 +36,7 @@ const randomUnique = ({ max, min, count }: { max: number, min: number, count: nu
 export const generateRandomWordsFromPage = async ({
   unit,
   page,
-  setWordsAction,
+  setFetchedWordsAction,
   isAuth,
   user,
 }: generateRandomWordsFromPage): Promise<GameWord[]> => {
@@ -66,8 +65,7 @@ export const generateRandomWordsFromPage = async ({
     }
     pageNum--;
   }
-  setWordsAction(fetchedWords)
-  console.log('gameWords', gameWords);
+  setFetchedWordsAction(fetchedWords);
   return gameWords;
 }
 
@@ -98,8 +96,11 @@ function generateRandomPairs(words: IWord[], amount: number) {
   const gameWords = [...rightPairs, ...wrongPairs].sort(() => (Math.random() > .5) ? 1 : -1);
   return gameWords;
 }
-
-export const generateRandomWords = async ({ group, page, amount, setWordsAction }: generatorParams): Promise<GameWord[]> => {
+interface generateRandomWordsReturnValue {
+  gameWords: GameWord[], 
+  fetchedWords: IWord[],
+}
+export const generateRandomWords = async ({ group, page, amount }: generatorParams): Promise<generateRandomWordsReturnValue> => {
   // get words from random pages
   const randomPages = randomUnique({ max: pagesNum - 1, min: 0, count: randomPageNum });
   const promiseArr = [] as Promise<IWord[]>[];
@@ -117,7 +118,7 @@ export const generateRandomWords = async ({ group, page, amount, setWordsAction 
       });
       return words;
     })
-  setWordsAction(words); // set all words that were fetched  
+
   const wordsNum = words.length > amount ? amount : words.length;
   // get random words
   const randomIndexes = randomUnique({
@@ -128,7 +129,7 @@ export const generateRandomWords = async ({ group, page, amount, setWordsAction 
   // words which are displayed in the game
   const limitedRandomWords = words.filter((word, index) => randomIndexes.includes(index));
   const gameWords = generateRandomPairs(limitedRandomWords, amount)
-  return gameWords;
+  return {gameWords, fetchedWords: words};
 }
 
 export const generateRightPairs = ({ words, indexes }: { words: IWord[], indexes: number[] }): GameWord[] => {
