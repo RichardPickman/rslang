@@ -1,0 +1,48 @@
+@import "../../../../styles/colors";
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: 25vw;
+  height: 50vh;
+  background: $primary-color1;
+  transition: all 0.8s;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+  // background: lightblue;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.header {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: $primary-color2;
+}
+
+.sub-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: gray;
+}
+
+.flex-block-around {
+  margin: 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.close {
+  position: absolute;
+  right: -1rem;
+  top: -1rem;
+  color: $primary-color1;
+}

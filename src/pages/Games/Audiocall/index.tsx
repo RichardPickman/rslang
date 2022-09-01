@@ -11,7 +11,8 @@ import Loader from "../components/Loader";
 import GameProgress from "../components/GameProgress";
 import AnswersBlock from "../components/AnswersBlock";
 import ImageBlock from "../components/ImageBlock";
-import MiniStatistics from "../components/MiniStatistics";
+// import MiniStatistics from "../components/MiniStatistics";
+import GameModal from "../components/GameModal";
 
 import playFetchedAudio from "../helpers/playFetchedAudio";
 import fetchImage from "../helpers/fetchedImage";
@@ -149,7 +150,7 @@ const AudioCall = () => {
             </Button>
           </div>
           {}
-          {gameStatus === "end" && <MiniStatistics />}
+          {gameStatus === "end" &&  <GameModal correctW={correctW} wrongW={wrongW} />}
         </>
       </Main>
     </div>
