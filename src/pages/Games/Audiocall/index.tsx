@@ -19,6 +19,8 @@ import random from "../helpers/random";
 import shuffle from "../helpers/shuffle";
 import playSound from "../helpers/platSound";
 
+import { wordsPerPage } from "../../../data/constants";
+
 import { Button } from "antd";
 import Speaker from "../components/Speaker";
 
@@ -36,7 +38,10 @@ const AudioCall = () => {
   const [correctW, setCorrectW] = useState<Array<IWord>>([]);
   const [wrongW, setWrongW] = useState<Array<IWord>>([]);
   const [disable, setDisable] = useState(false);
-  const [correctLine, setCorrectLine] = useState(new Array(20).fill(0));
+  const [correctLine, setCorrectLine] = useState(
+    new Array(wordsPerPage).fill(0)
+  );
+  const [wordsInGame, setWordsInGame] = useState(wordsPerPage);
 
   useEffect(() => {
     async function fetchData() {
@@ -57,7 +62,7 @@ const AudioCall = () => {
   const formAnswers = () => {
     let answersNum = [currentWordNum];
     while (answersNum.length < 4) {
-      const candidate = random(0, 20 - 1);
+      const candidate = random(0, wordsInGame - 1);
 
       if (!answersNum.includes(candidate)) {
         answersNum.push(candidate);
@@ -114,8 +119,15 @@ const AudioCall = () => {
       setWrongW([...wrongW, pageOfWords[currentWordNum - 1]]);
     }
   };
+  const init = () => {
+    if (!isLoading && wordsPerPage !== pageOfWords.length) {
+      setCorrectLine(new Array(pageOfWords.length).fill(0));
+      setWordsInGame(pageOfWords.length);
+    }
+  };
 
   const gamePlay = () => {
+    init();
     if (currentWordNum >= 3) {
       setGameStatus(() => "end");
       return;
