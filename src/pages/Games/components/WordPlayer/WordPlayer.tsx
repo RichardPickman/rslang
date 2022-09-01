@@ -7,7 +7,6 @@ const WordPlayer = ({word}: {word: IWord}) => {
   
   
   const playHandler = ()=> {
-    console.log('playHandler');
     playFetchedAudio(word)
     
   }
@@ -16,7 +15,9 @@ const WordPlayer = ({word}: {word: IWord}) => {
       <div className={styles['round-block']}>
         <img onClick={playHandler} className={styles['icon-speak']} src={speak_icon} alt="speak" />
       </div>
-      <span className={styles['english-word']}>{word.word}</span> <span className={styles['english-word']}> {` - `} </span > <span className={styles['russian-word']}>{word.wordTranslate}</span>
+      <span className={styles['english-word']}>{word.word}</span>
+       <span className={styles['english-word']}> {` - `} </span >
+        <span className={styles['russian-word']}>{word.wordTranslate}</span>
     </div>
   )
 }

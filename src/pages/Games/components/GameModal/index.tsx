@@ -5,7 +5,9 @@ import WordPlayer from '../WordPlayer/WordPlayer'
 import { IWord } from '../../../../types/types'
 
 const GameModal = (props: any) => {
-  const { correctW, wrongW } = props
+  const { correctW, wrongW, correctLine } = props
+
+  
   return (
     <div className={styles.modal}>
       <div className={styles.wrapper}>
@@ -26,16 +28,17 @@ const GameModal = (props: any) => {
         <div>
          
           {correctW.map((el: IWord) => (
-            <WordPlayer word = {el}/>
+            <WordPlayer key={el.id} word = {el}/>
           ))}
         </div>
         <div className={styles['sub-header']}>Не верно</div>
          <div>
            
           {wrongW.map((el: IWord) => (
-            <WordPlayer word = {el}/>
+            <WordPlayer key={el.id} word = {el}/>
           ))}
         </div>
+        <div>Cерия ответов: {correctLine}</div>
       </div>
     </div>
   )

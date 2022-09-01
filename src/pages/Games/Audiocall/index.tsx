@@ -11,7 +11,6 @@ import Loader from "../components/Loader";
 import GameProgress from "../components/GameProgress";
 import AnswersBlock from "../components/AnswersBlock";
 import ImageBlock from "../components/ImageBlock";
-// import MiniStatistics from "../components/MiniStatistics";
 import GameModal from "../components/GameModal";
 
 import playFetchedAudio from "../helpers/playFetchedAudio";
@@ -33,11 +32,11 @@ const AudioCall = () => {
   const [currentWordNum, setCurrentWordNum] = useState(0);
   const [playButton, setPlayButton] = useState("hello");
   const [gameStatus, setGameStatus] = useState("pending");
-  // const [speaks, setSpeaks] = useState("");
   const [answers, setAnswers] = useState<Array<any>>([]);
   const [correctW, setCorrectW] = useState<Array<IWord>>([]);
   const [wrongW, setWrongW] = useState<Array<IWord>>([]);
   const [disable, setDisable] = useState(false);
+  const [correctLine, setCorrectLine] = useState(new Array(20).fill(0));
 
   useEffect(() => {
     async function fetchData() {
@@ -81,12 +80,23 @@ const AudioCall = () => {
     ) as NodeListOf<HTMLElement>;
     butts.forEach((el) => (el.style.color = "black"));
   };
+  const correctProgress = () => {
+    let _correctLine = [...correctLine];
+    if (currentWordNum > 1 && _correctLine[currentWordNum - 2] > 0) {
+      _correctLine[currentWordNum - 1] = _correctLine[currentWordNum - 2] + 1;
+    } else _correctLine[currentWordNum - 1] = 1;
+
+    setCorrectLine(_correctLine);
+  };
+
+  const longLine = () => {
+    return correctLine.sort()[correctLine.length - 1];
+  };
 
   const checkAnswer = (e: Event) => {
     getImage(pageOfWords[currentWordNum - 1]);
     setGameStatus("pressed");
     setPlayButton("Next");
-    setGameStatus("pressed");
     setDisable(true);
 
     const element = e.currentTarget as HTMLElement;
@@ -96,16 +106,17 @@ const AudioCall = () => {
     ) {
       element.style.color = "green";
       playSound(correct);
-      setCorrectW([...correctW, pageOfWords[currentWordNum]]);
+      setCorrectW([...correctW, pageOfWords[currentWordNum - 1]]);
+      correctProgress();
     } else {
       element.style.color = "red";
       playSound(wrong);
-      setWrongW([...wrongW, pageOfWords[currentWordNum]]);
+      setWrongW([...wrongW, pageOfWords[currentWordNum - 1]]);
     }
   };
 
   const gamePlay = () => {
-    if (currentWordNum === 20) {
+    if (currentWordNum >= 3) {
       setGameStatus(() => "end");
       return;
     }
@@ -129,28 +140,38 @@ const AudioCall = () => {
       <Header />
       <Main>
         <>
-          <GameProgress
-            pageOfWords={pageOfWords}
-            currentWordNum={currentWordNum}
-          />
-          <div className={styles["field"]}>
-            <ImageBlock imageSrc={imageSrc} />
-            <Speaker
-              size={gameStatus === "pressed" ? "small" : "big"}
-              word={pageOfWords ? pageOfWords[currentWordNum - 1] : null}
+          {gameStatus !== "end" && (
+            <>
+              <GameProgress
+                pageOfWords={pageOfWords}
+                currentWordNum={currentWordNum}
+              />
+
+              <div className={styles["field"]}>
+                <ImageBlock imageSrc={imageSrc} />
+                <Speaker
+                  size={gameStatus === "pressed" ? "small" : "big"}
+                  word={pageOfWords[currentWordNum - 1]}
+                />
+                <AnswersBlock
+                  pageOfWords={pageOfWords}
+                  answers={answers}
+                  checkAnswer={checkAnswer}
+                  disable={disable}
+                />
+                <Button type="default" onClick={!isLoading ? gamePlay : mock}>
+                  {playButton}
+                </Button>
+              </div>
+            </>
+          )}
+          {gameStatus === "end" && (
+            <GameModal
+              correctW={correctW.filter(Boolean)}
+              wrongW={wrongW.filter(Boolean)}
+              correctLine={longLine()}
             />
-            <AnswersBlock
-              pageOfWords={pageOfWords}
-              answers={answers}
-              checkAnswer={checkAnswer}
-              disable={disable}
-            />
-            <Button type="default" onClick={!isLoading ? gamePlay : mock}>
-              {playButton}
-            </Button>
-          </div>
-          {}
-          {gameStatus === "end" &&  <GameModal correctW={correctW} wrongW={wrongW} />}
+          )}
         </>
       </Main>
     </div>
