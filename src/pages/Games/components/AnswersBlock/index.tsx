@@ -23,6 +23,8 @@ const AnswersBlock = ({
             key={pageOfWords[answerNum]["id"]}
             type="ghost"
             data-id={pageOfWords[answerNum].id}
+            data-num={index+1}
+            data-w={pageOfWords[answerNum].word}
             onClick={checkAnswer}
             style={{color: 'black'}}
           >

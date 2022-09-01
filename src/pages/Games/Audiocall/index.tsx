@@ -44,6 +44,8 @@ const AudioCall = () => {
   const [wordsInGame, setWordsInGame] = useState(wordsPerPage);
 
   useEffect(() => {
+    console.log("-useEffect-");
+
     async function fetchData() {
       try {
         setIsLoading(true);
@@ -58,6 +60,27 @@ const AudioCall = () => {
     }
     fetchData();
   }, []);
+
+  const correctProgress = () => {
+    let _correctLine = [...correctLine];
+    if (currentWordNum > 0 && _correctLine[currentWordNum - 1] > 0) {
+      _correctLine[currentWordNum] = _correctLine[currentWordNum - 1] + 1;
+    } else _correctLine[currentWordNum] = 1;
+    setCorrectLine(_correctLine);
+  };
+
+  const CorrectWord = (element: HTMLElement) => {
+    element.style.color = "green";
+    playSound(correct);
+    setCorrectW([...correctW, pageOfWords[currentWordNum]]);
+    correctProgress();
+  };
+
+  const WrongWord = (element: HTMLElement) => {
+    element.style.color = "red";
+    playSound(wrong);
+    setWrongW([...wrongW, pageOfWords[currentWordNum]]);
+  };
 
   const formAnswers = () => {
     let answersNum = [currentWordNum];
@@ -85,39 +108,58 @@ const AudioCall = () => {
     ) as NodeListOf<HTMLElement>;
     butts.forEach((el) => (el.style.color = "black"));
   };
-  const correctProgress = () => {
-    let _correctLine = [...correctLine];
-    if (currentWordNum > 1 && _correctLine[currentWordNum - 2] > 0) {
-      _correctLine[currentWordNum - 1] = _correctLine[currentWordNum - 2] + 1;
-    } else _correctLine[currentWordNum - 1] = 1;
-
-    setCorrectLine(_correctLine);
-  };
 
   const longLine = () => {
     return correctLine.sort()[correctLine.length - 1];
   };
 
-  const checkAnswer = (e: Event) => {
-    getImage(pageOfWords[currentWordNum - 1]);
+  // Events handlers
+
+  useEffect(() => {
+    document.addEventListener<"keydown">("keydown", handleKeyDownAnswer);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDownAnswer);
+    };
+  }, [pageOfWords, currentWordNum, playButton]);
+
+  const handleKeyDownAnswer = (e: KeyboardEvent) => {
+    console.log("currentWordNum", currentWordNum);
+
+    if (playButton === "Next") {
+      return;
+    }
+
+    const element = document.querySelector(
+      `[data-num="${e.key}"]`
+    ) as HTMLElement;
+    if (element !== null) {
+      if (pageOfWords[currentWordNum].id === element.getAttribute("data-id")) {
+        CorrectWord(element);
+      } else {
+        WrongWord(element);
+      }
+    }
+    getImage(pageOfWords[currentWordNum]);
+    setPlayButton("Next");
+    setDisable(true);
+    setGameStatus(() => "pressed");
+    setCurrentWordNum(() => currentWordNum + 1);
+  };
+
+  const HandleClickAnswer = (e: Event) => {
+    getImage(pageOfWords[currentWordNum]);
     setGameStatus("pressed");
     setPlayButton("Next");
     setDisable(true);
 
     const element = e.currentTarget as HTMLElement;
 
-    if (
-      pageOfWords[currentWordNum - 1].id === element.getAttribute("data-id")
-    ) {
-      element.style.color = "green";
-      playSound(correct);
-      setCorrectW([...correctW, pageOfWords[currentWordNum - 1]]);
-      correctProgress();
+    if (pageOfWords[currentWordNum].id === element.getAttribute("data-id")) {
+      CorrectWord(element);
     } else {
-      element.style.color = "red";
-      playSound(wrong);
-      setWrongW([...wrongW, pageOfWords[currentWordNum - 1]]);
+      WrongWord(element);
     }
+    setCurrentWordNum(() => currentWordNum + 1);
   };
   const init = () => {
     if (!isLoading && wordsPerPage !== pageOfWords.length) {
@@ -141,7 +183,7 @@ const AudioCall = () => {
     setPlayButton(`I don't know`);
     setDisable(false);
     formAnswers();
-    setCurrentWordNum(() => currentWordNum + 1);
+    // setCurrentWordNum(() => currentWordNum + 1);
   };
 
   const mock = () => {};
@@ -168,7 +210,7 @@ const AudioCall = () => {
                 <AnswersBlock
                   pageOfWords={pageOfWords}
                   answers={answers}
-                  checkAnswer={checkAnswer}
+                  checkAnswer={HandleClickAnswer}
                   disable={disable}
                 />
                 <Button type="default" onClick={!isLoading ? gamePlay : mock}>
