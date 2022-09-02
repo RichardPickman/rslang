@@ -1,0 +1,36 @@
+@import "../../../styles/colors";
+
+.promo {
+  height: 100vh;
+  width: 100%;
+  background-image: url("../../../assets/img/background/promo-bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.wrapper {
+  border: 2px solid greenyellow;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+ ;
+}
+
+.subtitle {
+  padding: 0 1rem;
+  border: 2px solid red;
+  font-size: 1.5rem;
+  color: $primary-color1;
+}
+.title {
+  text-align: center;
+  color: $primary-color1;
+  margin: 0;
+}
+
