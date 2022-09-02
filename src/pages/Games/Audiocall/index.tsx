@@ -21,7 +21,8 @@ import playSound from "../helpers/platSound";
 
 import { wordsPerPage } from "../../../data/constants";
 
-import { Button } from "antd";
+import { Button, Radio, RadioChangeEvent, Card } from "antd";
+
 import Speaker from "../components/Speaker";
 
 const correct = require("../assets/sound/correct.mp3");
@@ -42,10 +43,9 @@ const AudioCall = () => {
     new Array(wordsPerPage).fill(0)
   );
   const [wordsInGame, setWordsInGame] = useState(wordsPerPage);
+  const [setting, setSetting] = useState(true);
 
   useEffect(() => {
-    console.log("-useEffect-");
-
     async function fetchData() {
       try {
         setIsLoading(true);
@@ -123,8 +123,6 @@ const AudioCall = () => {
   }, [pageOfWords, currentWordNum, playButton]);
 
   const handleKeyDownAnswer = (e: KeyboardEvent) => {
-    console.log("currentWordNum", currentWordNum);
-
     if (playButton === "Next") {
       return;
     }
@@ -185,8 +183,23 @@ const AudioCall = () => {
     formAnswers();
     // setCurrentWordNum(() => currentWordNum + 1);
   };
-
   const mock = () => {};
+
+  const [group, setGroup] = useState(1);
+  const onChange3 = ({ target: { value } }: RadioChangeEvent) => {
+    console.log("radio checked", value);
+    setGroup(value);
+    setSetting(false);
+  };
+
+  const options = [
+    { label: "Group1", value: 1 },
+    { label: "Group2", value: 2 },
+    { label: "Group3", value: 3 },
+    { label: "Group4", value: 4 },
+    { label: "Group5", value: 5 },
+    { label: "Group6", value: 6 },
+  ];
 
   return (
     <div className={styles.wrapper}>
@@ -194,7 +207,19 @@ const AudioCall = () => {
       <Header />
       <Main>
         <>
-          {gameStatus !== "end" && (
+          {setting && (
+            <div className={styles.field}>
+              <Card style={{ width: 300 }}>
+                <Radio.Group
+                  options={options}
+                  onChange={onChange3}
+                  value={group}
+                  optionType="button"
+                />
+              </Card>
+            </div>
+          )}
+          {gameStatus !== "end" && !setting && (
             <>
               <GameProgress
                 pageOfWords={pageOfWords}
