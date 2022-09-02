@@ -1,21 +1,21 @@
 @import "../../../../../../styles/colors";
 
 .wrapper {
-  // border: 1px solid red;
   display: flex;
   justify-items: left;
   margin: 0.2rem 0;
 }
+
 .round-block {
   width: 1.5rem;
   height: 1.5rem;
-  // background: $primary-color6;
   background: gray;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .icon-speak {
   display: block;
   width: 1rem;

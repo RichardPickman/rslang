@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { IWord } from "../../../types/types";
 import DataLoader from "./miniApp/services/loader";
 
-import Header from "../../../components/Header";
 import Main from "../../../components/Main";
 import Loader from "./miniApp/components/Loader";
 import GameProgress from "./miniApp/components/GameProgress";
@@ -113,8 +112,6 @@ const AudioCall = () => {
     return correctLine.sort()[correctLine.length - 1];
   };
 
-  // Events handlers
-
   useEffect(() => {
     document.addEventListener<"keydown">("keydown", handleKeyDownAnswer);
     return () => {
@@ -181,7 +178,6 @@ const AudioCall = () => {
     setPlayButton(`I don't know`);
     setDisable(false);
     formAnswers();
-    // setCurrentWordNum(() => currentWordNum + 1);
   };
   const mock = () => {};
 
