@@ -121,7 +121,8 @@ const AudioCall = () => {
 
 
   const handleKeyDownAnswer = (e: KeyboardEvent) => {
-    if (playButton === "Next") {
+
+    if (playButton === "Next" || playButton === "Continue") {
       return;
     }
 
@@ -143,6 +144,7 @@ const AudioCall = () => {
   };
 
   const HandleClickAnswer = (e: Event) => {
+   
     getImage(pageOfWords[currentWordNum]);
     setGameStatus("pressed");
     setPlayButton("Next");
@@ -165,10 +167,10 @@ const AudioCall = () => {
   };
 
   const gamePlay = () => {
-    if (playButton === `I don't know`) {
+      if (playButton === `I don't know`) {
      setCurrentWordNum(() => currentWordNum + 1);
-     setPlayButton('Continue')
-return
+      setPlayButton('Continue')
+      return
     }
     init();
     if (currentWordNum >= 3) {
@@ -181,10 +183,7 @@ return
     if (gameStatus === "pressed") {
       manageButtons();
     }
-      if (playButton === `I don't know`) {
-     setCurrentWordNum(() => currentWordNum + 1);
      
-    }
     setPlayButton(`I don't know`);
     setDisable(false);
     formAnswers();
