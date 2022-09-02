@@ -1,6 +1,6 @@
 import speak_icon from '../../assets/img/icon_speak.svg'
 import playFetchedAudio from '../../helpers/playFetchedAudio';
-import { IWord } from '../../../../types/types';
+import { IWord } from '../../../../../../types/types';
 import styles from './styles.module.scss'
 
 const WordPlayer = ({word}: {word: IWord}) => {

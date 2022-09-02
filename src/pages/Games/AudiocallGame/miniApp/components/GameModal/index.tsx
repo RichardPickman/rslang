@@ -2,7 +2,7 @@
 import styles from './styles.module.scss'
 import { Link } from 'react-router-dom'
 import WordPlayer from '../WordPlayer/WordPlayer'
-import { IWord } from '../../../../types/types'
+import { IWord } from '../../../../../../types/types'
 
 const GameModal = (props: any) => {
   const { correctW, wrongW, correctLine } = props

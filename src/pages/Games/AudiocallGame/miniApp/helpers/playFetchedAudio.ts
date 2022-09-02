@@ -1,5 +1,5 @@
 import { base_url } from "../config/config";
-import { IWord } from "../../../types/types";
+import { IWord } from "../../../../../types/types";
 
 const playFetchedAudio = async (word: IWord) => {
     const options = {

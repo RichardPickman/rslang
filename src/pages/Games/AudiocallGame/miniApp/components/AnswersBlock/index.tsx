@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { IWord } from "../../../../types/types";
+import { IWord } from "../../../../../../types/types";
 
 import styles from "./styles.module.scss";
 

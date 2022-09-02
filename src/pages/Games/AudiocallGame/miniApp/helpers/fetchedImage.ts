@@ -1,4 +1,4 @@
-import { IWord } from "../../../types/types";
+import { IWord } from "../../../../../types/types";
 import { base_url } from "../config/config";
 
 const fetchImage = async (word: IWord) => {

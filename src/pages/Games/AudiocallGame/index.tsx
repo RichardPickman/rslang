@@ -3,30 +3,30 @@ import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 
 import { IWord } from "../../../types/types";
-import DataLoader from "../services/loader";
+import DataLoader from "./miniApp/services/loader";
 
 import Header from "../../../components/Header";
 import Main from "../../../components/Main";
-import Loader from "../components/Loader";
-import GameProgress from "../components/GameProgress";
-import AnswersBlock from "../components/AnswersBlock";
-import ImageBlock from "../components/ImageBlock";
-import GameModal from "../components/GameModal";
+import Loader from "./miniApp/components/Loader";
+import GameProgress from "./miniApp/components/GameProgress";
+import AnswersBlock from "./miniApp/components/AnswersBlock";
+import ImageBlock from "./miniApp/components/ImageBlock";
+import GameModal from "./miniApp/components/GameModal";
 
-import playFetchedAudio from "../helpers/playFetchedAudio";
-import fetchImage from "../helpers/fetchedImage";
-import random from "../helpers/random";
-import shuffle from "../helpers/shuffle";
-import playSound from "../helpers/platSound";
+import playFetchedAudio from "./miniApp/helpers/playFetchedAudio";
+import fetchImage from "./miniApp/helpers/fetchedImage";
+import random from "./miniApp/helpers/random";
+import shuffle from "./miniApp/helpers/shuffle";
+import playSound from "./miniApp/helpers/platSound";
 
 import { wordsPerPage } from "../../../data/constants";
 
 import { Button, Radio, RadioChangeEvent, Card } from "antd";
 
-import Speaker from "../components/Speaker";
+import Speaker from "./miniApp/components/Speaker";
 
-const correct = require("../assets/sound/correct.mp3");
-const wrong = require("../assets/sound/wrong.mp3");
+const correct = require("./miniApp/assets/sound/correct.mp3");
+const wrong = require("./miniApp/assets/sound/wrong.mp3");
 
 const AudioCall = () => {
   const [pageOfWords, setPageOfWords] = useState<Array<IWord>>([]);

@@ -1,7 +1,7 @@
 import styles from "./styles.module.scss";
 
 import icon_speak from "../../assets/img/icon_speak.svg";
-import { IWord } from "../../../../types/types";
+import { IWord } from "../../../../../../types/types";
 import playFetchedAudio from "../../helpers/playFetchedAudio";
 
 const Speaker = ({ size, word }: { size: string; word: IWord }) => {

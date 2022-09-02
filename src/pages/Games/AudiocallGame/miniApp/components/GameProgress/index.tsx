@@ -1,4 +1,4 @@
-import { IWord } from "../../../../types/types";
+import { IWord } from "../../../../../../types/types";
 import styles from './styles.module.scss';
 
 export const GameProgress = ({
