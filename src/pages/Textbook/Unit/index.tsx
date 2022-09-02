@@ -8,7 +8,7 @@ import { wordsPerPage } from '../../../data/constants';
 import Loader from '../../../components/Loader';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import useFetchWords from '../hooks/useFetchWords';
-import GamesNavigation from '../../Games/GamesNavigation';
+import GamesNavigation from '../../Games/GamesNavigation/GamesNavigation';
 import { useActions } from './../../../hooks/useActions';
 
 const Unit = () => {

@@ -13,7 +13,7 @@ import DifficultWords from "./pages/Textbook/DifficultWords/index";
 import TextbookLayout from "./pages/Textbook/TextbookLayout";
 import UserDictionary from "./pages/Textbook/UserDictionary";
 import SprintGame from './pages/Games/SprintGame/index';
-import GamesNavigation from "./pages/Games/GamesNavigation";
+import GamesNavigation from "./pages/Games/GamesNavigation/GamesNavigation";
 import { GameMode, IUser } from "./types/types";
 import LearnedWords from './pages/Textbook/LearnedWords/index';
 import PrivateRoute from './router/PrivateRoute';

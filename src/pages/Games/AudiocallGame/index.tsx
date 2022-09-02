@@ -119,6 +119,7 @@ const AudioCall = () => {
     };
   }, [pageOfWords, currentWordNum, playButton]);
 
+
   const handleKeyDownAnswer = (e: KeyboardEvent) => {
     if (playButton === "Next") {
       return;
@@ -164,6 +165,11 @@ const AudioCall = () => {
   };
 
   const gamePlay = () => {
+    if (playButton === `I don't know`) {
+     setCurrentWordNum(() => currentWordNum + 1);
+     setPlayButton('Continue')
+return
+    }
     init();
     if (currentWordNum >= 3) {
       setGameStatus(() => "end");
@@ -174,6 +180,10 @@ const AudioCall = () => {
     setImageSrc("");
     if (gameStatus === "pressed") {
       manageButtons();
+    }
+      if (playButton === `I don't know`) {
+     setCurrentWordNum(() => currentWordNum + 1);
+     
     }
     setPlayButton(`I don't know`);
     setDisable(false);
