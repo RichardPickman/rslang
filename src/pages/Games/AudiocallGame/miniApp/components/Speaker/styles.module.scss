@@ -1,0 +1,60 @@
+@import "../../../../../../styles/colors";
+
+.wrapper {
+height: 6rem;
+display: flex;
+justify-content:space-around;
+align-items: center;
+margin: 0.5rem;
+}
+
+.big-speaker  {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.small-speaker  {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.8s;
+  margin-right: 1rem;
+}
+
+
+.big-icon-speak {
+  display: block;
+  width: 2.5rem;
+}
+
+.small-icon-speak {
+  display: block;
+  width: 1.8rem;
+  transition: all 0.8s;
+
+}
+.english-word {
+  font-size: 2rem;
+  // margin-left: 1rem;
+  color: $primary-color1;
+}
+
+// .speaks  {
+//    animation-name: speaks;
+//   animation-duration: 0.5s;
+// }
+
+// @keyframes speaks {
+//   0% {background:  lightblue;}
+//   50% { background: $primary-color2;}
+//   100% { background: lightblue;}
+// }
