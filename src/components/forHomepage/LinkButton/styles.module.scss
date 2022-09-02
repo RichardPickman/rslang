@@ -1,0 +1,22 @@
+@import "./../../../styles/colors";
+
+.link-button {
+  height: 4rem;
+  min-width: 12rem;
+  padding: 1rem 2rem;
+  color: $primary-color1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.link-button:hover {
+  background: $primary-color3 !important;
+}
+
+.text {
+  text-align: center;
+  font-size: 1.3rem;
+}
