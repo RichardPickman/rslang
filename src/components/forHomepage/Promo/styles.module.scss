@@ -8,10 +8,8 @@
   background-size: cover;
 }
 .wrapper {
-  border: 2px solid greenyellow;
   display: flex;
   flex-direction: column;
-  // align-items: center;
 }
 
 .flex-center {
@@ -19,18 +17,22 @@
   justify-content: center;
   align-items: center;
   position: relative;
- ;
+  gap: 0 3rem;
+  flex-wrap: wrap;
 }
 
 .subtitle {
   padding: 0 1rem;
-  border: 2px solid red;
   font-size: 1.5rem;
   color: $primary-color1;
 }
+
 .title {
   text-align: center;
   color: $primary-color1;
   margin: 0;
 }
-
+.smalltitle {
+  text-align: center;
+  text-transform: uppercase;
+}
