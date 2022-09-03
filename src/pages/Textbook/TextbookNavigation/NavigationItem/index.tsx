@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useActions } from '../../../../hooks/useActions';
 import { IUnit } from '../../../../types/types';
 import styles from '../styles.module.scss';
+import BookSVG from '../../../../assets/img/textbook/book.svg';
 
 interface NavigationItemProps {
   item: IUnit,
@@ -23,7 +24,28 @@ const NavigationItem = ({ item, path }: NavigationItemProps) => {
         className={
           ({ isActive }) => isActive ? `${styles['link_active']}` : undefined
         }>
-        <h3>{item.name}</h3>
+        <div className={styles['box-wrap']}>
+          <div className={styles['box-content']}>
+            <h3 className={styles['title']}>{item.name}</h3>
+            <div className={styles['sub']}>
+              <p>{item.description}</p>
+            </div>
+          </div>
+          <ul className={styles['description-list']}>
+            <li className={styles['list__item']}>
+
+              {item.wordsNum.endsWith('1') && <>
+                <img src={BookSVG} className={styles['icon']} alt='book icon' />
+                <p>{item.wordsNum} слово</p>
+              </>
+              }
+              {Number(item.wordsNum) > 1 && <>
+                <img src={BookSVG} className={styles['icon']} alt='book icon' />
+                <p>{item.wordsNum} слов</p>
+              </>}
+            </li>
+          </ul>
+        </div>
       </NavLink>
     </li>
   );

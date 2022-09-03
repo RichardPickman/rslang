@@ -8,6 +8,7 @@ const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { isAuth } = useAppSelector((state) => state.auth);
   const location = useLocation();
   const state:NavigateState = {mode: TransitionEnum.REDIRECTION, location: location.pathname};
+  
   return (<>
     {isAuth ?
       children :

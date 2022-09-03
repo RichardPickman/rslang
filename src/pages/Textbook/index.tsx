@@ -1,14 +1,12 @@
 import React from 'react';
 import TextbookNavigation from './TextbookNavigation';
 import { Outlet } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/useAppSelector';
+import styles from './styles.module.scss';
 
 const Textbook = () => {
-  const { units } = useAppSelector((state) => state.textbook);
 
   return (
-    <>
-      <TextbookNavigation units={units} />
+    <>  
       <Outlet />
     </>
   );

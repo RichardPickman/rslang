@@ -1,5 +1,9 @@
 import React, { MutableRefObject, useRef, useState } from 'react';
 
+import PlaySVG from '../../assets/img/icons/play.svg';
+import PauseSVG from '../../assets/img/icons/pause.svg';
+import styles from './styles.module.scss';
+
 interface AudioProps {
   buffer: AudioBuffer | null,
   context: AudioContext | null
@@ -38,8 +42,12 @@ const Audio = ({ buffer, context }: AudioProps) => {
 
   return (
     <>
-      {!isPlayDisabled && <button type="button" onClick={play}>Play</button>}
-      {!isStopDisabled && <button type="button" onClick={stop}>Stop</button>}
+      {!isPlayDisabled && <button type="button" className={`${styles['btn']} ${styles['btn_play']}`} onClick={play}>
+        <img src={PlaySVG} alt="play"/>
+        </button>}
+      {!isStopDisabled && <button type="button" className={`${styles['btn']} ${styles['btn_pause']}`} onClick={stop}>
+        <img src={PauseSVG} alt="pause"/>
+        </button>}
     </>
   );
 };

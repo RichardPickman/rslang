@@ -11,7 +11,7 @@ const setAuthAction = (payload: boolean): ISetAuthAction => {
   return { type: AuthActionsEnum.SET_AUTH, payload };
 }
 
-const setUserAction = (payload: IUser): ISetUserAction => {
+const setUserAction = (payload: IUser | null): ISetUserAction => {
   return { type: AuthActionsEnum.SET_USER, payload };
 }
 

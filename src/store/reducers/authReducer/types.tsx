@@ -13,7 +13,7 @@ export interface ISetAuthAction {
 
 export interface ISetUserAction {
   type: AuthActionsEnum.SET_USER,
-  payload: IUser,
+  payload: IUser | null,
 }
 
 export interface ISetTokenAction {
