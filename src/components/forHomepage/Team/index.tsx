@@ -26,11 +26,11 @@ const Team = () => {
           <div style={{ marginTop: "3rem" }}></div>
 
           <ColorSubTitle width="120" height="40" color="#ff6666">
-            Познакомнесь с командой
+            Познакомьтесь с командой
           </ColorSubTitle>
 
           <div>
-            <h1 className={styles["title"]}>Постояно учимся и пишем код</h1>
+            <h1 className={styles["title"]}>Постоянно учимся и пишем код</h1>
             <div className={styles.flex}>
               <MemberBlock
                 width="300"

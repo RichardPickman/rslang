@@ -23,7 +23,7 @@ const About = () => {
             <div>
               <h2>Курс<br/>
                 RSS JavaScript/Frontend 2022Q1</h2>
-              <p style={{fontSize: '1.5rem'}}>Мы команда, волею случая и выбора, собравшаяся вместе для ...</p>
+              <p style={{fontSize: '1.5rem'}}>Мы команда, волею случая и выбора собравшаяся вместе для ...</p>
             </div>
           </div>
         </div>

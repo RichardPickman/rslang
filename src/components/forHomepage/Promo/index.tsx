@@ -19,7 +19,7 @@ const Hero = () => {
             <div style={{ margin: "2rem" }}></div>
             <h2 className={styles.title}> Узнайте прямо сейчас,</h2>
             <h2 className={styles.title}>
-              почему люди любят учить английский в Rs lang
+              почему люди любят учить английский в RS lang
             </h2>
           </div>
           <div className={styles["flex-center"]}>
@@ -50,7 +50,7 @@ const Hero = () => {
             <WhiteBgFlag width="250" height="350">
               <div>
                 <h4 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
-                  На английском языке написаны величайших произведений мировой
+                  На английском языке написаны величайшие произведений мировой
                   литературы и науки
                 </h4>
                 <p>
