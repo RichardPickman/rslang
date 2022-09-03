@@ -7,9 +7,12 @@
   background-repeat: no-repeat;
   background-position: center bottom;
 }
+
 .title {
   text-align: center;
+  color: $primary-color2;
 }
+
 .flex {
   display: flex;
   justify-content: space-between;

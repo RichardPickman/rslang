@@ -1,10 +1,9 @@
-import React from 'react';
-import Layout from '../../components/Layout';
-import Hero from '../../components/forHomepage/Hero';
-import Promo from '../../components/forHomepage/Promo';
-import About from '../../components/forHomepage/About'
-import Work from '../../components/forHomepage/Work'
-import Team from '../../components/forHomepage/Team'
+import React from "react";
+import Layout from "../../components/Layout";
+import Hero from "../../components/forHomepage/Hero";
+import Promo from "../../components/forHomepage/Promo";
+import About from "../../components/forHomepage/About";
+import Team from "../../components/forHomepage/Team";
 
 const Homepage = () => {
   return (
@@ -13,7 +12,6 @@ const Homepage = () => {
         <Hero />
         <Promo />
         <About />
-        {/* <Work /> */}
         <Team />
       </>
     </Layout>

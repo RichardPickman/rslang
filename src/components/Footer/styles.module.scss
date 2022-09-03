@@ -5,3 +5,18 @@
   height: 85px;
   color: $primary-color1;
 }
+
+.footer-inner {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 2rem;
+}
+
+.rss-logo {
+ height: 50px;
+}
+
+.year {
+ color: $primary-color1
+}

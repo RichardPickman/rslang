@@ -18,39 +18,37 @@ const Hero = () => {
             <h1 className={styles["soft-font-2"]}>вместе с</h1>
 
             <div className={styles["flex-top"]}>
-              <BgFlag width="250" height="160">
+              <BgFlag width='250' height='160'>
                 RS lang
               </BgFlag>
 
-              <Arrow width="100" height="60" />
+              <Arrow width='100' height='60' />
             </div>
             <div>
               <div>
-                <CheckCircle size="40" bgcolor="#ff6666" textcolor="#2b3c6b">
+                <CheckCircle size='40' bgcolor='#ff6666' textcolor='#2b3c6b'>
                   3600 слов
                 </CheckCircle>
               </div>
               <div>
-                <CheckCircle size="40" bgcolor="#b250fe" textcolor="#2b3c6b">
+                <CheckCircle size='40' bgcolor='#b250fe' textcolor='#2b3c6b'>
                   Выбор уровня сложности
                 </CheckCircle>
               </div>
               <div>
-                <CheckCircle size="40" bgcolor="#1ab9ff" textcolor="#2b3c6b">
+                <CheckCircle size='40' bgcolor='#1ab9ff' textcolor='#2b3c6b'>
                   Учебные игры
                 </CheckCircle>
               </div>
             </div>
-            <h3 className={styles.h3}>
-              Учить язык - значит открыть новое окно в мир
-            </h3>
-               <div style={{ marginTop: "7rem" }}></div>
+            <h3 className={styles.h3}>Учить язык - значит открыть новое окно в мир</h3>
+            <div style={{ marginTop: "7rem" }}></div>
             <div className={styles["flex-top"]}>
               <Link to={RouteNames.TEXTBOOK}>
-                <LinkButton bgcolor="#2b3c6b">Давайте начнем</LinkButton>
+                <LinkButton bgcolor='#2b3c6b'>Давайте начнем</LinkButton>
               </Link>
-              <Link to={RouteNames.TEXTBOOK}>
-                <LinkButton bgcolor="#b250fe">Играем и учим </LinkButton>
+              <Link to={RouteNames.GAMES}>
+                <LinkButton bgcolor='#b250fe'>Играем и учим </LinkButton>
               </Link>
             </div>
           </div>

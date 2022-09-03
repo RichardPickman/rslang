@@ -39,7 +39,7 @@ export const App = () => {
               <Route path={":id"} element={<Unit />}></Route>
             </Route>
           </Route>   
-          <Route path={RouteNames.USER_DICTIONATY} element={<PrivateRoute><UserDictionary /></PrivateRoute>}>
+            <Route path={RouteNames.USER_DICTIONATY} element={<PrivateRoute><UserDictionary /></PrivateRoute>}>
             <Route index element={<p>Some content</p>} />
             <Route path={RouteNames.DIFFICULT_WORDS} element={<DifficultWords />} />
             <Route path={RouteNames.LEARNED_WORDS} element={<LearnedWords />} />
