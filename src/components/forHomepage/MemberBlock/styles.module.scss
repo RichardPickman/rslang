@@ -1,0 +1,31 @@
+@import '../../../styles/colors';
+
+.container {
+  width: 1px;
+  height: 1px;
+  position: relative;
+}
+
+.photo {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 220px;
+  height: 220px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.title {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  color: $primary-color1;
+ 
+}

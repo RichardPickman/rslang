@@ -14,8 +14,8 @@ const Hero = () => {
       <Container>
         <div className={styles.wrapper}>
           <div className={styles.promo}>
-            <h2 className={styles["soft-font-2"]}>Учим Английкий</h2>
-            <h2 className={styles["soft-font-2"]}>вместе с</h2>
+            <h1 className={styles["soft-font-2"]}>Учим Английкий</h1>
+            <h1 className={styles["soft-font-2"]}>вместе с</h1>
 
             <div className={styles["flex-top"]}>
               <BgFlag width="250" height="160">
@@ -44,6 +44,7 @@ const Hero = () => {
             <h3 className={styles.h3}>
               Учить язык - значит открыть новое окно в мир
             </h3>
+               <div style={{ marginTop: "7rem" }}></div>
             <div className={styles["flex-top"]}>
               <Link to={RouteNames.TEXTBOOK}>
                 <LinkButton bgcolor="#2b3c6b">Давайте начнем</LinkButton>

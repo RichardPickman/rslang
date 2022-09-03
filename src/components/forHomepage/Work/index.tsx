@@ -14,20 +14,20 @@ const Hero = () => {
         <div className={styles.wrapper}>
           <div style={{ margin: "12rem 0 3rem" }}>
             <ColorSubTitle width="120" height="40" color="#fff">
-              Почему Выбирают RS Lang
+              Почему Выбирают Нас
             </ColorSubTitle>
             <div style={{ margin: "2rem" }}></div>
-            <h2 className={styles.title}> Узнайте прямо сейчас,</h2>
-            <h2 className={styles.title}>
+            <h1 className={styles.title}> Узнайте прямо сейчас,</h1>
+            <h1 className={styles.title}>
               почему люди любят учить английский в Rs lang
-            </h2>
+            </h1>
           </div>
           <div className={styles["flex-center"]}>
             <WhiteBgFlag width="250" height="350">
               <div>
-                <h4 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
+                <h3 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
                   Oдин из наиболее распространённых языков в мире
-                </h4>
+                </h3>
                 <p>
                   Каждый пятый человек в мире говорит или понимает его.
                   Английский является официальным или одним из основных языков
@@ -37,9 +37,9 @@ const Hero = () => {
             </WhiteBgFlag>
             <WhiteBgFlag width="250" height="350">
               <div>
-                <h4 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
+                <h3 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
                   Открывает перед тобой новые возможности
-                </h4>
+                </h3>
                 <p>
                   Английский – язык бизнеса. Знание языка увеличивает твои шансы
                   получить хорошую работу или начать работать за границей, так
@@ -49,10 +49,10 @@ const Hero = () => {
             </WhiteBgFlag>
             <WhiteBgFlag width="250" height="350">
               <div>
-                <h4 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
+                <h3 className={styles.smalltitle} style={{ color: "#1ab9ff" }}>
                   На английском языке написаны величайших произведений мировой
                   литературы и науки
-                </h4>
+                </h3>
                 <p>
                   Может быть, тебе всегда хотелось прочесть книги великих
                   английских писателей в оригинале?
