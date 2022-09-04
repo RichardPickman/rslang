@@ -24,8 +24,8 @@ const WordCard = ({ word, onCardClick, selected, dictActions }: WordCardProps) =
     ${selected && styles.item_selected}
     ${isDifficult && styles.item_difficult}`}
       onClick={() => onCardClick(word)}>
-      <p>{word.word.word}</p>
-      <p>{word.word.wordTranslate}</p>
+      <p className={styles['item__word']}>{word.word.word}</p>
+      <p className={styles['item__translation']}>{word.word.wordTranslate}</p>
       {isAuth && <ControlBar
         word={word}
         dictActions={dictActions}

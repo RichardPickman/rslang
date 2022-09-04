@@ -6,6 +6,7 @@ import Main from '../../components/Main';
 import Wrapper from '../../components/Wrapper';
 import { RouteNames } from '../../router';
 import Header from '../../components/Header/index';
+import styles from './styles.module.scss';
 
 const Games = () => {
   const location = useLocation();

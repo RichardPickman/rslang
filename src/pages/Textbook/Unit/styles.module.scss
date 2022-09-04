@@ -1,0 +1,16 @@
+.section-unit {
+  background-size: cover;
+  background-image: url(../../../assets/img/backgrounds/bg-rocket.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  .section__inner {
+    padding: 40px 0px 60px;
+    min-height: 300px;
+  }
+}
+
+
+.section-game-nav {
+  background-color: #fff;
+}

@@ -1,0 +1,48 @@
+.nav {
+  list-style: none;
+  
+}
+
+.nav__item {
+  color: #ffffff;
+
+  border-radius: 7px;
+  background-color: #b251fe;
+  font-size: 18px;
+  border: 2px solid #ffffff;
+
+  width: 300px;
+  margin: 0;
+  padding: 10px 15px;
+
+  text-align: justify;
+  & a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    width: 150px;
+    height: 60px;
+    padding: 10px 15px;
+    font-size: 18px;
+    border: 2px solid #ffffff;
+    border-radius: 7px;
+    background: transparent;
+
+    color: #ffffff;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #FF6666;
+    }
+  }
+}
+
+.game__title {
+  font-size: 40px;
+}
+
+.game__description {
+  line-height: 30px;
+    margin-bottom: 26px;
+}

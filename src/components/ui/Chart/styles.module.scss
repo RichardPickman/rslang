@@ -1,0 +1,30 @@
+.chart__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+   width: 300px;
+}
+.value {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.number {
+  width: 100px;
+  height: 120px;
+  line-height: 120px;
+  color: #FFFFFF;
+  font-size: 62px;
+  text-align: center;
+}
+
+.sign {
+  font-size: 36px;
+  color: #FFFFFF;
+}
+
+.description {
+  font-size: 28px;
+  color: #FFFFFF;
+}

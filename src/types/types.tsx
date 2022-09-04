@@ -24,6 +24,7 @@ export interface IUnit {
   name: string,
   description: string,
   type: SectionEnum,
+  wordsNum: string,
 }
 
 export interface loginParams {

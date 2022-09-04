@@ -1,39 +1,37 @@
 .item {
-  height: 70px;
-  width: 120px;
-  border: 1px solid grey;
-  margin: 5px;
+  height: 120px;
+  width: 180px;
   padding: 8px;
+  margin: 8px;
 
-  p {
-    margin: 0;
-    padding: 0;
-  }
+  border: 1px solid rgba(43, 60, 107,0.1);
+  text-align: center;
+  margin-bottom: 30px;
+
+  background-color: #FFFFFF;
 
   &_selected {
-    background-color: bisque;
+    background-color: #FAB319;
   }
 
   &_difficult {
-    border: 1px solid red;
+    background-color: #ff676759;
   }
 
   &:hover {
     cursor: pointer;
+    background-color: #fab31993;
   }
 }
 
-.btn {
-  outline: none;
-
-  &:hover {
-    cursor: pointer;
-  }
+.item__word {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
 }
 
-.btn_difficult-word {
-
-  img {
-
-  }
+.item__translation {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
 }
