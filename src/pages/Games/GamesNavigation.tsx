@@ -13,7 +13,7 @@ const GamesNavigation = ({ state }: { state: GameMode }) => {
           <p className={`${styles['game__title']}`}>{game.title}</p>
           <p className={`${styles['game__description']}`}>{game.description}</p>
           <Link
-            to={`${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`}
+            to={`${RouteNames.GAMES}/${game.link}`}
             state={state}
           >
             Поехали!
