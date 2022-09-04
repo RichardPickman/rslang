@@ -1,11 +1,15 @@
 import React from 'react';
 import Footer from '../Footer';
 import Header from '../Header';
+import Intro from '../Intro';
 import Main from '../Main';
 import Wrapper from '../Wrapper';
 import styles from './styles.module.scss';
 
-const Layout = ({ children }: { children: JSX.Element }) => {
+interface LayoutProps {
+  children: JSX.Element,
+}
+const Layout = ({ children }: LayoutProps) => {
   return (
     <Wrapper>
       <>

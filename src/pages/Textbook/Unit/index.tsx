@@ -8,8 +8,10 @@ import { wordsPerPage } from '../../../data/constants';
 import Loader from '../../../components/Loader';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import useFetchWords from '../hooks/useFetchWords';
-import GamesNavigation from '../../Games/GamesNavigation/GamesNavigation';
+import GamesNavigation from '../../Games/GamesNavigation';
 import { useActions } from './../../../hooks/useActions';
+import styles from './styles.module.scss';
+import Section from '../../../components/Section';
 
 const Unit = () => {
   const { id } = useParams<string>();
@@ -29,21 +31,27 @@ const Unit = () => {
     setCurrentPageAction((page - 1).toString());
   }
 
-  if (isLoading) return <Loader />;
   return (
-    <div>
-      <p>Unit {id}</p>
-      {words && <>
-        <CustomPagination
-          total={wordsPerUnit}
-          pageSize={wordsPerPage}
-          onPageChange={handlePageChange}
-          currentPage={currentPage} />
-        <Dictionary words={words} />
+    <>
+      <div className={`${styles['section-unit']}`}>
+        <Section title={`Unit ${id}`} >
+          <>
+            {isLoading && <Loader />}
+            {!isLoading && (words && <>
+              <Dictionary words={words} />
+              <CustomPagination
+                total={wordsPerUnit}
+                pageSize={wordsPerPage}
+                onPageChange={handlePageChange}
+                currentPage={currentPage} />
+            </>)}
+          </>
+        </Section>
+      </div>
+      {!isLoading && <Section title={'А теперь закрепи слова со страницы в одной из игр'}>
         <GamesNavigation state={GameMode.UNIT_GAME} />
-      </>
-      }
-    </div>
+      </Section>}
+    </>
   );
 };
 

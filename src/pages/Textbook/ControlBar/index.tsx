@@ -23,7 +23,7 @@ const ControlBar = ({ word, dictActions }: ControlBar) => {
   const { user } = useAppSelector((state) => state.auth);
 
   return (
-    <div>
+    <div className={styles['control-bar']}>
       {
         isDifficult ?
           <button

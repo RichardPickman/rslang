@@ -1,6 +1,7 @@
 import type { PaginationProps } from 'antd';
 import { Pagination } from 'antd';
 import React from 'react';
+import './styles.scss';
 
 interface CustomPaginationProps {
   total: number,
@@ -10,7 +11,7 @@ interface CustomPaginationProps {
 }
 
 const CustomPagination = ({ total, pageSize, onPageChange, currentPage }: CustomPaginationProps) => (
-  <>
+  <div className={'pagination-container'} id='pagination-container'>
     <Pagination
       total={total}
       pageSize={pageSize}
@@ -18,7 +19,7 @@ const CustomPagination = ({ total, pageSize, onPageChange, currentPage }: Custom
       onChange={onPageChange}
       current={currentPage}
     />
-  </>
+  </div>
 );
 
 export default CustomPagination;

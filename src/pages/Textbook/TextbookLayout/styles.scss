@@ -1,0 +1,125 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.section__inner {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 60px 0;
+}
+
+.section-textbook {
+  min-height: 600px;
+  position: relative;
+  background-size: cover;
+  background-image: url(../../../assets/img/backgrounds/bg-textbook.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.nav.ant-menu-horizontal {
+ 
+  padding: 0px;
+  border-radius: 7px;
+  display: flex;
+  list-style: none;
+  border: none;
+
+  margin: 20px 0px;
+
+  & .ant-menu-item, & .ant-menu-submenu {    
+    border-radius: 5px;
+    // width: 200px;
+    // height: 55px;
+    background-color: transparent;
+    border: 2px solid rgba(34, 54, 104,0.1);
+    transition: all 0.3s ease;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1px 5px;
+
+    font-size: 24px;
+  }
+
+  & .ant-menu-item-selected,
+  & .ant-menu-submenu-selected {
+    border-radius: 5px;
+
+    background-color: transparent;
+    // border: 2px solid rgba(34, 54, 104,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #1AB9FF;
+
+    .nav__item {
+      color: #FFFFFF;
+    }
+
+    & a {
+      background-color: transparent;
+      color: #FFFFFF;
+      :hover {
+        color: #FFFFFF;
+
+      }
+    }
+  }
+
+  & .ant-menu-title-content {
+    padding: 0;
+    margin: 0;
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+
+
+  & .ant-menu-submenu-selected::after {
+    border: none;
+    content: none;
+  }
+
+  & .ant-menu-item-selected::after {
+    border: none;
+    content: none;
+  }
+
+  & .ant-menu-item:hover {
+    background-color: #FFFFFF;
+    & a {
+      background-color: transparent;
+      color: #000000;
+      :hover {
+        color: #000000;
+      }
+    }
+  }
+
+  & .ant-menu-item.ant-menu-item-selected:hover {
+    background-color: #1AB9FF;
+    & a {
+      //background-color: transparent;
+      color: #000000;
+      :hover {
+        color: #000000;
+      }
+    }
+  }
+
+  & .ant-menu-item::after {
+    content: none;
+  }
+  & .ant-menu-submenu::after {
+    content: none;
+  }
+}
