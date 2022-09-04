@@ -82,8 +82,9 @@ export const Games = [
   {
     id: 0,
     title: 'Аудиовызов',
-    description: 'Проверь насколько хорошо ты знаешь перевод английских слов. Из представленного набора ответов необходимо выбрать подходящий.',
+    description: 'Проверь насколько хорошо ты знаешь перевод английских слов. Произносится серия английских слов. Из представленного набора ответов необходимо выбрать подходящий.',
     rules: '',
+    img: './assets/img/background/audiocall-promo.jpg',
     link: RouteNames.AUDIOCALL_GAME
   },
   {
@@ -91,6 +92,7 @@ export const Games = [
     title: 'Спринт',
     description: 'Проверь насколько хорошо ты знаешь перевод английских слов. За ограниченный период времени тебе необходимо дать как можно больше правильных ответов.',
     rules: '',
+    img: '../../assets/img/background/audiocall-promo.jpg',
     link: RouteNames.SPRINT_GAME
   }
 ]
