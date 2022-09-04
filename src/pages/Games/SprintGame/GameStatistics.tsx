@@ -1,5 +1,4 @@
 import { Segmented } from 'antd';
-import Card from 'antd/lib/card/Card';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useActions } from '../../../hooks/useActions';
@@ -10,14 +9,15 @@ import ResultCard from './ResultCard';
 import { handleUserWords } from './handleUserWords';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import getStatisticsActions from './StatisticsActions';
+import './styles.scss';
 
 const GameStatistics = () => {
   const [value, setValue] = useState<string | number>('Результат');
   const navigate = useNavigate();
   const { phase, maxsequence, gameWords, usedWords, date, dailyStats,
     learnedWords, failedWords } = useAppSelector((state) => state.game);
-    const { isAuth, user } = useAppSelector((state) => state.auth);
-    const { setPhaseAction, setDailyStatistics, setUsedWords, setPercentageAction } = useActions();
+  const { isAuth, user } = useAppSelector((state) => state.auth);
+  const { setPhaseAction, setDailyStatistics, setUsedWords, setPercentageAction } = useActions();
   const statsActions = getStatisticsActions({ user, gameWords, date, dailyStats, setDailyStatistics, setUsedWords });
   const displayedWords = [...learnedWords, ...failedWords];
   const percent = Math.floor((learnedWords.length * 100) / (learnedWords.length + failedWords.length));
@@ -41,16 +41,17 @@ const GameStatistics = () => {
   const redirectToTextbook = () => navigate(`${RouteNames.TEXTBOOK}`);
 
   return (
-    <div>
-      <Card style={{ margin: '0 auto', width: '60%' }}>
+    <div className={'statistics'}>
+      <div className={'statistics__content'}>
         <Segmented options={['Результат', 'Посмотреть слова']} value={value} onChange={(value) => changePage(value)} />
         {value === 'Результат' && <ResultCard />}
         {value === 'Посмотреть слова' && <LearnedWords />}
-        <div>
-          <button type="button" onClick={startNewGame}>Новая игра</button>
-          <button type="button" onClick={redirectToTextbook}>Перейти в учебник</button>
-        </div>
-      </Card>
+      </div>
+      <div className={'statistics__controls'}>
+        <button className={`${'btn'} ${'btn_new-game'}`} type="button" onClick={startNewGame}>Новая игра</button>
+        <button className={`${'btn'} ${'btn_textbook'}`} type="button" onClick={redirectToTextbook}>Перейти в учебник</button>
+      </div>
+
     </div>
   );
 };

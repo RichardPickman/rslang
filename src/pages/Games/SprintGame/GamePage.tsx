@@ -6,6 +6,7 @@ import { GamePhase } from '../../../types/types';
 import GameStatistics from './GameStatistics';
 import GameWordCard from './GameWordCard';
 import Timer from './Timer';
+import './styles.scss';
 
 interface GamePageProps {
   setHasBeenFinished: Dispatch<SetStateAction<boolean>>,
@@ -27,9 +28,14 @@ const GamePage = ({ setHasBeenFinished }: GamePageProps) => {
 
   return (
     <>
-      <p>Очки: {points}</p>
-      {isArrEmpty ? <GameStatistics/> : <>
-        <Timer time={memoizedTime} onFinish={onFinish} />
+      <div className={'points'}>
+        <p className={'points__text'}>Очки:</p>
+        <span className={'points__value'}>{points}</span>
+      </div>
+      {isArrEmpty ? <GameStatistics /> : <>
+        <div className={`${'timer-container'} ${'timer-container_transparent'} ${'timer-container_game'}`}>
+          <Timer time={memoizedTime} onFinish={onFinish} />
+        </div>
         <GameWordCard word={gameWords[currentWordIndex]} setCurrentWordIndex={setCurrentWordIndex} />
       </>
       }

@@ -1,8 +1,9 @@
-import { Card, Radio, RadioChangeEvent } from 'antd';
+import { Radio, RadioChangeEvent } from 'antd';
 import React, { useState } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { GamePhase } from '../../../types/types';
 import {generateRandomWords} from './utils';
+import './styles.scss';
 
 const Levels = () => {
   const [value, setValue] = useState();
@@ -18,17 +19,17 @@ const Levels = () => {
     .catch((error) => console.log(error));
   }; 
   return (
-    <Card style={{margin: 'auto', width: '70%'}}>
-      <p>Choose Level</p>
-      <Radio.Group onChange={onChange} value={value}>
-        <Radio value={0}>Extra Easy</Radio>
-        <Radio value={1} >Easy</Radio>
-        <Radio value={2}>Medium</Radio>
-        <Radio value={3}>Medium+</Radio>
-        <Radio value={4}>Hard</Radio>
-        <Radio value={5}>Extra Hard</Radio>
+    <div className={'levels'}>
+      <p className={'levels__title'}>Выбери уровень сложности</p>
+      <Radio.Group onChange={onChange} value={value} className={'radio-group'}>
+        <Radio value={0} className={'radio-value'}>Extra Easy</Radio>
+        <Radio value={1} className={'radio-value'}>Easy</Radio>
+        <Radio value={2} className={'radio-value'}>Medium</Radio>
+        <Radio value={3} className={'radio-value'}>Medium+</Radio>
+        <Radio value={4} className={'radio-value'}>Hard</Radio>
+        <Radio value={5} className={'radio-value'}>Extra Hard</Radio>
       </Radio.Group>
-    </Card>
+    </div>
   );
 };
 

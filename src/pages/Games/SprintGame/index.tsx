@@ -7,9 +7,10 @@ import Timer from './Timer';
 import GamePage from './GamePage';
 import { useActions } from '../../../hooks/useActions';
 import GameStatistics from './GameStatistics';
-import { Card } from 'antd';
 import OnStartPage from './OnStartPage';
 import getStatisticsActions from './StatisticsActions';
+import './styles.scss';
+import SparkleAnimation from '../../../components/SparkleAnimation';
 
 const SprintGame = () => {
   const { state } = useLocation();
@@ -20,7 +21,9 @@ const SprintGame = () => {
   const { reset } = useActions();
   const location = useLocation();
   const statsActions = getStatisticsActions({ user, gameWords, date, dailyStats, setDailyStatistics, setUsedWords });
-  const onFinish = () => setPhaseAction(GamePhase.RUNNING);
+  const onFinish = () => {
+    setPhaseAction(GamePhase.RUNNING);
+  };
 
   const init = () => {
     if (!user) return;
@@ -46,18 +49,19 @@ const SprintGame = () => {
   }
 
   return (
-    <>
-      <button type="button" onClick={() => setPhaseAction(GamePhase.INIT)}>Новая игра</button>
+    <section className={'section-sprint-game'}>
+      <SparkleAnimation />
+      <button type="button" className={`${'btn'} ${'btn_new-game'}`} onClick={() => setPhaseAction(GamePhase.INIT)}>Новая игра</button>
       {phase === GamePhase.INIT && (state === GameMode.MENU_GAME ? <Levels /> : <OnStartPage />)}
       {phase === GamePhase.STARTED &&
-        <Card style={{ margin: 'auto', width: '10%' }}>
+        <div className='timer-container'>
           <Timer time={6000} onFinish={onFinish} />
-          <p>Приготовься!</p>
-        </Card>
+          <p className='timer-text'>Приготовься!</p>
+        </div>
       }
       {phase === GamePhase.RUNNING && <GamePage setHasBeenFinished={setHasBeenFinished} />}
       {phase === GamePhase.FINISHED && <GameStatistics />}
-    </>
+    </section>
   );
 };
 
