@@ -14,7 +14,7 @@ interface GamePageProps {
 const GamePage = ({ setHasBeenFinished }: GamePageProps) => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const { setPhaseAction } = useActions();
-  const { gameWords, points } = useAppSelector((state) => state.game);
+  const { gameWords,  points } = useAppSelector((state) => state.game);
   const onFinish = useMemo(() => {
     return () => {
       setCurrentWordIndex(0);

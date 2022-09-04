@@ -5,11 +5,12 @@ import Container from "../../../components/Container";
 import ColorSubTitle from "../ColorSubTitle";
 import MemberBlock from "../MemberBlock";
 import avatar1 from "../../../assets/img/avatar/avatar1.jpg";
-console.log(avatar1);
+import avatar_ya from "../../../assets/img/avatar/avatar-ya.jpg";
+
 
 const team = [
   { name: "Nata", img: avatar1 },
-  { name: "Alex", img: avatar1 },
+  { name: "Alex", img: avatar_ya },
   { name: "Richard", img: avatar1 },
 ];
 

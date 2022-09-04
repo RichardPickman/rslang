@@ -20,14 +20,9 @@ const SubTitle = ({
       <svg
         width={`${width}px`}
         height={`${height}px`}
-        clip-rule='evenodd'
-        fill-rule='evenodd'
-        image-rendering='optimizeQuality'
-        shape-rendering='geometricPrecision'
-        text-rendering='geometricPrecision'
-        version='1.0'
+        
         viewBox='0 0 1800.4 667.95'
-        xmlns='http://www.w3.org/2000/svg'
+       
       >
         <path
           fill={`${color}`}

@@ -1,6 +1,7 @@
 import { ErrorsEnum } from "../types/types";
 
 export const baseURL = "https://hammerhead-app-zup87.ondigitalocean.app";
+// export const baseURL = "https://rs-lang-be-125.herokuapp.com";
 // export const baseURL = "https://stale-robin-9.loca.lt";
 
 // export const baseURL = "https://react-learnwords-example.herokuapp.com";

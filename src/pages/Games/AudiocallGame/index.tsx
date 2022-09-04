@@ -1,12 +1,9 @@
 import styles from "./styles.module.scss";
 
 import { useEffect, useState } from "react";
-
 import { IWord } from "../../../types/types";
-import DataLoader from "./miniApp/services/loader";
-
 import Main from "../../../components/Main";
-import Loader from "./miniApp/components/Loader";
+
 import GameProgress from "./miniApp/components/GameProgress";
 import AnswersBlock from "./miniApp/components/AnswersBlock";
 import ImageBlock from "./miniApp/components/ImageBlock";
@@ -23,42 +20,39 @@ import { wordsPerPage } from "../../../data/constants";
 import { Button, Radio, RadioChangeEvent, Card } from "antd";
 
 import Speaker from "./miniApp/components/Speaker";
+//----------outside
+import Levels from "./miniApp/components/Levels/LevelsYA";
+
+import { useLocation } from "react-router";
+import { useAppSelector } from "../../../hooks/useAppSelector";
+import { useActions } from "../../../hooks/useActions";
+import { GameMode, GamePhase } from "../../../types/types";
 
 const correct = require("./miniApp/assets/sound/correct.mp3");
 const wrong = require("./miniApp/assets/sound/wrong.mp3");
 
 const AudioCall = () => {
-  const [pageOfWords, setPageOfWords] = useState<Array<IWord>>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [imageSrc, setImageSrc] = useState("");
   const [currentWordNum, setCurrentWordNum] = useState(0);
-  const [playButton, setPlayButton] = useState("hello");
+  const [playButton, setPlayButton] = useState("Start");
   const [gameStatus, setGameStatus] = useState("pending");
   const [answers, setAnswers] = useState<Array<any>>([]);
   const [correctW, setCorrectW] = useState<Array<IWord>>([]);
   const [wrongW, setWrongW] = useState<Array<IWord>>([]);
   const [disable, setDisable] = useState(false);
-  const [correctLine, setCorrectLine] = useState(
-    new Array(wordsPerPage).fill(0)
-  );
+  const [correctLine, setCorrectLine] = useState(new Array(wordsPerPage).fill(0));
   const [wordsInGame, setWordsInGame] = useState(wordsPerPage);
-  const [setting, setSetting] = useState(true);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setIsLoading(true);
-        const page = await DataLoader.getWords();
-        setPageOfWords(page);
-      } catch (error) {
-        throw new Error("Error");
-      } finally {
-        setIsLoading(false);
-        setPlayButton("Start");
-      }
-    }
-    fetchData();
-  }, []);
+  //-------outside
+  const { phase, gameWords, fetchedWords, points } = useAppSelector((state) => state.game);
+  const { setPhaseAction, setDailyStatistics, setUsedWords } = useActions();
+  const { state } = useLocation();
+  const { isAuth, user } = useAppSelector((state) => state.auth);
+
+  // console.log( 'isAuth->',isAuth, 'user->', user);
+  // console.log("state -> ", state);
+
+  const pageOfWords = fetchedWords.slice(0, wordsPerPage);
 
   const correctProgress = () => {
     let _correctLine = [...correctLine];
@@ -102,9 +96,7 @@ const AudioCall = () => {
   };
 
   const manageButtons = () => {
-    const butts = document.querySelectorAll(
-      "[data-id]"
-    ) as NodeListOf<HTMLElement>;
+    const butts = document.querySelectorAll("[data-id]") as NodeListOf<HTMLElement>;
     butts.forEach((el) => (el.style.color = "black"));
   };
 
@@ -119,16 +111,12 @@ const AudioCall = () => {
     };
   }, [pageOfWords, currentWordNum, playButton]);
 
-
   const handleKeyDownAnswer = (e: KeyboardEvent) => {
-
     if (playButton === "Next" || playButton === "Continue") {
       return;
     }
 
-    const element = document.querySelector(
-      `[data-num="${e.key}"]`
-    ) as HTMLElement;
+    const element = document.querySelector(`[data-num="${e.key}"]`) as HTMLElement;
     if (element !== null) {
       if (pageOfWords[currentWordNum].id === element.getAttribute("data-id")) {
         CorrectWord(element);
@@ -144,7 +132,6 @@ const AudioCall = () => {
   };
 
   const HandleClickAnswer = (e: Event) => {
-   
     getImage(pageOfWords[currentWordNum]);
     setGameStatus("pressed");
     setPlayButton("Next");
@@ -159,22 +146,17 @@ const AudioCall = () => {
     }
     setCurrentWordNum(() => currentWordNum + 1);
   };
-  const init = () => {
-    if (!isLoading && wordsPerPage !== pageOfWords.length) {
-      setCorrectLine(new Array(pageOfWords.length).fill(0));
-      setWordsInGame(pageOfWords.length);
-    }
-  };
+  const init = () => {};
 
   const gamePlay = () => {
-      if (playButton === `I don't know`) {
-     setCurrentWordNum(() => currentWordNum + 1);
-      setPlayButton('Continue')
-      return
+    if (playButton === `I don't know`) {
+      setCurrentWordNum(() => currentWordNum + 1);
+      setPlayButton("Continue");
+      return;
     }
     init();
     if (currentWordNum >= 3) {
-      setGameStatus(() => "end");
+      setPhaseAction(GamePhase.FINISHED);
       return;
     }
     playFetchedAudio(pageOfWords[currentWordNum]);
@@ -183,77 +165,38 @@ const AudioCall = () => {
     if (gameStatus === "pressed") {
       manageButtons();
     }
-     
+
     setPlayButton(`I don't know`);
     setDisable(false);
     formAnswers();
   };
-  const mock = () => {};
-
-  const [group, setGroup] = useState(0);
-  const onChange3 = ({ target: { value } }: RadioChangeEvent) => {
-    console.log("radio checked", value);
-    setGroup(value);
-    setSetting(false);
-  };
-
-  const options = [
-    { label: "Group1", value: 1 },
-    { label: "Group2", value: 2 },
-    { label: "Group3", value: 3 },
-    { label: "Group4", value: 4 },
-    { label: "Group5", value: 5 },
-    { label: "Group6", value: 6 },
-  ];
 
   return (
     <div className={styles.wrapper}>
-      {isLoading && <Loader />}
       <Main>
         <>
-          {setting && (
-            <div className={styles.field}>
-              <Card style={{ width: 300 }}>
-                <Radio.Group
-                  options={options}
-                  onChange={onChange3}
-                  value={group}
-                  optionType="button"
-                />
-              </Card>
-            </div>
-          )}
-          {gameStatus !== "end" && !setting && (
+          {phase === GamePhase.INIT && state === GameMode.MENU_GAME && <Levels />}
+          {phase === GamePhase.STARTED && (
             <>
-              <GameProgress
-                pageOfWords={pageOfWords}
-                currentWordNum={currentWordNum}
-              />
+              <GameProgress pageOfWords={pageOfWords} currentWordNum={currentWordNum} />
 
               <div className={styles["field"]}>
                 <ImageBlock imageSrc={imageSrc} />
-                <Speaker
-                  size={gameStatus === "pressed" ? "small" : "big"}
-                  word={pageOfWords[currentWordNum - 1]}
-                />
+                <Speaker size={gameStatus === "pressed" ? "small" : "big"} word={pageOfWords[currentWordNum - 1]} />
                 <AnswersBlock
                   pageOfWords={pageOfWords}
                   answers={answers}
                   checkAnswer={HandleClickAnswer}
                   disable={disable}
                 />
-                <Button type="default" onClick={!isLoading ? gamePlay : mock}>
+                <Button type='default' onClick={gamePlay}>
                   {playButton}
                 </Button>
               </div>
             </>
           )}
-          {gameStatus === "end" && (
-            <GameModal
-              correctW={correctW.filter(Boolean)}
-              wrongW={wrongW.filter(Boolean)}
-              correctLine={longLine()}
-            />
+          {phase === GamePhase.FINISHED && (
+            <GameModal correctW={correctW.filter(Boolean)} wrongW={wrongW.filter(Boolean)} correctLine={longLine()} />
           )}
         </>
       </Main>
