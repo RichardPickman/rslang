@@ -87,7 +87,7 @@ export const Games = [
   }
 ]
 
-export const gameTimer = 31000;
+export const gameTimer = 5000;
 export const minWordsNumInSprintGame = 60;
 
 export const diffWordsFilter = `{"$and":[{"userWord.optional.isDifficult":"true"}]}`;

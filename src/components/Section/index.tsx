@@ -16,7 +16,7 @@ const Section: React.FC<Props> = ({
     <section className={`${styles.section}`}>
       <Container>
         <div className={`${styles['section__inner']}`}>
-          <SectionTitle title={title} />
+          {title.length > 0 && <SectionTitle title={title} />}          
           { children  }
         </div>
       </Container>

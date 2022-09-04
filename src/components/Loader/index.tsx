@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 const Loader = () => {
   return (
     <div className={`${styles['loader-container']} ${styles.bounce}`}>
-    <img src={loaderImg} />
+      <img src={loaderImg} alt={'loader'} />
     </div>
   );
 };
