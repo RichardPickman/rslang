@@ -1,3 +1,11 @@
+.section-unit-nav {
+  background-image: url('../../../assets/img/backgrounds/bg-textbook.png');
+}
+
+.section__inner {
+  padding: 40px 0px 80px;
+}
+
 .nav {
   display: flex;
   list-style: none;
@@ -5,6 +13,8 @@
 
 .nav__item {
   height: 170px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
   &:hover {
     cursor: pointer;
     & h3 {

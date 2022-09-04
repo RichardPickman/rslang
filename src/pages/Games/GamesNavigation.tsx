@@ -9,7 +9,7 @@ const GamesNavigation = ({ state }: { state: GameMode }) => {
   return (
     <ul className={`${styles['nav']}`}>
       {Games.map((game) => {
-        return <li className={`${styles['nav__item']}`}>
+        return <li className={`${styles['nav__item']}`} key={game.id}>
           <p className={`${styles['game__title']}`}>{game.title}</p>
           <p className={`${styles['game__description']}`}>{game.description}</p>
           <Link

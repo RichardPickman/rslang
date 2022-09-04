@@ -11,7 +11,6 @@ import Unit from "./pages/Textbook/Unit";
 import Signin from './pages/Signup/index';
 import DifficultWords from './pages/Textbook/DifficultWords/index';
 import TextbookLayout from "./pages/Textbook/TextbookLayout";
-import UserDictionary from "./pages/Textbook/UserDictionary";
 import SprintGame from './pages/Games/SprintGame/index';
 import GamesNavigation from "./pages/Games/GamesNavigation";
 import { ErrorsEnum, GameMode, IUser } from "./types/types";
@@ -52,7 +51,6 @@ export const App = () => {
     }
   }, []);
 
-
   return (
     <BrowserRouter>
       <Routes>
@@ -66,11 +64,8 @@ export const App = () => {
               <Route path={':id'} element={<Unit />}></Route>
             </Route>
           </Route>
-          <Route path={RouteNames.USER_DICTIONATY} element={<PrivateRoute><UserDictionary /></PrivateRoute>}>
-            <Route index element={<p>Some content</p>} />
-            <Route path={RouteNames.DIFFICULT_WORDS} element={<DifficultWords />} />
-            <Route path={RouteNames.LEARNED_WORDS} element={<LearnedWords />} />
-          </Route>
+          <Route path={RouteNames.DIFFICULT_WORDS} element={<PrivateRoute><DifficultWords /></PrivateRoute>} />
+          <Route path={RouteNames.LEARNED_WORDS} element={<PrivateRoute><LearnedWords /></PrivateRoute>} />
         </Route>
 
         <Route path={RouteNames.GAMES} element={<Games />}>
