@@ -5,9 +5,6 @@ import { DisplayedWord, IUser } from '../../../types/types';
 import Dictionary from '../Dictionary';
 import WordService from '../../../services/wordService';
 import { diffWordsFilter } from '../../../data/constants';
-import Container from '../../../components/Container';
-import SectionTitle from './../../../components/SectionTitle/index';
-import styles from './styles.module.scss';
 import Section from '../../../components/Section';
 
 
