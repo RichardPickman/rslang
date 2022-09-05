@@ -1,10 +1,10 @@
 import { Form, Input, Button } from 'antd';
-import { ValidateErrorEntity } from 'rc-field-form/lib/interface';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { RouteNames } from '../../router';
-import { LoginValues } from '../../types/types';
-import { rules } from '../../utils/rules';
+import { RouteNames } from '../../../router';
+import { LoginValues } from '../../../types/types';
+import { rules } from '../../../utils/rules';
+import '../styles.scss';
 
 interface LoginFormProps {
   onFinish: (values: LoginValues) => void,
@@ -16,21 +16,23 @@ const LoginForm = ({onFinish }: LoginFormProps) => {
     name="login"
     labelCol={{ span: 8 }}
     wrapperCol={{ span: 16 }}
-    initialValues={{ remember: true }}
+    // initialValues={{ remember: true }}
     onFinish={onFinish}
     autoComplete="off"
   >
     <Form.Item
       label="Email"
       name="email"
+      validateTrigger="onBlur"
       rules={[rules.required('Введите e-mail'), rules.isEmailCorrect()]}
     >
-      <Input />
+      <Input autoComplete='off'/>
     </Form.Item>
 
     <Form.Item
       label="Пароль"
       name="password"
+      validateTrigger="onBlur"
       rules={[rules.required('Введите пароль'), rules.isPasswordCorrect()]}
     >
       <Input.Password />
@@ -45,7 +47,7 @@ const LoginForm = ({onFinish }: LoginFormProps) => {
     <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
       <span>Еще не с нами? </span>
       <Link to={RouteNames.SIGNIN}>
-        Зарегистрироваться
+        Зарегистрируйся
       </Link>
     </Form.Item>    
   </Form>

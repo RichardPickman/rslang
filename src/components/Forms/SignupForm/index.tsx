@@ -1,9 +1,10 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { RouteNames } from '../../router';
-import { SignupValues } from '../../types/types';
-import { rules } from './../../utils/rules';
+import { RouteNames } from '../../../router';
+import { SignupValues } from '../../../types/types';
+import { rules } from '../../../utils/rules';
+import '../styles.scss';
 
 interface SignupFormProps {
   onFinish: (values: SignupValues) => void,
@@ -22,6 +23,7 @@ const SignupForm = ({ onFinish }: SignupFormProps) => {
       <Form.Item
         label="Имя"
         name="name"
+        validateTrigger="onBlur"
         rules={[rules.required('Введите имя')]}
       >
         <Input />
@@ -30,6 +32,7 @@ const SignupForm = ({ onFinish }: SignupFormProps) => {
       <Form.Item
         label="Email"
         name="email"
+        validateTrigger="onBlur"
         rules={[rules.required('Введите e-mail'), rules.isEmailCorrect()]}
       >
         <Input />
@@ -38,6 +41,7 @@ const SignupForm = ({ onFinish }: SignupFormProps) => {
       <Form.Item
         label="Пароль"
         name="password"
+        validateTrigger="onBlur"
         rules={[rules.required('Введите пароль'), rules.isPasswordCorrect()]}
       >
         <Input.Password />
