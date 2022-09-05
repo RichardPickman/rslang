@@ -27,6 +27,7 @@ const GamesNavigation = ({ state }: { state: GameMode }) => {
             {Games.map((game) => {
               const _style = {
                 width: 400,
+                height: 450,
                 background: game.id === 0 ? "#ff6666" : "#1ab9ff",
                 borderRadius: "20px",
                 overflow: "hidden",

@@ -1,23 +1,44 @@
 @import "./../../styles/colors";
 
 .footer {
-  background-color: #2c4073;
-  height: 85px;
+  height: 185px;
   color: $primary-color1;
+  background: url(../../assets/img/backgrounds/bg-footer-2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #2c4073;
 }
 
 .footer-inner {
   margin-top: 1rem;
+  padding: 20px 0;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2rem;
+  flex-grow: 1;
 }
 
 .rss-logo {
-  height: 40px;
+  height: 48px;
+  width: 130px;
+  background-image: url("../../assets/img/icon/rs-school-js.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .year {
+  font-size: 1.25rem;
   color: $primary-color1;
+}
+
+.rss-link {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
