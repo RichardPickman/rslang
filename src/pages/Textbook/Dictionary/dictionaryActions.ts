@@ -11,6 +11,7 @@ interface actionParams {
   id: string,
   word: string,
   user: IUser,
+  isDifficult?: boolean,
 }
 
 export const getDictActions = ({ setIsProcessing, words, setDictWords, setSelectedWord }: getDictActionsParams) => {
@@ -61,7 +62,7 @@ export const getDictActions = ({ setIsProcessing, words, setDictWords, setSelect
         });
     },
 
-    addToLearnedWords: ({ id, word, user }: actionParams) => {
+    addToLearnedWords: ({ id, word, user, isDifficult }: actionParams) => {
       WordsActions.addToLearnedWords({
         wordId: id,
         userId: (user as IUser).id,
@@ -71,6 +72,9 @@ export const getDictActions = ({ setIsProcessing, words, setDictWords, setSelect
           words.forEach((w) => {
             if (w.word.id === id) {
               _.set(w, 'userWord.optional.isLearned', 'true');
+              // if (isDifficult) {
+              //   _.set(w, 'userWord.optional.isDifficult', 'false');
+              // }
             }
           });
           Modal.showSuccessModal(`Слово ${word} добавлено в раздел "Изученные слова"`);
@@ -119,7 +123,7 @@ interface getDictActionsParams {
 export interface getDictActionsType {
   addToDifficultWords: ({ id, word, user }: actionParams) => void,
   removeFromDifficultWords: ({ id, word, user }: actionParams) => void,
-  addToLearnedWords: ({ id, word, user }: actionParams) => void,
+  addToLearnedWords: ({ id, word, user, isDifficult }: actionParams) => void,
   removeFromLearnedWords: ({ id, word, user }: actionParams) => void,
 }
 

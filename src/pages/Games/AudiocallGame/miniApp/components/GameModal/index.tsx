@@ -12,7 +12,6 @@ const GameModal = (props: any) => {
   const { setPhaseAction} = useActions();
   const navigate = useNavigate();
   const closeHandler = () => {
-    console.log("click");
     setPhaseAction(GamePhase.INIT);
     navigate(`${RouteNames.GAMES}`);
   };

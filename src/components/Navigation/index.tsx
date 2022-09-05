@@ -34,7 +34,7 @@ const Navigation = () => {
   }
   const location = useLocation();
   return (
-    <nav className='nav'>
+    <nav id="nav" className='nav'>
       <Link to={RouteNames.HOMEPAGE}>Главная</Link>
       <Link to={RouteNames.TEXTBOOK}>Учебник</Link>
       <Dropdown overlay={menu}>

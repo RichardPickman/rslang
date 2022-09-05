@@ -38,6 +38,7 @@ const getStatisticsActions = ({
               // push stats for current  date
               const body: UserStatisticsBody = {
                 optional: {
+                  'somekey': 'test',
                   sprint: {
                     usedWords: stats.optional?.sprint.usedWords || [],
                     daily: { ...daily, [date]: dailyStats }
@@ -63,6 +64,7 @@ const getStatisticsActions = ({
       if (user) {
         const body: UserStatisticsBody = {
           optional: {
+            'somekey': 'test',
             sprint: {
               usedWords: gameWords.map((w) => w.id),
               daily: {
@@ -92,6 +94,7 @@ const getStatisticsActions = ({
       };
       const body: UserStatisticsBody = {
         optional: {
+          'somekey': 'test',
           sprint: {
             usedWords: [...usedWords, ...stats.newWords],
             daily: { ...daily, [date]: updatedTodayStats }

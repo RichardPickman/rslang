@@ -8,12 +8,13 @@ import { RouteNames } from '../../../router';
 import './styles.scss';
 import type { MenuProps } from 'antd';
 import { useAppSelector } from './../../../hooks/useAppSelector';
-
+import InfoSvg from '../../../assets/img/icons/info.svg';
 
 const content = (
-  <div>
-    <p>Сложные слова выделены красным цветом</p>
-  </div>
+  <ul className='pop-over__content'>
+    <li>Сложные слова выделены красным цветом</li>
+    <li>Горящая лампочка означает, что слово добавлено в раздел "Изученные слова"</li>
+  </ul>
 );
 
 
@@ -73,14 +74,19 @@ const TextbookLayout = () => {
       <>
         <Container>
           <>
-            <Menu mode="horizontal"
-              selectedKeys={[lastSegment as string]}
-              items={isAuth ? authItems : items} onClick={onClick}
-              className={'nav'}
-            />
-            <Popover className='custom-pop-over' content={content} title="Title" trigger="hover">
-              <p>Hover me</p>
-            </Popover>
+
+            <div className='menu'>
+              <Menu mode="horizontal"
+                selectedKeys={[lastSegment as string]}
+                items={isAuth ? authItems : items} onClick={onClick}
+                className={'nav'}
+              />            {isAuth &&
+                <Popover className='custom-pop-over' content={content} trigger="hover">
+                  <img className={'info-icon'} src={InfoSvg} alt={'info icon'} />
+                </Popover>}
+
+            </div>
+
           </>
         </Container>
         <Outlet />

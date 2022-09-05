@@ -48,7 +48,6 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
 
   const onbtnClick = (btn: ButtonType) => {
     if (btn === ButtonType.WRONG) {
-      console.log('word', word);
       !word.isRight ? onSuccess() : onFailure();
     }
     if (btn === ButtonType.RIGHT) {

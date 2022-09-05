@@ -7,7 +7,6 @@ export default class Loader {
       const json = await response.json();
       return json;
     } catch (error) {
-      console.log("error", error);
     }
   }
 }
