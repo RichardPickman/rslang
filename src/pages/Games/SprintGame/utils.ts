@@ -72,8 +72,8 @@ export const generateRandomWordsFromPage = async ({
 function generateRandomPairs(words: IWord[], amount: number) {
   const wordsNum = words.length > amount ? amount : words.length;
   const rightAnswersNum = Number(randomUnique({
-    max: wordsNum - Math.floor(wordsNum / 4),
-    min: Math.floor(wordsNum / 2),
+    max: wordsNum - Math.floor(wordsNum / 2),
+    min: Math.floor(wordsNum / 4),
     count: 1,
   }));
   // get random number of wrong answers
