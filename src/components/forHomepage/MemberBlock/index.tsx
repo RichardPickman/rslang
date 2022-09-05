@@ -14,7 +14,7 @@ const MemberBlock = ({
 }) => {
   const _style = { width: `${width}px`, height: `${height}px` };
   return (
-    <li className={styles['member__item']}>
+    <div className={styles['member__item']}>
       <div className={styles['item__inner']}>
         <div className={styles.photo} style={{ backgroundImage: `url(${person.img})` }}></div>
         <div className={styles.title} style={{}}>
@@ -29,7 +29,7 @@ const MemberBlock = ({
           {person.description}
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 

@@ -14,9 +14,10 @@
 }
 
 .flex-top {
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-left: 15px;
 }
 
 .promo {
@@ -30,8 +31,15 @@
 }
 
 .soft-font-2 {
-  font-family: "appetite-italic";
-  color: $primary-color2;
+
+  max-width: 65%;
+  display: flex;
+  align-items: flex-end;
+  & .title {
+    font-family: "appetite-italic", sans-serif;
+    color: $primary-color2;
+    font-size: 4rem;
+  }
 }
 
 h1 {
@@ -54,4 +62,8 @@ h4 {
 }
 .slogan {
   color: rgb(93, 26, 216)
+}
+
+.description {
+
 }
