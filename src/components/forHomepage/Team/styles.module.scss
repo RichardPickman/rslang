@@ -1,11 +1,12 @@
 @import "../../../styles/styles.scss";
 
 .team {
-  height: 70vh;
   width: 100%;
   background-image: url("../../../assets/img/background/bg-team-2.png");
   background-repeat: no-repeat;
   background-position: center bottom;
+  padding-bottom: 3rem;
+  
 }
 
 .title {
@@ -15,5 +16,7 @@
 
 .flex {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 3rem 3rem
 }
