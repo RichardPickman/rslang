@@ -37,11 +37,21 @@ const Hero = () => {
               </div>
               <div>
                 <CheckCircle size='40' bgcolor='#1ab9ff' textcolor='#2b3c6b'>
+                  Возможность индивидуализированной работы
+                </CheckCircle>
+              </div>
+              <div>
+                <CheckCircle size='40' bgcolor='#e9a30d' textcolor='#2b3c6b'>
                   Учебные игры
                 </CheckCircle>
               </div>
+              <div>
+                <CheckCircle size='40' bgcolor='#455b97' textcolor='#2b3c6b'>
+                  Прогресс изучения и статистика
+                </CheckCircle>
+              </div>
             </div>
-            <h3 className={styles.h3}>Учить язык - значит открыть новое окно в мир</h3>
+            <h2 className={styles.slogan}>Учить язык - значит открыть новое окно в мир</h2>
             <div style={{ marginTop: "7rem" }}></div>
             <div className={styles["flex-top"]}>
               <Link to={RouteNames.TEXTBOOK}>
