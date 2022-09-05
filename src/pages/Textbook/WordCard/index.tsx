@@ -17,12 +17,17 @@ const WordCard = ({ word, onCardClick, selected, dictActions }: WordCardProps) =
   const isDifficult = !isAuth ? false :
     isDifficultValue ? JSON.parse(isDifficultValue.toLowerCase()) : false;
 
+  const isLearnedValue = word.userWord?.optional?.isLearned;
+  const isLearned = !isAuth ? false :
+    isLearnedValue ? JSON.parse(isLearnedValue.toLowerCase()) : false;
+
   return (
     <div
       className={`
     ${styles.item} 
     ${selected && styles.item_selected}
-    ${isDifficult && styles.item_difficult}`}
+    ${isDifficult && styles.item_difficult}
+    ${isLearned && styles.item_learned}`}
       onClick={() => onCardClick(word)}>
       <p className={styles['item__word']}>{word.word.word}</p>
       <p className={styles['item__translation']}>{word.word.wordTranslate}</p>

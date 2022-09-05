@@ -72,7 +72,9 @@ const ControlBar = ({ word, dictActions }: ControlBar) => {
             title='Добавить в раздел "Изученные слова"'
             onClick={(e) => {
               e.stopPropagation();
-              dictActions.addToLearnedWords({ id: word.word.id, word: word.word.word, user: user as IUser });
+              const isDifficultValue = word.userWord?.optional?.isDifficult;
+              const isDifficult = isDifficultValue ? JSON.parse(isDifficultValue.toLowerCase()) : false;
+              dictActions.addToLearnedWords({ id: word.word.id, word: word.word.word, user: user as IUser, isDifficult });
             }}
           >
             <img src={BulbOff} alt='bulb off' />

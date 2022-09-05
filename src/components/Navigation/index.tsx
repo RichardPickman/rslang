@@ -7,12 +7,19 @@ import { Dropdown, Menu, Space } from 'antd';
 import { GameMode, TransitionEnum } from '../../types/types';
 import { NavigateState } from './../../types/types';
 import './styles.scss';
+import AudioCall from './../../pages/Games/AudiocallGame/index';
 
 const menuItems = [
   {
     key: '0',
     label: <Link to={`${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`}
       state={GameMode.MENU_GAME}>Спринт
+    </Link>,
+  },
+  {
+    key: '1',
+    label: <Link to={`${RouteNames.GAMES}/${RouteNames.AUDIOCALL_GAME}`}
+      state={GameMode.MENU_GAME}>Аудиовызов
     </Link>,
   }
 ];
@@ -27,7 +34,7 @@ const Navigation = () => {
   }
   const location = useLocation();
   return (
-    <nav className='nav'>
+    <nav id="nav" className='nav'>
       <Link to={RouteNames.HOMEPAGE}>Главная</Link>
       <Link to={RouteNames.TEXTBOOK}>Учебник</Link>
       <Dropdown overlay={menu}>
@@ -43,9 +50,9 @@ const Navigation = () => {
             <button className={`${'btn'} ${'btn_logout'}`} type="button" onClick={handleLogoutClick}>Выйти</button>
           </> :
           <Link
-          className={`${'btn'} ${'btn_login'}`} 
-          to={RouteNames.AUTHORIZATION} 
-          state={{ mode: TransitionEnum.NORMAL, location: location.pathname } as NavigateState}> Войти</Link>
+            className={`${'btn'} ${'btn_login'}`}
+            to={RouteNames.AUTHORIZATION}
+            state={{ mode: TransitionEnum.NORMAL, location: location.pathname } as NavigateState}> Войти</Link>
       }
     </nav >
   );

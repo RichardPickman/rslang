@@ -49,9 +49,6 @@ const AudioCall = () => {
   const { state } = useLocation();
   const { isAuth, user } = useAppSelector((state) => state.auth);
 
-  // console.log( 'isAuth->',isAuth, 'user->', user);
-  // console.log("state -> ", state);
-
   const pageOfWords = fetchedWords.slice(0, wordsPerPage);
 
   const correctProgress = () => {

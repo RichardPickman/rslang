@@ -12,6 +12,8 @@ import GamesNavigation from '../../Games/GamesNavigation';
 import { useActions } from './../../../hooks/useActions';
 import styles from './styles.module.scss';
 import Section from '../../../components/Section';
+import { Popover } from 'antd';
+
 
 const Unit = () => {
   const { id } = useParams<string>();
@@ -36,6 +38,7 @@ const Unit = () => {
       <div className={`${styles['section-unit']}`}>
         <Section title={`Unit ${id}`} >
           <>
+
             {isLoading && <Loader />}
             {!isLoading && (words && <>
               <Dictionary words={words} />

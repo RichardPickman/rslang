@@ -24,7 +24,7 @@ const Hero = () => {
       <Container>
         <div className={styles.wrapper}>
           <div style={{ margin: "12rem 0 3rem" }}>
-            <ColorSubTitle width='120' height='40' color='#1ab9ff'>
+            <ColorSubTitle width='120' height='40' color='#ffffff'>
               Почему Выбирают RS Lang
             </ColorSubTitle>
             <div style={{ margin: "2rem" }}></div>

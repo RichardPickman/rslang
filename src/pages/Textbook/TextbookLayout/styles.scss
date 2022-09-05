@@ -20,7 +20,7 @@
   background-position: center center;
 }
 
-.nav.ant-menu-horizontal {
+.menu .nav.ant-menu-horizontal {
  
   padding: 0px;
   border-radius: 7px;
@@ -29,11 +29,9 @@
   border: none;
 
   margin: 20px 0px;
-  width: 40%;
+  width: 100%;
   & .ant-menu-item, & .ant-menu-submenu {    
     border-radius: 5px;
-    // width: 200px;
-    // height: 55px;
     background-color: transparent;
     border: 2px solid rgba(34, 54, 104,0.1);
     transition: all 0.3s ease;
@@ -122,4 +120,29 @@
   & .ant-menu-submenu::after {
     content: none;
   }
+
+
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-pop-over {
+  display: inline;
+}
+
+.info-icon {
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.pop-over__content {
+  padding: 10px;
 }
