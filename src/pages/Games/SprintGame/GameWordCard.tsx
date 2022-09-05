@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useActions } from '../../../hooks/useActions';
 import { useAppSelector } from '../../../hooks/useAppSelector';
 import { GameWord, IWord } from '../../../types/types';
-import styles from './styles.module.scss';
 import { pointsPerWord } from './../../../data/constants';
 import correctSound from '../../../assets/sounds/correct-answer.wav';
 import incorrectSound from '../../../assets/sounds/incorrect-answer.wav';
+import './styles.scss';
 
 interface WordCardProps {
   word: GameWord,
@@ -22,21 +22,6 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
   const { setPointsAction, setLearnedWord, setFailedWord, setMaxSequence } = useActions();
   const [sequence, setSequence] = useState(0);
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.keyCode === Number('37')) {
-      onbtnClick(ButtonType.WRONG)
-    }
-    if (e.keyCode === Number('39')) {
-      onbtnClick(ButtonType.RIGHT)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener<"keydown">('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    }
-  }, []);
 
   const onSuccess = () => {
     const audioCorrect = new Audio(correctSound);
@@ -63,6 +48,7 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
 
   const onbtnClick = (btn: ButtonType) => {
     if (btn === ButtonType.WRONG) {
+      console.log('word', word);
       !word.isRight ? onSuccess() : onFailure();
     }
     if (btn === ButtonType.RIGHT) {
@@ -71,11 +57,15 @@ const GameWordCard = ({ word, setCurrentWordIndex }: WordCardProps) => {
     setCurrentWordIndex((prevIndex) => prevIndex + 1);
   }
   return (
-    <div className={styles.card}>
-      <h3 className={styles.card__word}>{word.word}</h3>
-      <h4 className={styles.card__translation}>{word.translation}</h4>
-      <button type="button" onClick={() => onbtnClick(ButtonType.WRONG)}>Неверно</button>
-      <button type="button" onClick={() => onbtnClick(ButtonType.RIGHT)}>Верно</button>
+    <div className={'card'}>
+      <h3 className={'card__word'}>{word.word}</h3>
+      <h4 className={'card__translation'}>{word.translation}</h4>
+      <div className={'card__controls'}>
+        <button type="button" className={`${'btn'} ${'btn_answer'}`}
+          onClick={() => onbtnClick(ButtonType.WRONG)}>Неверно</button>
+        <button type="button" className={`${'btn'} ${'btn_answer'}`}
+          onClick={() => onbtnClick(ButtonType.RIGHT)}>Верно</button>
+      </div>
     </div>
   );
 };

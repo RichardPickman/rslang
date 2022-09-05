@@ -82,6 +82,7 @@ export const Games = [
   {
     id: 0,
     title: 'Аудиовызов',
+
     description: 'Проверь насколько хорошо ты знаешь перевод английских слов. Произносится серия английских слов. Из представленного набора ответов выбери подходящий.',
     rules: '',
     img: './assets/img/background/audiocall-promo.jpg',
@@ -94,10 +95,11 @@ export const Games = [
     rules: '',
     img: '../../assets/img/background/audiocall-promo.jpg',
     link: RouteNames.SPRINT_GAME
+
   }
 ]
 
-export const gameTimer = 5000;
+export const gameTimer = 31000;
 export const minWordsNumInSprintGame = 60;
 
 export const diffWordsFilter = `{"$and":[{"userWord.optional.isDifficult":"true"}]}`;

@@ -1,3 +1,27 @@
+.section-games {
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-items {
+  background-image: url("../../assets/img/backgrounds/bg-items.png");
+  background-size: cover;
+  background-position-x: center;
+  background-repeat: no-repeat;
+
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+}
+
+.pattern-stars {
+  position: absolute;
+  bottom: 10%;
+  right: 3%;
+}
+
 .nav {
   margin-top: 8%;
   list-style: none;
@@ -7,19 +31,28 @@
 }
 
 .nav__item {
+  position: relative;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   color: #ffffff;
 
-  border-radius: 7px;
-  background-color: #b251fe;
+  border-radius: 10px;
+
   font-size: 18px;
   border: 2px solid #ffffff;
 
   width: 300px;
   margin: 0;
+
   padding: 10px 15px;
 
   text-align: justify;
   & a {
+    position: absolute;
+    bottom: 6%;
     display: flex;
     align-items: center;
     justify-content: center;

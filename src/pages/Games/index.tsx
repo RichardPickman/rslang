@@ -1,12 +1,11 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Footer from '../../components/Footer';
-import Layout from '../../components/Layout';
 import Main from '../../components/Main';
 import Wrapper from '../../components/Wrapper';
 import { RouteNames } from '../../router';
 import Header from '../../components/Header/index';
-import styles from './styles.module.scss';
+import Intro from '../../components/Intro';
 
 const Games = () => {
   const location = useLocation();
@@ -14,6 +13,7 @@ const Games = () => {
     <Wrapper>
       <>
         <Header />
+        {location.pathname === RouteNames.GAMES &&  <Intro title={'Игры'}/>}       
         <Main>
             <Outlet />
         </Main>

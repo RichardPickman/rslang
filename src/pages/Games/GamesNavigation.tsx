@@ -1,3 +1,4 @@
+
 import styles from "./styles.module.scss";
 
 import React from "react";
@@ -27,6 +28,7 @@ const GamesNavigation = ({ state }: { state: GameMode }) => {
           </Link>
         );
       })}
+
     </div>
   );
 };
