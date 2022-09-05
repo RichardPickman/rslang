@@ -14,7 +14,6 @@ const playAudio = (word: IWord) => {
           audio.play()
         })
         .catch((error) => {
-          console.log('sound load error', error)
         })
     }
   }, 1000)

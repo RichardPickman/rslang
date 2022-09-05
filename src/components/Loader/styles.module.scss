@@ -5,6 +5,8 @@
   margin: 0 auto;
   animation-duration: 1s; 
   animation-fill-mode: both; 
+  position: relative;
+  z-index: 10000;
 }
 
 @keyframes bounce { 

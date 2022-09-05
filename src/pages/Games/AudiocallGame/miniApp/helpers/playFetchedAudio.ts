@@ -20,7 +20,6 @@ const playFetchedAudio = async (word: IWord) => {
       } 
 
   catch (error) {
-      console.log("error", error);
   }
 }
 

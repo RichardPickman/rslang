@@ -1,15 +1,17 @@
 .header {
   background-color: #2c4073;
   height: 85px;
-  position: relative;
+  
 }
 
 .header__inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
   height: 100%;
+  position: relative;
+  padding: 0px 25px;
 }
 
 .wrapper {
@@ -19,22 +21,21 @@
 }
 
 .logo-box {
-  position: absolute;
-  top: 50%;
-  left: 4rem;
-  width: 200px;
-  transform: translate(0, -50%);
+  display: flex;
+  height: 60px;
 }
 
-.logo-full {
-  width: 200px;
+.logo__text {
+  color: #FFFFFF;
+  font-size: 36px;
+  padding: 0px;
+  margin: 0px;
+  padding-left: 3px;
 }
-.logo {
-  width: 50px;
-  display: none;
+.logo__icon {
+  height: 100%;
+  
 }
 @media only screen and (max-width: 1200px) {
-   .logo-full{ display: none;}
-   .logo {display: block;}
-  
+
 }

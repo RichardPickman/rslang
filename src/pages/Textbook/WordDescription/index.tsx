@@ -38,7 +38,6 @@ const WordDescription = ({
         <Audio buffer={audioWord} context={context} />
       </span>
 
-
       <h5 className={styles['item__section']}>Значение</h5>
       <span className={styles['item__group']}>
         <p className={styles['item__meaning']}>{textMeaning}</p>
