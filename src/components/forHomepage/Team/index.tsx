@@ -11,9 +11,9 @@ import { motion } from "framer-motion";
 
 
 const team = [
-  { name: "Nata", img: avatar_nata, description: 'Разработала весь основной функционал приложения на React, настроила Redux, сверстала следующие страницы: Учебник, Игры, Статистика, Авторизация, Регистрация. Написала игру Спринт. Реализовала ежедневную статистику по игре Спринт.', github: "https://github.com/nata-kostina" },
-  { name: "Alex", img: avatar_ya, description: '', github: "https://github.com/ya6" },
-  { name: "Richard", img: avatar1, description: '', github: "http://github.com/richardpickman" },
+  { name: "Nata", img: avatar_nata, description: 'Разработала весь функционал приложения на React, настроила Redux, сверстала следующие страницы: Учебник, Игры, Статистика, Авторизация, Регистрация. Написала игру Спринт. Реализовала ежедневную статистику по игре Спринт.', github: "https://github.com/nata-kostina" },
+  { name: "Alex", img: avatar_ya, description: 'Реализовал игру Аудиовызов. Сверстал Главную страницу.', github: "https://github.com/ya6" },
+  { name: "Richard", img: avatar1, description: 'Занимался миграцией backend части проекта на typescript.', github: "http://github.com/richardpickman" },
 ];
 const textAnimation = {
   hidden: {

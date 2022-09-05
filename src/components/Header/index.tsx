@@ -9,7 +9,6 @@ import { RouteNames } from "../../router";
 const Header = () => {
   return (
     <header className={styles.header}>
-      <Container>
         <div className={styles.header__inner}>
           <Link to={RouteNames.HOMEPAGE} className={styles['logo-box']} title={'Перейти на Главную страницу'}>
               <img className={styles['logo__icon']} src={logo} alt="logo"></img>
@@ -17,7 +16,6 @@ const Header = () => {
           </Link>
           <Navigation />
         </div>
-      </Container>
     </header>
   );
 };

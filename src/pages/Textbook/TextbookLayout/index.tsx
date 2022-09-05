@@ -1,4 +1,4 @@
-import { Menu } from 'antd';
+import { Menu, Popover } from 'antd';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link, Outlet } from 'react-router-dom';
@@ -8,6 +8,14 @@ import { RouteNames } from '../../../router';
 import './styles.scss';
 import type { MenuProps } from 'antd';
 import { useAppSelector } from './../../../hooks/useAppSelector';
+
+
+const content = (
+  <div>
+    <p>Сложные слова выделены красным цветом</p>
+  </div>
+);
+
 
 const items: MenuProps['items'] = [
   {
@@ -64,11 +72,16 @@ const TextbookLayout = () => {
     <LayoutWithIntro title={'Учебник'}>
       <>
         <Container>
-          <Menu mode="horizontal"
-            selectedKeys={[lastSegment as string]}
-            items={isAuth ? authItems : items} onClick={onClick}
-            className={'nav'}
-          />
+          <>
+            <Menu mode="horizontal"
+              selectedKeys={[lastSegment as string]}
+              items={isAuth ? authItems : items} onClick={onClick}
+              className={'nav'}
+            />
+            <Popover className='custom-pop-over' content={content} title="Title" trigger="hover">
+              <p>Hover me</p>
+            </Popover>
+          </>
         </Container>
         <Outlet />
       </>
