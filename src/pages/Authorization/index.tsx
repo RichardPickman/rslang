@@ -2,10 +2,13 @@ import React, { useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LoginValues, TransitionEnum } from '../../types/types';
-import LoginForm from '../../components/LoginForm';
+import LoginForm from '../../components/Forms/LoginForm';
 import { useActions } from './../../hooks/useActions';
 import Modal from '../../components/ui/Modal';
 import { NavigateState } from './../../types/types';
+import styles from './styles.module.scss';
+import Container from './../../components/Container/index';
+import { motion } from 'framer-motion';
 
 const Login = () => {
   const { login } = useActions();
@@ -22,14 +25,25 @@ const Login = () => {
 
   return (
     <Layout>
-      <>
-        {mode === TransitionEnum.REDIRECTION &&
-          <div>
-            <p>Запрашиваемая страница доступна только авторизированным пользователям.</p>
-            <p>Пожалуйста, войдите в свой аккаунт.</p>
-          </div>}
-        <LoginForm onFinish={submitForm} />
-      </>
+      <div className={`${styles['section-authorization']}`}>
+        <motion.div
+          className={`${styles['bg-items']}`}
+          animate={{ rotate: 7 }}
+          transition={{ repeat: Infinity, duration: 6, repeatType: 'mirror' }}
+        />
+        <div className={styles['redirection__inner']}>
+          {mode === TransitionEnum.REDIRECTION &&
+
+            <>
+              <div className={styles['redirection-info']}>
+                <p>Запрашиваемая страница доступна только авторизированным пользователям.</p>
+                <p>Пожалуйста, войди в свой аккаунт.</p>
+              </div>
+            </>
+          }
+          <LoginForm onFinish={submitForm} />
+        </div>
+      </div>
     </Layout>
   );
 };

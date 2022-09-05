@@ -1,0 +1,38 @@
+.redirection__inner {
+  padding: 20px;
+  padding-bottom: 50px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.redirection-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-family: "Shantell";
+  font-weight: 400;
+}
+.section-authorization {
+  overflow: hidden;
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+}
+
+.bg-items {
+  background-image: url("../../assets/img/backgrounds/bg-items.png");
+  background-size: cover;
+  background-position-x: center;
+  background-repeat: no-repeat;
+
+  position: absolute;
+
+  height: 100%;
+  width: 100%;
+}

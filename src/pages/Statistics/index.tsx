@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Layout from '../../components/Layout';
 import LayoutWithIntro from '../../components/LayoutWithIntro';
 import Section from './../../components/Section/index';
 import styles from './styles.module.scss';
 import { useAppSelector } from './../../hooks/useAppSelector';
 import getStatisticsActions from './StatisticsActions';
-import { IUser, StatItem } from '../../types/types';
+import { StatItem } from '../../types/types';
 import Loader from '../../components/Loader';
 import TodayStatistics from './TodayStatistics';
 import GameStatistics from './GameStatistics';
 import Chart from '../../components/ui/Chart';
 import patternBulb from '../../assets/img/patterns/program_details1.png';
-import patternLines from '../../assets/img/patterns/program_details2.png';
 import SectionTitle from '../../components/SectionTitle';
 import Container from '../../components/Container';
 

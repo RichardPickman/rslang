@@ -22,7 +22,7 @@ interface signupParams {
   values: SignupValues,
   navigate: NavigateFunction,
   onSignupSuccess: () => void,
-  onSignupFailed: () => void,
+  onSignupFailed: (error: string) => void,
 }
 const signup =
   ({ values, onSignupSuccess, onSignupFailed }: signupParams) => {
@@ -33,9 +33,7 @@ const signup =
           return response;
         })
         .catch((error: Error) => {
-          if (error.message === ErrorsEnum.EMAIL_EXISTS) {
-            onSignupFailed();
-          }
+          onSignupFailed(error.message);
         });
     }
   };
