@@ -82,16 +82,20 @@ export const Games = [
   {
     id: 0,
     title: 'Аудиовызов',
-    description: 'Развиваем словарный запас.', 
+
+    description: 'Проверь насколько хорошо ты знаешь перевод английских слов. Произносится серия английских слов. Из представленного набора ответов выбери подходящий.',
     rules: '',
-    link: `${RouteNames.GAMES}/${RouteNames.AUDIOCALL_GAME}`,
+    img: './assets/img/background/audiocall-promo.jpg',
+    link: RouteNames.AUDIOCALL_GAME
   },
   {
     id: 1,
     title: 'Спринт',
     description: 'Проверь насколько хорошо ты знаешь перевод английских слов. За ограниченный период времени тебе необходимо дать как можно больше правильных ответов.',
-    rules: 'Твоя задача - определить правильность перевода английского слова.',
-    link: `${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`,
+    rules: '',
+    img: '../../assets/img/background/audiocall-promo.jpg',
+    link: RouteNames.SPRINT_GAME
+
   }
 ]
 
