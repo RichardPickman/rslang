@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const GameModal = (props: any) => {
   const { correctW, wrongW, correctLine } = props;
-  const { setPhaseAction, setDailyStatistics, setUsedWords } = useActions();
+  const { setPhaseAction} = useActions();
   const navigate = useNavigate();
   const closeHandler = () => {
     console.log("click");
@@ -22,7 +22,6 @@ const GameModal = (props: any) => {
       <div className={styles.wrapper}>
         <div className={styles["flex-block-around"]}>
           <div className={styles.header}>Результаты</div>
-          {/* <PlayAgainButton link="/audiocall" /> */}
         </div>
         <div>{`Правильно: ${correctW.length}`}</div>
         <div>{`Ошибок: ${wrongW.length}`}</div>

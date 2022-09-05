@@ -1,10 +1,9 @@
 .nav {
-  margin-top: 5vh;
+  margin-top: 8%;
   list-style: none;
   display: flex;
   justify-content: center;
   gap: 10rem;
-  
 }
 
 .nav__item {
@@ -37,7 +36,7 @@
 
     &:hover {
       background-color: #ffffff;
-      color: #FF6666;
+      color: #ff6666;
     }
   }
 }
@@ -48,5 +47,5 @@
 
 .game__description {
   line-height: 30px;
-    margin-bottom: 26px;
+  margin-bottom: 26px;
 }
