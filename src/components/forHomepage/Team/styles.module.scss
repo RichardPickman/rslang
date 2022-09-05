@@ -1,12 +1,14 @@
 @import "../../../styles/styles.scss";
 
 .team {
+  display: flex;
   width: 100%;
-  background-image: url("../../../assets/img/background/bg-team-2.png");
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  padding-bottom: 3rem;
-  
+  background-color: #FCF9F4;
+  margin-top: 30px;
+}
+
+.team__inner {
+  padding: 20px 0px;
 }
 
 .title {
@@ -14,9 +16,14 @@
   color: $primary-color2;
 }
 
-.flex {
+.github-link {
+
+
+}
+
+.list {
+  list-style: none;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 3rem 3rem
+  justify-content: space-between;
 }
