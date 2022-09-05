@@ -18,7 +18,6 @@ const Intro = ({ title }: IntroProps) => {
       <div className={`${styles['container']}`}>
         <h1 className={`${styles['intro__title']}`}>{title}</h1>
       </div>
-
     </section>
   );
 };

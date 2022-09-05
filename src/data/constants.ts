@@ -82,20 +82,22 @@ export const Games = [
   {
     id: 0,
     title: 'Аудиовызов',
-    description: 'Развиваем словарный запас.', 
+    description: 'Тренеруй восприятие английских слов наслух. Прослушай английское слово и выбери из представленного набора ответов верный.',
     rules: '',
-    link: `${RouteNames.GAMES}/${RouteNames.AUDIOCALL_GAME}`,
+    img: './assets/img/background/audiocall-promo.jpg',
+    link: RouteNames.AUDIOCALL_GAME,
   },
   {
     id: 1,
     title: 'Спринт',
     description: 'Проверь насколько хорошо ты знаешь перевод английских слов. За ограниченный период времени тебе необходимо дать как можно больше правильных ответов.',
     rules: 'Твоя задача - определить правильность перевода английского слова.',
-    link: `${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`,
+    img: '../../assets/img/background/audiocall-promo.jpg',
+    link: RouteNames.SPRINT_GAME,
   }
 ]
 
-export const gameTimer = 31000;
+export const gameTimer = 5000;
 export const minWordsNumInSprintGame = 60;
 
 export const diffWordsFilter = `{"$and":[{"userWord.optional.isDifficult":"true"}]}`;

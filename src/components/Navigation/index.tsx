@@ -2,17 +2,24 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { RouteNames } from '../../router';
-import styles from './styles.module.scss';
 import { useActions } from '../../hooks/useActions';
 import { Dropdown, Menu, Space } from 'antd';
 import { GameMode, TransitionEnum } from '../../types/types';
 import { NavigateState } from './../../types/types';
+import './styles.scss';
+import AudioCall from './../../pages/Games/AudiocallGame/index';
 
 const menuItems = [
   {
     key: '0',
     label: <Link to={`${RouteNames.GAMES}/${RouteNames.SPRINT_GAME}`}
       state={GameMode.MENU_GAME}>Спринт
+    </Link>,
+  },
+  {
+    key: '1',
+    label: <Link to={`${RouteNames.GAMES}/${RouteNames.AUDIOCALL_GAME}`}
+      state={GameMode.MENU_GAME}>Аудиовызов
     </Link>,
   }
 ];
@@ -27,7 +34,7 @@ const Navigation = () => {
   }
   const location = useLocation();
   return (
-    <nav className={styles.nav}>
+    <nav id="nav" className='nav'>
       <Link to={RouteNames.HOMEPAGE}>Главная</Link>
       <Link to={RouteNames.TEXTBOOK}>Учебник</Link>
       <Dropdown overlay={menu}>
@@ -39,12 +46,13 @@ const Navigation = () => {
       {
         isAuth ?
           <>
-            <span>Hi, {user?.name}</span>
-            <button type="button" onClick={handleLogoutClick}>Выйти</button>
+            <span className='greetings'>Hi, {user?.name}</span>
+            <button className={`${'btn'} ${'btn_logout'}`} type="button" onClick={handleLogoutClick}>Выйти</button>
           </> :
-          <Link 
-          to={RouteNames.AUTHORIZATION} 
-          state={{ mode: TransitionEnum.NORMAL, location: location.pathname } as NavigateState}> Войти</Link>
+          <Link
+            className={`${'btn'} ${'btn_login'}`}
+            to={RouteNames.AUTHORIZATION}
+            state={{ mode: TransitionEnum.NORMAL, location: location.pathname } as NavigateState}> Войти</Link>
       }
     </nav >
   );

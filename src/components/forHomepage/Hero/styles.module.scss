@@ -1,7 +1,7 @@
 @import "../../../styles/styles.scss";
 
 .hero {
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background-image: url("../../../assets/img/background/hero-bg.jpg");
   background-repeat: no-repeat;
@@ -14,23 +14,15 @@
 }
 
 .flex-top {
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-left: 15px;
 }
 
 .promo {
   margin: 3rem 0;
   flex: 2;
-}
-
-.hero-image {
-  height: 30rem;
-  flex: 1;
-  background-image: url("../../../assets/img/background/hero-image.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
 }
 
 .soft-font {
@@ -39,8 +31,15 @@
 }
 
 .soft-font-2 {
-  font-family: "appetite-italic";
-  color: $primary-color2;
+
+  max-width: 65%;
+  display: flex;
+  align-items: flex-end;
+  & .title {
+    font-family: "appetite-italic", sans-serif;
+    color: $primary-color2;
+    font-size: 4rem;
+  }
 }
 
 h1 {
@@ -60,4 +59,11 @@ h3 {
 
 h4 {
   font-size: 1.1rem;
+}
+.slogan {
+  color: rgb(93, 26, 216)
+}
+
+.description {
+
 }

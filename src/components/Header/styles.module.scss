@@ -1,12 +1,41 @@
 .header {
-  background-color: #2C4073;
+  background-color: #2c4073;
   height: 85px;
+  
 }
 
 .header__inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 90%;
   height: 100%;
+  position: relative;
+  padding: 0px 25px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.logo-box {
+  display: flex;
+  height: 60px;
+}
+
+.logo__text {
+  color: #FFFFFF;
+  font-size: 36px;
+  padding: 0px;
+  margin: 0px;
+  padding-left: 3px;
+}
+.logo__icon {
+  height: 100%;
+  
+}
+@media only screen and (max-width: 1200px) {
+
 }

@@ -229,6 +229,7 @@ export interface StatItem {
 export interface UserStatistics {
   learnedWords: number,
   optional?: {
+    'somekey': 'test',
     sprint: {
       usedWords: string[], // all words ids that were used in Game for the whole period
       daily: Record<StatDate, StatItem> // record of daily statistics

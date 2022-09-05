@@ -17,7 +17,7 @@ import playSound from "./miniApp/helpers/platSound";
 
 import { wordsPerPage } from "../../../data/constants";
 
-import { Button, Radio, RadioChangeEvent, Card } from "antd";
+import { Button } from "antd";
 
 import Speaker from "./miniApp/components/Speaker";
 //----------outside
@@ -48,9 +48,6 @@ const AudioCall = () => {
   const { setPhaseAction, setDailyStatistics, setUsedWords } = useActions();
   const { state } = useLocation();
   const { isAuth, user } = useAppSelector((state) => state.auth);
-
-  // console.log( 'isAuth->',isAuth, 'user->', user);
-  // console.log("state -> ", state);
 
   const pageOfWords = fetchedWords.slice(0, wordsPerPage);
 
@@ -155,7 +152,7 @@ const AudioCall = () => {
       return;
     }
     init();
-    if (currentWordNum >= 3) {
+    if (currentWordNum >= 20) {
       setPhaseAction(GamePhase.FINISHED);
       return;
     }

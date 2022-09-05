@@ -215,6 +215,9 @@
 
   overflow: hidden;
 
+  position: relative;
+  z-index: 9999;
+
   &__content {
     display: flex;
     flex-direction: column;

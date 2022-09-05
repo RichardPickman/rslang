@@ -1,7 +1,7 @@
 @import './../../styles/colors';
 
 .nav {
-  width: 60%;
+  width: 50%;
 
   display: flex;
   justify-content: space-between;
@@ -11,5 +11,9 @@
     text-transform: uppercase;
     font-size: 1.125rem;
     text-decoration: none;
+  }
+  
+  & span {
+    color: $primary-color1;
   }
 }
