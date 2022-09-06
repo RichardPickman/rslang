@@ -51,7 +51,7 @@ const SprintGame = () => {
 
   return (
     <section className={'section-sprint-game'}>
-      <SparkleAnimation img={ImgStars}/>
+      <SparkleAnimation/>
       <button type="button" className={`${'btn'} ${'btn_new-game'}`} onClick={() => setPhaseAction(GamePhase.INIT)}>Новая игра</button>
       {phase === GamePhase.INIT && (state === GameMode.MENU_GAME ? <Levels /> : <OnStartPage />)}
       {phase === GamePhase.STARTED &&

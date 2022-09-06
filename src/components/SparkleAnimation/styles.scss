@@ -3,6 +3,11 @@
   position: absolute;
   opacity: 0.7;
   width: 200px;
+  height: 200px;
+  background-image: url('../../assets/img/patterns/light-points.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 .pattern-stars[data-id='1'] {
   top: 10%;
@@ -13,12 +18,14 @@
   left: 15%;
   transform: rotate(20deg);
   width: 250px;
+  height: 250px;
 }
 .pattern-stars[data-id='3'] {
   top: 20%;
   left: 85%;
   transform: rotate(-20deg);
   width: 150px;
+  height: 150px;
 }
 .pattern-stars[data-id='4'] {
   top: 80%;
@@ -29,6 +36,6 @@
   top: 20%;
   left: 50%;
   width: 250px;
+  height: 250px;
   transform: rotate(-90deg);
-
 }
