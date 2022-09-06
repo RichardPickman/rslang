@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ImgStars from '../../../assets/img/patterns/light-points.png';
 import { useLocation } from 'react-router';
 import { GameMode, GamePhase } from '../../../types/types';
 import Levels from './Levels';
@@ -50,7 +51,7 @@ const SprintGame = () => {
 
   return (
     <section className={'section-sprint-game'}>
-      <SparkleAnimation />
+      <SparkleAnimation img={ImgStars}/>
       <button type="button" className={`${'btn'} ${'btn_new-game'}`} onClick={() => setPhaseAction(GamePhase.INIT)}>Новая игра</button>
       {phase === GamePhase.INIT && (state === GameMode.MENU_GAME ? <Levels /> : <OnStartPage />)}
       {phase === GamePhase.STARTED &&
